@@ -1,12 +1,11 @@
 import React from 'react'
 import {render} from 'react-dom'
-import Tile from './components/Tile'
+import GameContainer from './containers/GameContainer'
 
 window.onload = () => {
   render(
     <div>
-      <h1> SQUATTER ISLAND </h1>
-      <Tile></Tile>
+      <GameContainer ></GameContainer>
     </div>,
     document.getElementById('app')
     );

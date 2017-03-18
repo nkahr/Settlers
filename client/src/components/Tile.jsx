@@ -3,13 +3,13 @@ import React from 'react'
 class Tile extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = { }
   }
 
   render() {
     return (
         <div id="tile">
-          <img src={require('file-loader!../public/img/hexagon.png')} className="tile"/>
+          <img src={require('file-loader!../public/img/hexagon-'+this.props.colour+'.png')} className="tile"/>
         </div>
     )
   }
