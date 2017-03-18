@@ -8,10 +8,10 @@
   background-color: orange;
 }
 
-.tile {
+#tile0 {
   display: block;
   position: absolute;
-  top: 100px;
+  top: 500px;
   left: 100px;
   width: 200px;
   height: 173px;

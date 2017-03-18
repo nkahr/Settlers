@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import Tile from '../components/Tile'
+import TileComponent from '../components/TileComponent'
+import Tiles from '../models/tiles'
 
 class GameContainer extends Component {
   constructor(props){
@@ -8,9 +9,14 @@ class GameContainer extends Component {
   }
 
   render() {
+    const tileClass = new Tiles()
+    const tilesArray = tileClass.tilesArray
+    const tileComponents = tilesArray.map((tile, index) => {
+      return <TileComponent key={index} id={"tile"+index} coordinates={tile.coordinates} resource={tile.resource} ></TileComponent>
+    }) 
     return(
       <div id="game-container">
-        <Tile colour="black"></Tile>
+        {tileComponents}
       </div>
     )
   }
