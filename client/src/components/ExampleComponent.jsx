@@ -1,9 +1,9 @@
-import React from 'react';
+import React from 'react'
 
 class ExampleComponent extends React.Component {
   constructor() {
-    this.state = {initialStates: initialValues};
-    this.functions = functions;
+    this.state = {initialStates: initialValues}
+    this.functions = functions
   }
 
   function functions(args) {
@@ -19,4 +19,4 @@ class ExampleComponent extends React.Component {
   }
 }
 
-export default ExampleComponent;
+export default ExampleComponent
