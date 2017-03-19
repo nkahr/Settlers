@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import TileComponent from '../components/TileComponent'
+import RoadComponent from '../components/RoadComponent'
 
 class BoardComponent extends Component{
   constructor(props) {
@@ -14,6 +15,7 @@ class BoardComponent extends Component{
     return (
       <div> 
         {tileComponents}
+        <RoadComponent coordinates={[100,200]}></RoadComponent>
       </div>
     )
   }

@@ -64,3 +64,11 @@ body {
   height: 100%;
   background-color: tomato;
 }
+
+.road {
+  display: block;
+  position: absolute;
+  width: 10px;
+  height: 100px;
+  background-color: blue;
+}

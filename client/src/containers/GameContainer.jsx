@@ -2,20 +2,27 @@ import React, { Component } from 'react'
 import BoardComponent from '../components/BoardComponent'
 import OpponentsComponent from '../components/OpponentsComponent'
 import PlayerStatsComponent from '../components/PlayerStatsComponent'
-import Tiles from '../models/tiles'
+import Game from '../models/game'
 
 class GameContainer extends Component {
   constructor(props){
     super(props)
-    const tileClass = new Tiles()
+    const newGame = new Game()
+    // const tileClass = newGame.tilesArray
 
     this.state={
-      tilesArray: tileClass.tilesArray, 
-      robberIndex: tileClass.indexOfDesert, 
+      game: newGame,
+      tilesArray: newGame.tilesArray, 
+      robberIndex: newGame.initialRobberIndex, 
       previousRobberIndex: undefined
     }
 
     this.moveRobber = this.moveRobber.bind(this)
+  }
+
+  componentDidMount() {
+    this.state.game.giveResourceCardToPlayer(this.state.game.players[0], "wood")
+    this.state.game.giveResourceCardToPlayer(this.state.game.players[0], "clay")
   }
 
   render() {
