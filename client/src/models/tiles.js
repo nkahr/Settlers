@@ -5,9 +5,21 @@ class Tiles {
     this.indexOfDesert
     this.tilesArray = []
     this.resourcesArray = ["sheep", "sheep", "sheep", "sheep", "rock", "rock", "rock", "crop", "crop", "crop", "crop", "clay", "clay", "clay", "wood", "wood", "wood", "wood", "desert"]
+
     this.numbersArray = [5, 2, 6, 3, 8, 10, 9, 12, 11, 4, 8, 10, 9, 4, 5, 6, 3, 11]
+
+    const xInc = 0
     this.xArray = [350, 470, 590, 650, 710, 650, 590, 470, 350, 290, 230, 290, 410, 530, 590, 530, 410, 350, 470]
-    this.yArray = [440 + 25, 440 + 25, 440 + 25, 336.5 + 25, 233.5 + 25, 130.5 + 25, 27.5 + 25, 27.5 + 25, 27.5 + 25, 130.5 + 25, 233.5 + 25, 336.5 + 25, 336.5 + 25, 336.5 + 25, 233.5 + 25, 130.5 + 25, 130.5 + 25, 233.5 + 25, 233.5 + 25]
+    this.xArray = this.xArray.map((item) => {
+      return item + xInc
+    })
+
+    const yInc = 25
+    this.yArray = [440, 440, 440, 336.5, 233.5, 130.5, 27.5, 27.5, 27.5, 130.5, 233.5, 336.5, 336.5, 336.5, 233.5, 130.5, 130.5, 233.5, 233.5]
+    this.yArray = this.yArray.map((item) => {
+      return item + yInc
+    })
+
     this.shuffle(this.resourcesArray)
     this.setup()
   }

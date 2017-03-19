@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-// import TileComponent from '../components/TileComponent'
 import BoardComponent from '../components/BoardComponent'
+import OpponentsComponent from '../components/OpponentsComponent'
+import PlayerStatsComponent from '../components/PlayerStatsComponent'
 import Tiles from '../models/tiles'
 
 class GameContainer extends Component {
@@ -19,7 +20,9 @@ class GameContainer extends Component {
  
     return(
       <div id="game-container">
+        <OpponentsComponent /> 
         <BoardComponent tiles={this.state.tilesArray} /> 
+        <PlayerStatsComponent /> 
       </div>
     )
   }

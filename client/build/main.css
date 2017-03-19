@@ -21,7 +21,7 @@ body {
   height: 138px;
 }
 
-.tile_number {
+.tile-number {
   display: block;
   position: absolute;
   box-sizing: border-box;
@@ -43,4 +43,24 @@ body {
   background-color: black;
   text-align: center;
   padding-top: 6px;
+}
+
+#opponents-block {
+  display: block;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 200px;
+  height: 100%;
+  background-color: orange;
+}
+
+#player-stats-block {
+  display: block;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 400px;
+  height: 100%;
+  background-color: tomato;
 }

@@ -22,7 +22,7 @@ class TileComponent extends React.Component {
       component = <p style={numbersCoordinatesStyle} className='robber'> R </p>
     } else {
       if (this.props.resource !== 'desert') {
-        component = <p style={numbersCoordinatesStyle} className='tile_number'>{this.props.number}</p>
+        component = <p style={numbersCoordinatesStyle} className='tile-number'>{this.props.number}</p>
       }
     }
 
