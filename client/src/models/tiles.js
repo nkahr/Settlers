@@ -2,6 +2,7 @@ import Tile from './tile'
 
 class Tiles {
   constructor() {
+    this.indexOfDesert
     this.tilesArray = []
     this.resourcesArray = ["sheep", "sheep", "sheep", "sheep", "rock", "rock", "rock", "crop", "crop", "crop", "crop", "clay", "clay", "clay", "wood", "wood", "wood", "wood", "desert"]
     this.numbersArray = [5, 2, 6, 3, 8, 10, 9, 12, 11, 4, 8, 10, 9, 4, 5, 6, 3, 11]
@@ -33,6 +34,7 @@ class Tiles {
     }
     console.log('tiles', this.tilesArray)
     this.tilesArray[indexOfDesert].hasRobber = true
+    this.indexOfDesert = indexOfDesert
   }
 }
 
