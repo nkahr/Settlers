@@ -3,6 +3,7 @@ class Tile {
     this.number = options["number"]
     this.resource = options["resource"]
     this.coordinates = options["coordinates"]
+    this.hasRobber = options["hasRobber"]
   }
 }
 

@@ -14,14 +14,14 @@ body {
   background-color: rgb(0, 172, 191);
 }
 
-#tile {
+.tile {
   display: block;
   position: absolute;
   width: 120px;
   height: 138px;
 }
 
-#tile_number {
+.tile_number {
   display: block;
   position: absolute;
   box-sizing: border-box;
@@ -29,6 +29,18 @@ body {
   height: 30px;
   border-radius: 15px;
   background-color: rgb(255, 251, 208);
+  text-align: center;
+  padding-top: 6px;
+}
+
+.robber {
+  display: block;
+  position: absolute;
+  box-sizing: border-box;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  background-color: black;
   text-align: center;
   padding-top: 6px;
 }

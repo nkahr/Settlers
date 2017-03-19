@@ -26,11 +26,13 @@ class Tiles {
       const tile = new Tile({
         number: this.numbersArray[i],
         resource: this.resourcesArray[i],
-        coordinates: [ this.xArray[i], this.yArray[i]]
+        coordinates: [ this.xArray[i], this.yArray[i]], 
+        hasRobber: false
       })
       this.tilesArray.push(tile)
     }
     console.log('tiles', this.tilesArray)
+    this.tilesArray[indexOfDesert].hasRobber = true
   }
 }
 
