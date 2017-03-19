@@ -16,7 +16,7 @@ class BoardComponent extends Component{
     return (
       <div> 
         {tileComponents}
-        <RoadComponent road={this.props.road} colourRoads={this.props.colourRoads}></RoadComponent>
+        <RoadComponent road={this.props.road} colourRoads={this.props.colourRoads} game={this.props.game} currentPlayer={this.props.currentPlayer}></RoadComponent>
       </div>
     )
   }

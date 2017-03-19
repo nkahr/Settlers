@@ -9,6 +9,13 @@ class PlayerStatsComponent extends Component{
   }
 
   render() {
+
+    const resourceCards = this.props.currentPlayer.resourceCards.map((resource) => {
+      return resource.type
+    })
+
+    console.log("resourceCards", resourceCards)
+
     return (
       <div id="player-stats-block"> 
         <button id="roll-dice-button" onClick={this.props.rollDice}> Roll Dice </button>
@@ -17,6 +24,7 @@ class PlayerStatsComponent extends Component{
         <p> Colour: {this.props.currentPlayer.colour} </p>
         <p> Roads available: {this.props.currentPlayer.roadsAvailable} </p>
         <p> Number rolled: {this.props.currentPlayer.numberRolled} </p>
+        Resources: {resourceCards}
       </div>
     )
   }

@@ -11,7 +11,6 @@ class GameContainer extends Component {
   constructor(props){
     super(props)
     const newGame = new Game()
-    // const tileClass = newGame.tilesArray
 
     this.state={
       game: newGame,
@@ -27,13 +26,8 @@ class GameContainer extends Component {
     this.colourRoads = this.colourRoads.bind(this)
   }
 
-  componentDidMount() {
-    this.state.game.giveResourceCardToPlayer(this.state.game.players[0], "wood")
-    this.state.game.giveResourceCardToPlayer(this.state.game.players[0], "clay")
-  }
 
   render() {
-    // const road = new Road({coordinates: [100,200]})
 
     const tiles = this.state.tilesArray
     if (this.state.previousRobberIndex) {
@@ -44,7 +38,7 @@ class GameContainer extends Component {
     return(
       <div id="game-container">
         <OpponentsComponent /> 
-        <BoardComponent tiles={tiles} moveRobber={this.moveRobber} road={this.state.road} colourRoads = {this.colourRoads}/> 
+        <BoardComponent tiles={tiles} moveRobber={this.moveRobber} road={this.state.road} colourRoads = {this.colourRoads} game={this.state.game} currentPlayer={this.state.currentPlayer}/> 
         <PlayerStatsComponent currentPlayer={this.state.currentPlayer} rollDice={this.rollDice}/> 
       </div>
     )

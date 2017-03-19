@@ -18,6 +18,14 @@ class Game {
     const tiles = new Tiles()
     this.tilesArray = tiles.tilesArray
     this.initialRobberIndex = tiles.indexOfDesert
+
+
+    ///just for testing purposes 
+    const wood = this.bank.generateResourceCard("wood")
+    const clay = this.bank.generateResourceCard("clay")
+    player1.resourceCards.push(wood)
+    player1.resourceCards.push(clay)
+    ////////////////////////////
   }
 
   giveResourceCardToPlayer(player, type) {
@@ -37,9 +45,10 @@ class Game {
         clayIndex = i
       }
     }
-    if (woodIndex && clayIndex) {
-      resourceCards.splice(woodIndex, 1)
-      resourceCards.splice(clayIndex, 1)
+    // this doesn't always work - if the first splice changes the indices, the second splice may delete the wrong card!!
+    if (woodIndex !== undefined && clayIndex !== undefined) {
+      player.resourceCards.splice(clayIndex, 1)
+      player.resourceCards.splice(woodIndex, 1)
       return true
     }
     return false
@@ -47,6 +56,5 @@ class Game {
 
 }
 
-// giveResourceCardToPlayer(this.players[0], "wood")
 
 export default Game
