@@ -3,7 +3,7 @@ import BoardComponent from '../components/BoardComponent'
 import OpponentsComponent from '../components/OpponentsComponent'
 import PlayerStatsComponent from '../components/PlayerStatsComponent'
 import Game from '../models/game'
-import Road from '../models/road'
+// import Road from '../models/road'
 import Dice from '../models/dice'
 const dice = new Dice()
 
@@ -15,17 +15,16 @@ class GameContainer extends Component {
     this.state={
       game: newGame,
       tilesArray: newGame.tilesArray, 
+      roadsArray: newGame.roadsArray,
       robberIndex: newGame.initialRobberIndex, 
       previousRobberIndex: undefined, 
-      currentPlayer: newGame.players[0], 
-      road: new Road({coordinates: [100,200]})
+      currentPlayer: newGame.players[0] 
     }
 
     this.moveRobber = this.moveRobber.bind(this)
     this.rollDice = this.rollDice.bind(this)
     this.colourRoads = this.colourRoads.bind(this)
   }
-
 
   render() {
 
@@ -34,11 +33,12 @@ class GameContainer extends Component {
       tiles[this.state.previousRobberIndex].hasRobber = false
     }
     tiles[this.state.robberIndex].hasRobber = true
+    const roads = this.state.roadsArray
   
     return(
       <div id="game-container">
         <OpponentsComponent /> 
-        <BoardComponent tiles={tiles} moveRobber={this.moveRobber} road={this.state.road} colourRoads = {this.colourRoads} game={this.state.game} currentPlayer={this.state.currentPlayer}/> 
+        <BoardComponent tiles={tiles} roads={roads} moveRobber={this.moveRobber} colourRoads = {this.colourRoads} game={this.state.game} currentPlayer={this.state.currentPlayer}/> 
         <PlayerStatsComponent currentPlayer={this.state.currentPlayer} rollDice={this.rollDice}/> 
       </div>
     )
@@ -49,13 +49,13 @@ class GameContainer extends Component {
     this.setState({previousRobberIndex: current, robberIndex: newRobberIndex})
   }
 
-  colourRoads(road) {
+  colourRoads(clickedRoadIndex) {
     const colour = this.state.currentPlayer.colour
-    const previousRoad = this.state.road
-    previousRoad.colour = colour
+    let updatedRoadsArray = this.state.roadsArray
+    updatedRoadsArray[clickedRoadIndex].colour = colour
     let playerToUpdate = this.state.currentPlayer
     playerToUpdate.roadsAvailable -= 1
-    this.setState({road: previousRoad, currentPlayer: playerToUpdate})
+    this.setState({roadsArray: updatedRoadsArray, currentPlayer: playerToUpdate})
   }
 
   rollDice() {

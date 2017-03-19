@@ -12,11 +12,14 @@ class BoardComponent extends Component{
       return <TileComponent key={index} index={index} coordinates={tile.coordinates} resource={tile.resource} number={tile.number} hasRobber={tile.hasRobber} moveRobber={this.props.moveRobber}></TileComponent>
     })
 
+    const roadComponents = this.props.roads.map((road, index) => {
+      return <RoadComponent key={index} index={index} coordinates={road.coordinates} colour={road.colour} colourRoads={this.props.colourRoads} game={this.props.game} currentPlayer={this.props.currentPlayer}></RoadComponent>
+    })
 
     return (
       <div> 
         {tileComponents}
-        <RoadComponent road={this.props.road} colourRoads={this.props.colourRoads} game={this.props.game} currentPlayer={this.props.currentPlayer}></RoadComponent>
+        {roadComponents}
       </div>
     )
   }

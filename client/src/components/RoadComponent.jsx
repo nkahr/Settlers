@@ -8,9 +8,9 @@ class RoadComponent extends Component {
 
   render() {
     let coordinatesStyle = {
-      left: this.props.road.coordinates[0],
-      top: this.props.road.coordinates[1], 
-      backgroundColor: this.props.road.colour
+      left: this.props.coordinates[0],
+      top: this.props.coordinates[1], 
+      backgroundColor: this.props.colour
     }
     
     return (
@@ -21,10 +21,11 @@ class RoadComponent extends Component {
   }
 
   handleRoadClick() {
+    const clickedRoadIndex = this.props.index 
     console.log("current player", this.props.currentPlayer)
     if (this.props.game.letPlayerBuildRoad(this.props.currentPlayer)) {
       console.log("player has wood & clay")
-      this.props.colourRoads(this.props.road)
+      this.props.colourRoads(clickedRoadIndex)
     }
   }
 

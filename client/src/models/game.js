@@ -1,5 +1,6 @@
 import Player from './player'
 import Tiles from './tiles'
+import Roads from './roads'
 import Bank from './bank'
 
 class Game {
@@ -8,6 +9,7 @@ class Game {
     this.bank = new Bank()
     this.players = []
     this.tilesArray = []
+    this.roadsArray = []
     this.initialRobberIndex = undefined
     this.setup()
   }
@@ -18,13 +20,27 @@ class Game {
     const tiles = new Tiles()
     this.tilesArray = tiles.tilesArray
     this.initialRobberIndex = tiles.indexOfDesert
+    const roads = new Roads()
+    this.roadsArray = roads.roadsArray
 
 
     ///just for testing purposes 
     const wood = this.bank.generateResourceCard("wood")
+    const wood1 = this.bank.generateResourceCard("wood")
+    const wood2 = this.bank.generateResourceCard("wood")
+    const wood3 = this.bank.generateResourceCard("wood")
     const clay = this.bank.generateResourceCard("clay")
+    const clay1 = this.bank.generateResourceCard("clay")
+    const clay2 = this.bank.generateResourceCard("clay")
+    const clay3 = this.bank.generateResourceCard("clay")
     player1.resourceCards.push(wood)
+    player1.resourceCards.push(wood1)
+    player1.resourceCards.push(wood2)
+    player1.resourceCards.push(wood3)
     player1.resourceCards.push(clay)
+    player1.resourceCards.push(clay1)
+    player1.resourceCards.push(clay2)
+    player1.resourceCards.push(clay3)
     ////////////////////////////
   }
 
@@ -34,7 +50,7 @@ class Game {
     console.log('card', newResCard)
   }
 
-  letPlayerBuildRoad(player, position) {
+  letPlayerBuildRoad(player) {
     let woodIndex = undefined
     let clayIndex = undefined
     for (let i = 0; i < player.resourceCards.length; i++) {
@@ -56,8 +72,7 @@ class Game {
         player.resourceCards.splice(woodIndex, 1)
         player.resourceCards.splice(clayIndex, 1)
         return true
-      }
-      
+      } 
     }
     return false
   }
