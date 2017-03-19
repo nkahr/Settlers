@@ -11,7 +11,7 @@ class PlayerStatsComponent extends Component{
   render() {
 
     const resourceCards = this.props.currentPlayer.resourceCards.map((resource) => {
-      return resource.type
+      return resource.type + " "
     })
 
     console.log("resourceCards", resourceCards)
