@@ -13,12 +13,16 @@ class TileComponent extends React.Component {
   // }
 
   render() {
-    let component = <img src={require('file-loader!../public/img/hexagon-'+this.props.resource+'.png')} id={this.props.id}/>
+    let hexStyle = {
+      left: this.props.coordinates[0],
+      top: this.props.coordinates[1]
+    }
+    let component = <img src={require('file-loader!../public/img/hexagon_'+this.props.resource+'.png')} style={hexStyle} id='tile'/>
     console.log('comp', component)
 
     // component.style.top = this.props.coordinates[0]
     return (
-      <div id="tile">
+      <div>
         {component}
       </div>
     )
