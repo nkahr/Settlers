@@ -12,10 +12,11 @@ class BoardComponent extends Component{
       return <TileComponent key={index} index={index} coordinates={tile.coordinates} resource={tile.resource} number={tile.number} hasRobber={tile.hasRobber} moveRobber={this.props.moveRobber}></TileComponent>
     })
 
+
     return (
       <div> 
         {tileComponents}
-        <RoadComponent coordinates={[100,200]}></RoadComponent>
+        <RoadComponent road={this.props.road} colourRoads={this.props.colourRoads}></RoadComponent>
       </div>
     )
   }

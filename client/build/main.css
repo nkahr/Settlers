@@ -70,5 +70,5 @@ body {
   position: absolute;
   width: 10px;
   height: 100px;
-  background-color: blue;
+  border: solid 0.5px black;
 }

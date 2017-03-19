@@ -3,6 +3,7 @@ import BoardComponent from '../components/BoardComponent'
 import OpponentsComponent from '../components/OpponentsComponent'
 import PlayerStatsComponent from '../components/PlayerStatsComponent'
 import Game from '../models/game'
+import Road from '../models/road'
 
 class GameContainer extends Component {
   constructor(props){
@@ -14,10 +15,13 @@ class GameContainer extends Component {
       game: newGame,
       tilesArray: newGame.tilesArray, 
       robberIndex: newGame.initialRobberIndex, 
-      previousRobberIndex: undefined
+      previousRobberIndex: undefined, 
+      currentPlayer: newGame.players[0], 
+      road: new Road({coordinates: [100,200]})
     }
 
     this.moveRobber = this.moveRobber.bind(this)
+    this.colourRoads = this.colourRoads.bind(this)
   }
 
   componentDidMount() {
@@ -26,6 +30,7 @@ class GameContainer extends Component {
   }
 
   render() {
+    // const road = new Road({coordinates: [100,200]})
 
     const tiles = this.state.tilesArray
     if (this.state.previousRobberIndex) {
@@ -36,7 +41,7 @@ class GameContainer extends Component {
     return(
       <div id="game-container">
         <OpponentsComponent /> 
-        <BoardComponent tiles={tiles} moveRobber={this.moveRobber}/> 
+        <BoardComponent tiles={tiles} moveRobber={this.moveRobber} road={this.state.road} colourRoads = {this.colourRoads}/> 
         <PlayerStatsComponent /> 
       </div>
     )
@@ -45,6 +50,13 @@ class GameContainer extends Component {
   moveRobber(newRobberIndex) {
     const current = this.state.robberIndex
     this.setState({previousRobberIndex: current, robberIndex: newRobberIndex})
+  }
+
+  colourRoads(road) {
+    const colour = this.state.currentPlayer.colour
+    const previousRoad = this.state.road
+    previousRoad.colour = colour
+    this.setState({road: previousRoad})
   }
 }
 
