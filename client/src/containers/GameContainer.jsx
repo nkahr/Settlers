@@ -42,7 +42,7 @@ class GameContainer extends Component {
       <div id="game-container">
         <OpponentsComponent /> 
         <BoardComponent tiles={tiles} moveRobber={this.moveRobber} road={this.state.road} colourRoads = {this.colourRoads}/> 
-        <PlayerStatsComponent /> 
+        <PlayerStatsComponent currentPlayer={this.state.currentPlayer}/> 
       </div>
     )
   }
@@ -56,7 +56,9 @@ class GameContainer extends Component {
     const colour = this.state.currentPlayer.colour
     const previousRoad = this.state.road
     previousRoad.colour = colour
-    this.setState({road: previousRoad})
+    const updatedCurrentPlayer = this.state.currentPlayer
+    updatedCurrentPlayer.roadsAvailable -= 1
+    this.setState({road: previousRoad, currentPlayer: updatedCurrentPlayer})
   }
 }
 
