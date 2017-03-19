@@ -13,7 +13,7 @@ class BoardComponent extends Component{
     })
 
     const roadComponents = this.props.roads.map((road, index) => {
-      return <RoadComponent key={index} index={index} coordinates={road.coordinates} colour={road.colour} colourRoads={this.props.colourRoads} game={this.props.game} currentPlayer={this.props.currentPlayer}></RoadComponent>
+      return <RoadComponent key={index} index={index} coordinates={road.coordinates} colour={road.colour} angle={road.angle} colourRoads={this.props.colourRoads} game={this.props.game} currentPlayer={this.props.currentPlayer}></RoadComponent>
     })
 
     return (

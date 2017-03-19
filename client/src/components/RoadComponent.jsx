@@ -7,15 +7,16 @@ class RoadComponent extends Component {
   }
 
   render() {
-    let coordinatesStyle = {
+    let roadStyle = {
       left: this.props.coordinates[0],
       top: this.props.coordinates[1], 
-      backgroundColor: this.props.colour
+      backgroundColor: this.props.colour,
+      transform: 'rotate('+this.props.angle+'deg)'
     }
-    
+
     return (
       <div onClick={this.handleRoadClick}>
-        <p style={coordinatesStyle} className='road'></p>
+        <p style={roadStyle} className='road'></p>
       </div>
     )
   }
