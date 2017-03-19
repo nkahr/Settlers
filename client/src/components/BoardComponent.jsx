@@ -8,7 +8,7 @@ class BoardComponent extends Component{
 
   render() {
     const tileComponents = this.props.tiles.map((tile, index) => {
-      return <TileComponent key={index} id={"tile"+index} coordinates={tile.coordinates} resource={tile.resource} number={tile.number} hasRobber={tile.hasRobber}></TileComponent>
+      return <TileComponent key={index} index={index} coordinates={tile.coordinates} resource={tile.resource} number={tile.number} hasRobber={tile.hasRobber} moveRobber={this.props.moveRobber}></TileComponent>
     })
 
     return (
@@ -17,6 +17,8 @@ class BoardComponent extends Component{
       </div>
     )
   }
+
+
 }
 
 export default BoardComponent
