@@ -23,7 +23,6 @@ class Game {
     const roads = new Roads()
     this.roadsArray = roads.roadsArray
 
-
     ///just for testing purposes 
     const wood = this.bank.generateResourceCard("wood")
     const wood1 = this.bank.generateResourceCard("wood")
