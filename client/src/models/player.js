@@ -2,6 +2,7 @@ class Player {
   constructor(options) {
     this.name = options["name"]
     this.colour = options["colour"]
+    this.numberRolled = "none"
     this.resourceCards = []
     this.roadsAvailable = 15
     this.settlementsAvailable = 5

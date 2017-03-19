@@ -4,6 +4,8 @@ import OpponentsComponent from '../components/OpponentsComponent'
 import PlayerStatsComponent from '../components/PlayerStatsComponent'
 import Game from '../models/game'
 import Road from '../models/road'
+import Dice from '../models/dice'
+const dice = new Dice()
 
 class GameContainer extends Component {
   constructor(props){
@@ -21,6 +23,7 @@ class GameContainer extends Component {
     }
 
     this.moveRobber = this.moveRobber.bind(this)
+    this.rollDice = this.rollDice.bind(this)
     this.colourRoads = this.colourRoads.bind(this)
   }
 
@@ -42,7 +45,7 @@ class GameContainer extends Component {
       <div id="game-container">
         <OpponentsComponent /> 
         <BoardComponent tiles={tiles} moveRobber={this.moveRobber} road={this.state.road} colourRoads = {this.colourRoads}/> 
-        <PlayerStatsComponent currentPlayer={this.state.currentPlayer}/> 
+        <PlayerStatsComponent currentPlayer={this.state.currentPlayer} rollDice={this.rollDice}/> 
       </div>
     )
   }
@@ -56,9 +59,16 @@ class GameContainer extends Component {
     const colour = this.state.currentPlayer.colour
     const previousRoad = this.state.road
     previousRoad.colour = colour
-    const updatedCurrentPlayer = this.state.currentPlayer
-    updatedCurrentPlayer.roadsAvailable -= 1
-    this.setState({road: previousRoad, currentPlayer: updatedCurrentPlayer})
+    let playerToUpdate = this.state.currentPlayer
+    playerToUpdate.roadsAvailable -= 1
+    this.setState({road: previousRoad, currentPlayer: playerToUpdate})
+  }
+
+  rollDice() {
+    const numberRolled = dice.rollDice()
+    let playerToUpdate = this.state.currentPlayer
+    playerToUpdate.numberRolled = numberRolled
+    this.setState({currentPlayer: playerToUpdate})
   }
 }
 
