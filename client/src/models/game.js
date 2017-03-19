@@ -46,10 +46,18 @@ class Game {
       }
     }
     // this doesn't always work - if the first splice changes the indices, the second splice may delete the wrong card!!
+    // FIXED BY ADDING IF GUARD CHECKING HIGHER INDEX
     if (woodIndex !== undefined && clayIndex !== undefined) {
-      player.resourceCards.splice(clayIndex, 1)
-      player.resourceCards.splice(woodIndex, 1)
-      return true
+      if (clayIndex > woodIndex) {
+        player.resourceCards.splice(clayIndex, 1)
+        player.resourceCards.splice(woodIndex, 1)
+        return true
+      } else {
+        player.resourceCards.splice(woodIndex, 1)
+        player.resourceCards.splice(clayIndex, 1)
+        return true
+      }
+      
     }
     return false
   }
