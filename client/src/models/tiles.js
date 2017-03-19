@@ -19,12 +19,16 @@ class Tiles {
   }
 
   setup() {
+    let indexOfDesert = this.resourcesArray.indexOf("desert")
+    console.log('desert index', indexOfDesert)
+    this.numbersArray.splice(indexOfDesert, 0, 0)
     for (let i = 0; i < this.resourcesArray.length; i++) {
       const tile = new Tile({
         resource: this.resourcesArray[i],
         number: this.numbersArray[i],
         coordinates: [ this.xArray[i], this.yArray[i]]
       })
+      console.log('tile', tile)
       this.tilesArray.push(tile)
     }
   }

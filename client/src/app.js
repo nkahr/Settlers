@@ -8,6 +8,5 @@ window.onload = () => {
       <GameContainer ></GameContainer>
     </div>,
     document.getElementById('app')
-    );
-
-  }
+  )
+}
