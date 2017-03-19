@@ -12,8 +12,8 @@ class TileComponent extends React.Component {
       top: this.props.coordinates[1]
     }
     let numbersCoordinatesStyle = {
-      left: this.props.coordinates[0] + 41,
-      top: this.props.coordinates[1] + 34
+      left: this.props.coordinates[0] + 40,
+      top: this.props.coordinates[1] + 39
     }
     return (
       <div>

@@ -17,8 +17,8 @@ body {
 #tile {
   display: block;
   position: absolute;
-  width: 113px;
-  height: 130px;
+  width: 120px;
+  height: 138px;
 }
 
 #tile_number {
