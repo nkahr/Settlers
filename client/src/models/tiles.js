@@ -5,8 +5,8 @@ class Tiles {
     this.tilesArray = []
     this.resourcesArray = ["sheep", "sheep", "sheep", "sheep", "rock", "rock", "rock", "crop", "crop", "crop", "crop", "clay", "clay", "clay", "wood", "wood", "wood", "wood", "desert"]
     this.numbersArray = [5, 2, 6, 3, 8, 10, 9, 12, 11, 4, 8, 10, 9, 4, 5, 6, 3, 11]
-    this.xArray = [250, 363, 476, 532, 588, 532, 476, 363, 250, 194, 138, 194, 307, 420, 476, 420, 307, 250, 363]
-    this.yArray = [500, 500, 500, 403, 306, 209, 112, 112, 112, 209, 306, 403, 403, 403, 306, 209, 209, 306, 306]
+    this.xArray = [250 + 100, 363 + 100, 476 + 100, 532 + 100, 588 + 100, 532 + 100, 476 + 100, 363 + 100, 250 + 100, 194 + 100, 138 + 100, 194 + 100, 307 + 100, 420 + 100, 476 + 100, 420 + 100, 307 + 100, 250 + 100, 363 + 100]
+    this.yArray = [500 -60, 500 -60, 500 -60, 403 -60, 306 -60, 209 -60, 112 -60, 112 -60, 112 -60, 209 -60, 306 -60, 403 -60, 403 -60, 403 -60, 306 -60, 209 -60, 209 -60, 306 -60, 306 -60]
     this.shuffle(this.resourcesArray)
     this.setup()
   }
@@ -24,13 +24,13 @@ class Tiles {
     this.numbersArray.splice(indexOfDesert, 0, 0)
     for (let i = 0; i < this.resourcesArray.length; i++) {
       const tile = new Tile({
-        resource: this.resourcesArray[i],
         number: this.numbersArray[i],
+        resource: this.resourcesArray[i],
         coordinates: [ this.xArray[i], this.yArray[i]]
       })
-      console.log('tile', tile)
       this.tilesArray.push(tile)
     }
+    console.log('tiles', this.tilesArray)
   }
 }
 

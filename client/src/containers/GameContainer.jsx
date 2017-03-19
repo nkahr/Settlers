@@ -12,7 +12,7 @@ class GameContainer extends Component {
     const tileClass = new Tiles()
     const tilesArray = tileClass.tilesArray
     const tileComponents = tilesArray.map((tile, index) => {
-      return <TileComponent key={index} id={"tile"+index} coordinates={tile.coordinates} resource={tile.resource} ></TileComponent>
+      return <TileComponent key={index} id={"tile"+index} coordinates={tile.coordinates} resource={tile.resource} number={tile.number}></TileComponent>
     }) 
     return(
       <div id="game-container">

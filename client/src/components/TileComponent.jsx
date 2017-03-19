@@ -5,19 +5,23 @@ class TileComponent extends React.Component {
     super(props)
     this.state = { }
   }
-  
+
   render() {
-    let hexStyle = {
+    let coordinatesStyle = {
       left: this.props.coordinates[0],
       top: this.props.coordinates[1]
     }
-    let component = <img src={require('file-loader!../public/img/hexagon_'+this.props.resource+'.png')} style={hexStyle} id='tile'/>
-    // console.log('comp', component)
+    let numbersCoordinatesStyle = {
+      left: this.props.coordinates[0] + 41,
+      top: this.props.coordinates[1] + 34
+    }
     return (
       <div>
-        {component}
+        <img src={require('file-loader!../public/img/hexagon_'+this.props.resource+'.png')} style={coordinatesStyle} id='tile'/>
+        <p style={numbersCoordinatesStyle} id='tile_number'>{this.props.number}</p>
       </div>
     )
+
   }
 }
 
