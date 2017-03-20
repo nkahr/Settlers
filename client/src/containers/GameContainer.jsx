@@ -29,7 +29,7 @@ class GameContainer extends Component {
   render() {
 
     const tiles = this.state.tilesArray
-    if (this.state.previousRobberIndex) {
+    if (this.state.previousRobberIndex !== undefined) {
       tiles[this.state.previousRobberIndex].hasRobber = false
     }
     tiles[this.state.robberIndex].hasRobber = true
