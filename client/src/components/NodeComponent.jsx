@@ -24,6 +24,7 @@ class NodeComponent extends Component {
     const clickedNodeIndex = this.props.index 
     if (this.props.letPlayerBuildSettlement(this.props.currentPlayer)) {
       this.props.colourSettlements(this.props.index)
+      this.props.radar(this.props.currentPlayer, this.props.index)
     }
   }
 

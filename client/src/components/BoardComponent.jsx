@@ -48,6 +48,7 @@ class BoardComponent extends Component{
           coordinates={node.coordinates} 
           colourSettlements={this.props.colourSettlements}
           letPlayerBuildSettlement = {this.props.letPlayerBuildSettlement}
+          radar={this.props.radar}
           currentPlayer={this.props.currentPlayer} 
         />
       )

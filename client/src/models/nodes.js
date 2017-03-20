@@ -42,7 +42,7 @@ class Nodes {
       130, 130, 130, 130,
       61, 61, 61, 61,
       28, 28, 28
-      ]
+    ]
     this.yArray = this.yArray.map((item) => {
       return item + yInc
     })

@@ -124,6 +124,19 @@ class Game {
     return false
   }
 
+  radar(player, index) {
+    console.log("this", this)
+    console.log("nodesArray", this.nodesArray)
+    const node = this.nodesArray[index]
+    const nodeCoordinates = node.coordinates
+    this.tilesArray.forEach((tile) => {
+      const tileCoordinates = tile.coordinates
+      if (Math.abs(nodeCoordinates[0] - tileCoordinates[0]) < 100 && Math.abs(nodeCoordinates[1] - tileCoordinates[1]) < 100) {
+        player.conqueredTiles.push(tile)
+      }
+    })
+  }
+
 }
 
 

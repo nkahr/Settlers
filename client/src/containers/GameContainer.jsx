@@ -31,6 +31,8 @@ class GameContainer extends Component {
 
   render() {
 
+    console.log(this.state.currentPlayer)
+
     const tiles = this.state.tilesArray
     if (this.state.previousRobberIndex !== undefined) {
       tiles[this.state.previousRobberIndex].hasRobber = false
@@ -53,6 +55,7 @@ class GameContainer extends Component {
           colourSettlements = {this.colourSettlements} 
           letPlayerBuildRoad={this.state.game.letPlayerBuildRoad} 
           letPlayerBuildSettlement={this.state.game.letPlayerBuildSettlement} 
+          radar={this.state.game.radar.bind(this.state.game)}
           currentPlayer={this.state.currentPlayer}/> 
         <PlayerStatsComponent 
           currentPlayer={this.state.currentPlayer} 
