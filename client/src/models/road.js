@@ -3,6 +3,7 @@ class Road {
     this.coordinates = options["coordinates"], 
     this.colour = options["colour"]
     this.angle = options["angle"]
+    this.builtYet = false
   }
 }
 

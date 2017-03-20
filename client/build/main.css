@@ -29,6 +29,25 @@ body {
   border: solid 1px black;
 }
 
+.node {
+  display: block;
+  position: absolute;
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  border: solid 1px black
+}
+
+.city {
+  display: block;
+  position: absolute;
+  box-sizing: border-box;
+  width: 30px;
+  height: 24px;
+  border: solid 1px black
+}
+
 .tile-number {
   display: block;
   position: absolute;
@@ -39,16 +58,6 @@ body {
   background-color: rgb(255, 251, 208);
   text-align: center;
   padding-top: 6px;
-}
-
-.node {
-  display: block;
-  position: absolute;
-  box-sizing: border-box;
-  width: 24px;
-  height: 24px;
-  border-radius: 12px;
-  border: solid 1px black;
 }
 
 .robber {

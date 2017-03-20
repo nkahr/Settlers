@@ -19,19 +19,18 @@ class GameContainer extends Component {
       nodesArray: newGame.nodesArray,
       robberIndex: newGame.initialRobberIndex, 
       previousRobberIndex: undefined, 
-      currentPlayer: newGame.players[0] 
+      currentPlayer: newGame.players[0],
     }
 
     this.handleClick = this.handleClick.bind(this)
     this.moveRobber = this.moveRobber.bind(this)
     this.rollDice = this.rollDice.bind(this)
     this.colourRoads = this.colourRoads.bind(this)
+    this.buildCity = this.buildCity.bind(this)
     this.colourSettlements = this.colourSettlements.bind(this)
   }
 
   render() {
-
-    console.log(this.state.currentPlayer)
 
     const tiles = this.state.tilesArray
     if (this.state.previousRobberIndex !== undefined) {
@@ -45,16 +44,17 @@ class GameContainer extends Component {
     return(
       <div id="game-container" onClick={this.handleClick}>
         <OpponentsComponent /> 
-        <BoardComponent 
-          
+        <BoardComponent    
           tiles={tiles} 
           roads={roads} 
           nodes={nodes} 
           moveRobber={this.moveRobber} 
           colourRoads = {this.colourRoads} 
-          colourSettlements = {this.colourSettlements} 
+          colourSettlements = {this.colourSettlements}
+          buildCity = {this.buildCity}
           letPlayerBuildRoad={this.state.game.letPlayerBuildRoad} 
-          letPlayerBuildSettlement={this.state.game.letPlayerBuildSettlement} 
+          letPlayerBuildSettlement={this.state.game.letPlayerBuildSettlement}
+          letPlayerBuildCity={this.state.game.letPlayerBuildCity}
           radar={this.state.game.radar.bind(this.state.game)}
           currentPlayer={this.state.currentPlayer}/> 
         <PlayerStatsComponent 
@@ -73,8 +73,8 @@ class GameContainer extends Component {
     const colour = this.state.currentPlayer.colour
     let updatedRoadsArray = this.state.roadsArray
     updatedRoadsArray[clickedRoadIndex].colour = colour
+    updatedRoadsArray[clickedRoadIndex].builtYet = true
     let playerToUpdate = this.state.currentPlayer
-    playerToUpdate.roadsAvailable -= 1
     this.setState({roadsArray: updatedRoadsArray, currentPlayer: playerToUpdate})
   }
 
@@ -87,21 +87,37 @@ class GameContainer extends Component {
     const colour = this.state.currentPlayer.colour
     let updatedNodesArray = this.state.nodesArray
     updatedNodesArray[clickedNodeIndex].colour = colour
+    updatedNodesArray[clickedNodeIndex].hasSettlement = true
     let playerToUpdate = this.state.currentPlayer
-    playerToUpdate.settlementsAvailable -= 1
     this.setState({nodesArray: updatedNodesArray, currentPlayer: playerToUpdate})
+  }
+
+  buildCity(clickedNodeIndex) {
+    const colour = this.state.currentPlayer.colour
+    let updatedNodesArray = this.state.nodesArray
+    updatedNodesArray[clickedNodeIndex].colour = colour
+    updatedNodesArray[clickedNodeIndex].hasCity = true
+    updatedNodesArray[clickedNodeIndex].classOfNode = 'city'
+    // updatedNodesArray[clickedNodeIndex].hasSettlement = false
+    let playerToUpdate = this.state.currentPlayer
+    this.setState({nodesArray: updatedNodesArray, currentPlayer: playerToUpdate, classOfNode: 'city'})
   }
 
   rollDice() {
     const numberRolled = dice.rollDice()
     let playerToUpdate = this.state.currentPlayer
     playerToUpdate.numberRolled = numberRolled
+
+    this.state.currentPlayer.conqueredTiles.forEach((tile) => {
+      if (tile.number === numberRolled && tile.hasRobber === false) {
+        const resource = tile.resource
+        this.state.game.giveResourceCardToPlayer(playerToUpdate, resource)
+      }
+    })
     this.setState({currentPlayer: playerToUpdate})
   }
 
-  // window.onClick() {
-  //   console.log('x,y', ta)
-  // }
+
 }
 
 export default GameContainer

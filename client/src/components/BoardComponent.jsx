@@ -30,7 +30,8 @@ class BoardComponent extends Component{
           key={index} 
           index={index} 
           coordinates={road.coordinates} 
-          colour={road.colour} 
+          colour={road.colour}
+          builtYet={road.builtYet} 
           angle={road.angle} 
           colourRoads={this.props.colourRoads} 
           letPlayerBuildRoad={this.props.letPlayerBuildRoad} 
@@ -45,11 +46,16 @@ class BoardComponent extends Component{
           key={index} 
           colour={node.colour} 
           index={index} 
+          hasSettlement = {node.hasSettlement}
+          hasCity = {node.hasCity}
           coordinates={node.coordinates} 
           colourSettlements={this.props.colourSettlements}
+          buildCity={this.props.buildCity}
           letPlayerBuildSettlement = {this.props.letPlayerBuildSettlement}
+          letPlayerBuildCity = {this.props.letPlayerBuildCity}
           radar={this.props.radar}
-          currentPlayer={this.props.currentPlayer} 
+          currentPlayer={this.props.currentPlayer}
+          classOfNode={node.classOfNode}
         />
       )
     })

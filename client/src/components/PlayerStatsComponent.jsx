@@ -29,12 +29,13 @@ class PlayerStatsComponent extends Component{
         <p> Colour: {this.props.currentPlayer.colour} </p>
         <p> Roads available: {this.props.currentPlayer.roadsAvailable} </p>
         <p> Settlements available: {this.props.currentPlayer.settlementsAvailable} </p>
+        <p> Cities available: {this.props.currentPlayer.citiesAvailable} </p>
         <p> Number rolled: {this.props.currentPlayer.numberRolled} </p>
-        Wood: {resourceHash["wood"]}
-        Clay: {resourceHash["clay"]}
-        Sheep: {resourceHash["sheep"]}
-        Rock: {resourceHash["rock"]}
-        Crop: {resourceHash["crop"]}
+        <p> Wood: {resourceHash["wood"]} </p>
+        <p> Clay: {resourceHash["clay"]} </p>
+        <p> Sheep: {resourceHash["sheep"]} </p>
+        <p> Rock: {resourceHash["rock"]} </p>
+        <p> Crop: {resourceHash["crop"]} </p>
       </div>
     )
   }

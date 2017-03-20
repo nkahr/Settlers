@@ -58,6 +58,9 @@ class Game {
   }
 
   letPlayerBuildRoad(player) {
+    if (player.roadsAvailable === 0) {
+      return false
+    }
     let woodIndex = undefined
     let clayIndex = undefined
     for (let i = 0; i < player.resourceCards.length; i++) {
@@ -70,6 +73,7 @@ class Game {
     }
 
     if (woodIndex !== undefined && clayIndex !== undefined) {
+      player.roadsAvailable -= 1
       if (clayIndex > woodIndex) {
         player.resourceCards.splice(clayIndex, 1)
         player.resourceCards.splice(woodIndex, 1)
@@ -84,7 +88,9 @@ class Game {
   }
 
   letPlayerBuildSettlement(player) {
-    console.log("function run")
+    if (player.settlementsAvailable === 0) {
+      return false
+    }
     let woodIndex = undefined
     let clayIndex = undefined
     let cropIndex = undefined
@@ -108,7 +114,7 @@ class Game {
     indices = indices.filter((index) => { 
       return index != undefined 
     })
-    console.log("length", indices.length)
+
     if (indices.length === 4) {
       indices.sort((a, b) => {
         return b - a
@@ -117,21 +123,55 @@ class Game {
       indices.forEach((index) => {
         player.resourceCards.splice(index, 1)
       })
-      console.log("resources", player.resourceCards)
+
+      player.settlementsAvailable -= 1
 
       return true
     }
     return false
   }
 
+  letPlayerBuildCity(player) {
+    if (player.citiesAvailable === 0) {
+      return false
+    }
+    let cropCount = 0
+    let rockCount = 0
+    let indices = []
+    for (let i = 0; i < player.resourceCards.length; i++) {
+      if (player.resourceCards[i].type === "rock") {
+        rockCount += 1
+        if (rockCount <= 3) {
+          indices.push(i)
+        }
+      }
+      if(player.resourceCards[i].type === "crop") {
+        cropCount += 1
+        if (cropCount <= 2) {
+          indices.push(i)
+        }
+      }
+    }
+    if (rockCount >= 3 && cropCount >= 2) {
+      indices.sort((a, b) => {
+        return b - a
+      })
+      indices.forEach((index) => {
+        player.resourceCards.splice(index, 1)
+      })
+      player.citiesAvailable -= 1
+      player.settlementsAvailable += 1
+      return true
+    }
+    return false
+  }
+
   radar(player, index) {
-    console.log("this", this)
-    console.log("nodesArray", this.nodesArray)
     const node = this.nodesArray[index]
     const nodeCoordinates = node.coordinates
     this.tilesArray.forEach((tile) => {
       const tileCoordinates = tile.coordinates
-      if (Math.abs(nodeCoordinates[0] - tileCoordinates[0]) < 100 && Math.abs(nodeCoordinates[1] - tileCoordinates[1]) < 100) {
+      if (Math.abs(nodeCoordinates[0] - (tileCoordinates[0] + 60)) < 100 && Math.abs(nodeCoordinates[1] - (tileCoordinates[1] + 69) ) < 100) {
         player.conqueredTiles.push(tile)
       }
     })
