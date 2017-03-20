@@ -3,7 +3,6 @@ import BoardComponent from '../components/BoardComponent'
 import OpponentsComponent from '../components/OpponentsComponent'
 import PlayerStatsComponent from '../components/PlayerStatsComponent'
 import Game from '../models/game'
-// import Road from '../models/road'
 import Dice from '../models/dice'
 const dice = new Dice()
 
@@ -20,6 +19,7 @@ class GameContainer extends Component {
       robberIndex: newGame.initialRobberIndex, 
       previousRobberIndex: undefined, 
       currentPlayer: newGame.players[0],
+      players: newGame.players
     }
 
     this.handleClick = this.handleClick.bind(this)
@@ -28,6 +28,7 @@ class GameContainer extends Component {
     this.colourRoads = this.colourRoads.bind(this)
     this.buildCity = this.buildCity.bind(this)
     this.colourSettlements = this.colourSettlements.bind(this)
+    this.nextTurn = this.nextTurn.bind(this)
   }
 
   render() {
@@ -43,7 +44,10 @@ class GameContainer extends Component {
   
     return(
       <div id="game-container" onClick={this.handleClick}>
-        <OpponentsComponent /> 
+        <OpponentsComponent 
+          players={this.state.players}
+          currentPlayer={this.state.currentPlayer}
+        /> 
         <BoardComponent    
           tiles={tiles} 
           roads={roads} 
@@ -59,6 +63,7 @@ class GameContainer extends Component {
           currentPlayer={this.state.currentPlayer}/> 
         <PlayerStatsComponent 
           currentPlayer={this.state.currentPlayer} 
+          nextTurn={this.nextTurn}
           rollDice={this.rollDice}/> 
       </div>
     )
@@ -76,6 +81,21 @@ class GameContainer extends Component {
     updatedRoadsArray[clickedRoadIndex].builtYet = true
     let playerToUpdate = this.state.currentPlayer
     this.setState({roadsArray: updatedRoadsArray, currentPlayer: playerToUpdate})
+  }
+
+  nextTurn() {
+    if (this.state.currentPlayer === this.state.players[0]) {
+      this.setState({currentPlayer: this.state.players[1]})
+    }
+    if (this.state.currentPlayer === this.state.players[1]) {
+      this.setState({currentPlayer: this.state.players[2]})
+    }
+    if (this.state.currentPlayer === this.state.players[2]) {
+      this.setState({currentPlayer: this.state.players[3]})
+    }
+    if (this.state.currentPlayer === this.state.players[3]) {
+      this.setState({currentPlayer: this.state.players[0]})
+    }
   }
 
   handleClick(event) {

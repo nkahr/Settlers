@@ -17,8 +17,15 @@ class Game {
   }
 
   setup() {
-    const player1 = new Player({name: "John", colour: "blue"})
+    const player1 = new Player({name: "Craig", colour: "blue"})
     this.players.push(player1)
+    const player2 = new Player({name: "Matthew", colour: "red"})
+    this.players.push(player2)
+    const player3 = new Player({name: "Beth", colour: "white"})
+    this.players.push(player3)
+    const player4 = new Player({name: "Simon", colour: "yellow"})
+    this.players.push(player4)
+
     const tiles = new Tiles()
     this.tilesArray = tiles.tilesArray
     this.initialRobberIndex = tiles.indexOfDesert
@@ -48,6 +55,12 @@ class Game {
     player1.resourceCards.push(clay1)
     player1.resourceCards.push(clay2)
     player1.resourceCards.push(clay3)
+
+    const wood5 = this.bank.generateResourceCard("wood")
+    const clay5 = this.bank.generateResourceCard("clay")
+    player2.resourceCards.push(wood5)
+    player2.resourceCards.push(clay5)
+
     ////////////////////////////
   }
 

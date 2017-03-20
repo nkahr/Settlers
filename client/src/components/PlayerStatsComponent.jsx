@@ -24,6 +24,7 @@ class PlayerStatsComponent extends Component{
     return (
       <div id="player-stats-block"> 
         <button id="roll-dice-button" onClick={this.props.rollDice}> Roll Dice </button>
+        <button id="next-turn-button" onClick={this.props.nextTurn}> Next Turn </button>
         <h1> Player Stats </h1>
         <p> Name: {this.props.currentPlayer.name} </p>
         <p> Colour: {this.props.currentPlayer.colour} </p>

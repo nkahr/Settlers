@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import OpponentStatsComponent from './OpponentStatsComponent'
 
 class OpponentsComponent extends Component{
   constructor(props) {
@@ -6,9 +7,19 @@ class OpponentsComponent extends Component{
   }
 
   render() {
+
+    const opponentStatsComponents = []
+
+    this.props.players.forEach((player) => {
+      if (player !== this.props.currentPlayer) {
+        opponentStatsComponents.push(<OpponentStatsComponent player={player}/>)
+      }
+    })
+     
+
     return (
       <div id="opponents-block"> 
-        <h1> HI </h1>
+        {opponentStatsComponents}
       </div>
     )
   }
