@@ -16,6 +16,7 @@ class GameContainer extends Component {
       game: newGame,
       tilesArray: newGame.tilesArray, 
       roadsArray: newGame.roadsArray,
+      nodesArray: newGame.nodesArray,
       robberIndex: newGame.initialRobberIndex, 
       previousRobberIndex: undefined, 
       currentPlayer: newGame.players[0] 
@@ -24,6 +25,7 @@ class GameContainer extends Component {
     this.moveRobber = this.moveRobber.bind(this)
     this.rollDice = this.rollDice.bind(this)
     this.colourRoads = this.colourRoads.bind(this)
+    this.colourSettlements = this.colourSettlements.bind(this)
   }
 
   render() {
@@ -33,13 +35,26 @@ class GameContainer extends Component {
       tiles[this.state.previousRobberIndex].hasRobber = false
     }
     tiles[this.state.robberIndex].hasRobber = true
+
     const roads = this.state.roadsArray
+    const nodes = this.state.nodesArray
   
     return(
       <div id="game-container">
         <OpponentsComponent /> 
-        <BoardComponent tiles={tiles} roads={roads} moveRobber={this.moveRobber} colourRoads = {this.colourRoads} game={this.state.game} currentPlayer={this.state.currentPlayer}/> 
-        <PlayerStatsComponent currentPlayer={this.state.currentPlayer} rollDice={this.rollDice}/> 
+        <BoardComponent 
+          tiles={tiles} 
+          roads={roads} 
+          nodes={nodes} 
+          moveRobber={this.moveRobber} 
+          colourRoads = {this.colourRoads} 
+          colourSettlements = {this.colourSettlements} 
+          letPlayerBuildRoad={this.state.game.letPlayerBuildRoad} 
+          letPlayerBuildSettlement={this.state.game.letPlayerBuildSettlement} 
+          currentPlayer={this.state.currentPlayer}/> 
+        <PlayerStatsComponent 
+          currentPlayer={this.state.currentPlayer} 
+          rollDice={this.rollDice}/> 
       </div>
     )
   }
@@ -56,6 +71,15 @@ class GameContainer extends Component {
     let playerToUpdate = this.state.currentPlayer
     playerToUpdate.roadsAvailable -= 1
     this.setState({roadsArray: updatedRoadsArray, currentPlayer: playerToUpdate})
+  }
+
+  colourSettlements(clickedNodeIndex) {
+    const colour = this.state.currentPlayer.colour
+    let updatedNodesArray = this.state.nodesArray
+    updatedNodesArray[clickedNodeIndex].colour = colour
+    let playerToUpdate = this.state.currentPlayer
+    playerToUpdate.settlementsAvailable -= 1
+    this.setState({nodesArray: updatedNodesArray, currentPlayer: playerToUpdate})
   }
 
   rollDice() {

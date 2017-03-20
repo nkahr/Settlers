@@ -41,6 +41,16 @@ body {
   padding-top: 6px;
 }
 
+.node {
+  display: block;
+  position: absolute;
+  box-sizing: border-box;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  border: solid 1px black;
+}
+
 .robber {
   display: block;
   position: absolute;
