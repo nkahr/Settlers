@@ -39,8 +39,10 @@ class TileComponent extends React.Component {
   }
 
   handleRobberClick() {
-    const newRobberIndex = this.props.index 
-    this.props.moveRobber(newRobberIndex)
+    if (this.props.currentPlayer.numberRolled === 7) {
+      const newRobberIndex = this.props.index 
+      this.props.moveRobber(newRobberIndex)
+    }
   }
 
 }

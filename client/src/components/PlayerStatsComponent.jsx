@@ -27,6 +27,7 @@ class PlayerStatsComponent extends Component{
         <button id="next-turn-button" onClick={this.props.nextTurn}> Next Turn </button>
         <h1> Player Stats </h1>
         <p> Name: {this.props.currentPlayer.name} </p>
+        <p> Score: {this.props.currentPlayer.score} </p>
         <p> Colour: {this.props.currentPlayer.colour} </p>
         <p> Roads available: {this.props.currentPlayer.roadsAvailable} </p>
         <p> Settlements available: {this.props.currentPlayer.settlementsAvailable} </p>

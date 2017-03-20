@@ -19,6 +19,8 @@ class BoardComponent extends Component{
           number={tile.number} 
           hasRobber={tile.hasRobber} 
           moveRobber={this.props.moveRobber} 
+          currentPlayer={this.props.currentPlayer}
+
         />
       )
     })

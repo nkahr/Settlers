@@ -138,6 +138,7 @@ class Game {
       })
 
       player.settlementsAvailable -= 1
+      player.score += 1
 
       return true
     }
@@ -174,6 +175,8 @@ class Game {
       })
       player.citiesAvailable -= 1
       player.settlementsAvailable += 1
+      player.score += 1
+
       return true
     }
     return false

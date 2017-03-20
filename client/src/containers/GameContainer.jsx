@@ -29,9 +29,15 @@ class GameContainer extends Component {
     this.buildCity = this.buildCity.bind(this)
     this.colourSettlements = this.colourSettlements.bind(this)
     this.nextTurn = this.nextTurn.bind(this)
+    this.winChecker = this.winChecker.bind(this)
   }
 
   render() {
+
+    let winScreen = ""
+    if (this.winChecker()) {
+      winScreen = <h1> {this.winChecker()} wins </h1>
+    }
 
     const tiles = this.state.tilesArray
     if (this.state.previousRobberIndex !== undefined) {
@@ -65,6 +71,7 @@ class GameContainer extends Component {
           currentPlayer={this.state.currentPlayer} 
           nextTurn={this.nextTurn}
           rollDice={this.rollDice}/> 
+        {winScreen} 
       </div>
     )
   }
@@ -81,6 +88,17 @@ class GameContainer extends Component {
     updatedRoadsArray[clickedRoadIndex].builtYet = true
     let playerToUpdate = this.state.currentPlayer
     this.setState({roadsArray: updatedRoadsArray, currentPlayer: playerToUpdate})
+  }
+
+  winChecker() {
+    let winner = false
+    this.state.players.forEach((player) => {
+      console.log("player", player.score)
+      if (player.score >= 10) {
+        winner = player.name
+      }
+    })
+    return winner
   }
 
   nextTurn() {
