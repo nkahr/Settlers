@@ -22,6 +22,7 @@ class RoadComponent extends Component {
   }
 
   handleRoadClick() {
+
     const clickedRoadIndex = this.props.index 
     if (this.props.letPlayerBuildRoad(this.props.currentPlayer)) {
       this.props.colourRoads(clickedRoadIndex)

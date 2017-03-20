@@ -22,6 +22,7 @@ class GameContainer extends Component {
       currentPlayer: newGame.players[0] 
     }
 
+    this.handleClick = this.handleClick.bind(this)
     this.moveRobber = this.moveRobber.bind(this)
     this.rollDice = this.rollDice.bind(this)
     this.colourRoads = this.colourRoads.bind(this)
@@ -40,9 +41,10 @@ class GameContainer extends Component {
     const nodes = this.state.nodesArray
   
     return(
-      <div id="game-container">
+      <div id="game-container" onClick={this.handleClick}>
         <OpponentsComponent /> 
         <BoardComponent 
+          
           tiles={tiles} 
           roads={roads} 
           nodes={nodes} 
@@ -73,6 +75,11 @@ class GameContainer extends Component {
     this.setState({roadsArray: updatedRoadsArray, currentPlayer: playerToUpdate})
   }
 
+  handleClick(event) {
+    console.log("x",event.clientX)
+    console.log("y",event.clientY)
+  }
+
   colourSettlements(clickedNodeIndex) {
     const colour = this.state.currentPlayer.colour
     let updatedNodesArray = this.state.nodesArray
@@ -88,6 +95,10 @@ class GameContainer extends Component {
     playerToUpdate.numberRolled = numberRolled
     this.setState({currentPlayer: playerToUpdate})
   }
+
+  // window.onClick() {
+  //   console.log('x,y', ta)
+  // }
 }
 
 export default GameContainer

@@ -45,9 +45,9 @@ body {
   display: block;
   position: absolute;
   box-sizing: border-box;
-  width: 30px;
-  height: 30px;
-  border-radius: 15px;
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
   border: solid 1px black;
 }
 

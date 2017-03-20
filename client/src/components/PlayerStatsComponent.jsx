@@ -28,6 +28,7 @@ class PlayerStatsComponent extends Component{
         <p> Name: {this.props.currentPlayer.name} </p>
         <p> Colour: {this.props.currentPlayer.colour} </p>
         <p> Roads available: {this.props.currentPlayer.roadsAvailable} </p>
+        <p> Settlements available: {this.props.currentPlayer.settlementsAvailable} </p>
         <p> Number rolled: {this.props.currentPlayer.numberRolled} </p>
         Wood: {resourceHash["wood"]}
         Clay: {resourceHash["clay"]}

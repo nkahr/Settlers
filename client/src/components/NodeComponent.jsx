@@ -15,7 +15,7 @@ class NodeComponent extends Component {
 
     return (
       <div onClick={this.handleNodeClick}>
-        <p style={nodeStyle} className='node'>dfdf</p>
+        <p style={nodeStyle} className='node'></p>
       </div>
     )
   }
