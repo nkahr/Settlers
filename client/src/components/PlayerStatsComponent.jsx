@@ -5,16 +5,21 @@ import React, { Component } from 'react'
 class PlayerStatsComponent extends Component{
   constructor(props) {
     super(props)
-    // this.rollDice = this.rollDice.bind(this)
   }
 
   render() {
 
-    const resourceCards = this.props.currentPlayer.resourceCards.map((resource) => {
-      return resource.type + " "
-    })
+    let resourceHash = { 
+      "wood": 0, 
+      "clay": 0, 
+      "sheep": 0, 
+      "rock": 0, 
+      "crop": 0
+    }
 
-    console.log("resourceCards", resourceCards)
+    this.props.currentPlayer.resourceCards.forEach((resourceCard) => {
+      resourceHash[resourceCard.type] += 1
+    })
 
     return (
       <div id="player-stats-block"> 
@@ -24,14 +29,14 @@ class PlayerStatsComponent extends Component{
         <p> Colour: {this.props.currentPlayer.colour} </p>
         <p> Roads available: {this.props.currentPlayer.roadsAvailable} </p>
         <p> Number rolled: {this.props.currentPlayer.numberRolled} </p>
-        Resources: {resourceCards}
+        Wood: {resourceHash["wood"]}
+        Clay: {resourceHash["clay"]}
+        Sheep: {resourceHash["sheep"]}
+        Rock: {resourceHash["rock"]}
+        Crop: {resourceHash["crop"]}
       </div>
     )
   }
-
-  // rollDice() {
-  //   this.props.rollDice()
-  // }
 
 }
 
