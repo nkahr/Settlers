@@ -21,6 +21,15 @@ class PlayerStatsComponent extends Component{
       resourceHash[resourceCard.type] += 1
     })
 
+    this.props.currentPlayer.findLongestRoads()
+
+    let longestRoad = 0
+    this.props.currentPlayer.longestRoads.forEach((road) => {
+      if (road.length > longestRoad) {
+        longestRoad = road.length
+      }
+    })
+
     return (
       <div id="player-stats-block"> 
         <button id="roll-dice-button" onClick={this.props.rollDice}> Roll Dice </button>
@@ -38,6 +47,7 @@ class PlayerStatsComponent extends Component{
         <p> Sheep: {resourceHash["sheep"]} </p>
         <p> Rock: {resourceHash["rock"]} </p>
         <p> Crop: {resourceHash["crop"]} </p>
+        <p> Longest Road: {longestRoad} </p>
       </div>
     )
   }

@@ -15,6 +15,7 @@ class Game {
     this.nodesArray = []
     this.setup()
     this.giveSurroundingRoadsToNodes()
+    this.giveSurroundingNodesToRoads()
   }
 
   setup() {
@@ -158,6 +159,19 @@ class Game {
         const roadCoordinates = road.coordinates
         if (Math.abs(nodeCoordinates[0] - (roadCoordinates[0] + 12)) < 60 && Math.abs(nodeCoordinates[1] - (roadCoordinates[1] + 12) ) < 60) {
           node.surroundingRoads.push(road)
+        }
+      }) 
+    })
+  }
+
+
+  giveSurroundingNodesToRoads() {
+    this.roadsArray.forEach((road) => {
+      const roadCoordinates = road.coordinates
+      this.nodesArray.forEach((node) => {
+        const nodeCoordinates = node.coordinates
+        if (Math.abs(nodeCoordinates[0] - (roadCoordinates[0] + 12)) < 60 && Math.abs(nodeCoordinates[1] - (roadCoordinates[1] + 12) ) < 60) {
+          road.surroundingNodes.push(node)
         }
       }) 
     })
@@ -319,7 +333,9 @@ class Game {
     this.roadsArray.forEach((surrRoad) => {
       const surroundingRoadCoordinates = surrRoad.coordinates
       if (Math.abs(nodeCoordinates[0] - (surroundingRoadCoordinates[0] + 12)) < 60 && Math.abs(nodeCoordinates[1] - (surroundingRoadCoordinates[1] + 12) ) < 60) {
-        player.roadsAllowed.push(surrRoad.index)
+        if (!player.roadsAllowed.includes(surrRoad.index)) {
+          player.roadsAllowed.push(surrRoad.index)
+        }
       }
     }) 
   }
@@ -331,7 +347,9 @@ class Game {
       this.roadsArray.forEach((surrRoad) => {
         const surroundingRoadCoordinates = surrRoad.coordinates
         if (Math.abs(roadCoordinates[0] - (surroundingRoadCoordinates[0] + 4)) < 60 && Math.abs(roadCoordinates[1] - (surroundingRoadCoordinates[1] + 19) ) < 80) {
-          player.roadsAllowed.push(surrRoad.index)
+          if (!player.roadsAllowed.includes(surrRoad.index)) {
+            player.roadsAllowed.push(surrRoad.index)
+          }
         }
       })
     }
@@ -339,7 +357,9 @@ class Game {
       this.roadsArray.forEach((surrRoad) => {
         const surroundingRoadCoordinates = surrRoad.coordinates
         if (Math.abs(roadCoordinates[0] - (surroundingRoadCoordinates[0] + 4)) < 80 && Math.abs(roadCoordinates[1] - (surroundingRoadCoordinates[1] + 19) ) < 80) {
-          player.roadsAllowed.push(surrRoad.index)
+          if (!player.roadsAllowed.includes(surrRoad.index)) {
+            player.roadsAllowed.push(surrRoad.index)
+          }
         }
       })
     }
@@ -347,7 +367,9 @@ class Game {
       this.roadsArray.forEach((surrRoad) => {
         const surroundingRoadCoordinates = surrRoad.coordinates
         if (Math.abs(roadCoordinates[0] - (surroundingRoadCoordinates[0] + 4)) < 80 && Math.abs(roadCoordinates[1] - (surroundingRoadCoordinates[1] + 19) ) < 80) {
-          player.roadsAllowed.push(surrRoad.index)
+          if (!player.roadsAllowed.includes(surrRoad.index)) {
+            player.roadsAllowed.push(surrRoad.index)
+          }
         }
       })
     }

@@ -5,6 +5,7 @@ class Road {
     this.angle = options["angle"]
     this.builtYet = false
     this.index = options["index"]
+    this.surroundingNodes = []
   }
 }
 
