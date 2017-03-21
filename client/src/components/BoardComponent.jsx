@@ -51,11 +51,13 @@ class BoardComponent extends Component{
           hasSettlement = {node.hasSettlement}
           hasCity = {node.hasCity}
           coordinates={node.coordinates} 
+          allowConstruction={node.allowConstruction} 
           colourSettlements={this.props.colourSettlements}
           buildCity={this.props.buildCity}
           letPlayerBuildSettlement = {this.props.letPlayerBuildSettlement}
           letPlayerBuildCity = {this.props.letPlayerBuildCity}
           radar={this.props.radar}
+          mapConstructionAround={this.props.mapConstructionAround}
           currentPlayer={this.props.currentPlayer}
           classOfNode={node.classOfNode}
         />

@@ -66,21 +66,24 @@ class Roads {
     for (let i = 0; i < 24; i++) {
       const road = new Road({
         coordinates: [ this.xArray[i], this.yArray[i]],
-        angle: 0
+        angle: 0,
+        index: i
       })
       this.roadsArray.push(road)
     }
     for (let i = 24; i < 48; i++) {
       const road = new Road({
         coordinates: [ this.xArray[i], this.yArray[i]],
-        angle: -60
+        angle: -60,
+        index: i
       })
       this.roadsArray.push(road)
     }
     for (let i = 48; i < 72; i++) {
       const road = new Road({
         coordinates: [ this.xArray[i], this.yArray[i]],
-        angle: 60
+        angle: 60,
+        index: i
       })
       this.roadsArray.push(road)
     }

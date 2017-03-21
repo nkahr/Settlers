@@ -22,10 +22,14 @@ class NodeComponent extends Component {
 
   handleNodeClick() {
     const clickedNodeIndex = this.props.index
+    if (!this.props.allowConstruction) {
+      return 
+    }
     if (!this.props.hasSettlement && !this.props.hasCity) {
       if (this.props.letPlayerBuildSettlement(this.props.currentPlayer)) {
         this.props.colourSettlements(this.props.index)
         this.props.radar(this.props.currentPlayer, this.props.index)
+        this.props.mapConstructionAround(this.props.currentPlayer, this.props.index)
       }
     }
     if (this.props.hasSettlement && !this.props.hasCity) {

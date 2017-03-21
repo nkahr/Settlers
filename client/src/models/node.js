@@ -6,6 +6,7 @@ class Node {
     this.classOfNode = 'node'
     this.hasSettlement = false
     this.hasCity = false
+    this.allowConstruction = true
   }
 }
 

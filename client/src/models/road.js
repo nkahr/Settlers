@@ -4,6 +4,7 @@ class Road {
     this.colour = options["colour"]
     this.angle = options["angle"]
     this.builtYet = false
+    this.index = options["index"]
   }
 }
 

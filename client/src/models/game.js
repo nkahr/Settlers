@@ -157,6 +157,12 @@ class Game {
   }
 
   letPlayerBuildRoad(player) {
+    if (player.freeRoadCount) {
+      player.freeRoadCount -= 1
+      player.roadsAvailable -= 1
+      return true
+    }
+
     if (player.roadsAvailable === 0) {
       return false
     }
@@ -187,6 +193,13 @@ class Game {
   }
 
   letPlayerBuildSettlement(player) {
+    if (player.freeSettlementCount) {
+      player.freeSettlementCount -= 1
+      player.settlementsAvailable -= 1
+      player.score += 1
+      return true
+    }
+
     if (player.settlementsAvailable === 0) {
       return false
     }
@@ -277,6 +290,25 @@ class Game {
         player.conqueredTiles.push(tile)
       }
     })
+  }
+
+  mapConstructionAround(player, index) {
+    const node = this.nodesArray[index]
+    const nodeCoordinates = node.coordinates
+    //////// BLOCK SURROUNDING NODES ///////////////////////////////
+    this.nodesArray.forEach((surrNode) => {
+      const surroundingNodeCoordinates = surrNode.coordinates
+      if (Math.abs(nodeCoordinates[0] - (surroundingNodeCoordinates[0] + 12)) < 80 && Math.abs(nodeCoordinates[1] - (surroundingNodeCoordinates[1] + 12) ) < 90) {
+        surrNode.allowConstruction = false
+      }
+    })
+    //////// GET SURROUNDING ROADS ALLOWED TO BE BUILT //////////////
+    this.roadsArray.forEach((surrRoad) => {
+      const surroundingRoadCoordinates = surrRoad.coordinates
+      if (Math.abs(nodeCoordinates[0] - (surroundingRoadCoordinates[0] + 12)) < 60 && Math.abs(nodeCoordinates[1] - (surroundingRoadCoordinates[1] + 12) ) < 60) {
+        player.roadsAllowed.push(surrRoad.index)
+      }
+    }) 
   }
 
 }

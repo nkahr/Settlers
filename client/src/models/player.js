@@ -12,6 +12,9 @@ class Player {
     this.score = 0
     this.developmentCardsBought = []
     this.developmentCardsPlayed = []
+    this.freeSettlementCount = 2
+    this.freeRoadCount = 2
+    this.roadsAllowed = []
   }
 
 }

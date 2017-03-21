@@ -10,9 +10,9 @@ class OpponentsComponent extends Component{
 
     const opponentStatsComponents = []
 
-    this.props.players.forEach((player) => {
+    this.props.players.forEach((player, index) => {
       if (player !== this.props.currentPlayer) {
-        opponentStatsComponents.push(<OpponentStatsComponent player={player}/>)
+        opponentStatsComponents.push(<OpponentStatsComponent key={index} player={player}/>)
       }
     })
      
