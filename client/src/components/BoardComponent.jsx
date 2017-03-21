@@ -37,6 +37,7 @@ class BoardComponent extends Component{
           angle={road.angle} 
           colourRoads={this.props.colourRoads} 
           letPlayerBuildRoad={this.props.letPlayerBuildRoad} 
+          mapNextPossibleRoads={this.props.mapNextPossibleRoads}
           currentPlayer={this.props.currentPlayer}
         />
       )

@@ -67,6 +67,7 @@ class GameContainer extends Component {
           letPlayerBuildCity={this.state.game.letPlayerBuildCity}
           radar={this.state.game.radar.bind(this.state.game)}
           mapConstructionAround={this.state.game.mapConstructionAround.bind(this.state.game)}
+          mapNextPossibleRoads ={this.state.game.mapNextPossibleRoads.bind(this.state.game)}
           currentPlayer={this.state.currentPlayer}/> 
         <PlayerStatsComponent 
           currentPlayer={this.state.currentPlayer} 

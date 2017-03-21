@@ -311,6 +311,35 @@ class Game {
     }) 
   }
 
+  mapNextPossibleRoads(player, index) {
+    const road = this.roadsArray[index]
+    const roadCoordinates = road.coordinates
+    if (road.angle === 0) {
+      this.roadsArray.forEach((surrRoad) => {
+        const surroundingRoadCoordinates = surrRoad.coordinates
+        if (Math.abs(roadCoordinates[0] - (surroundingRoadCoordinates[0] + 4)) < 60 && Math.abs(roadCoordinates[1] - (surroundingRoadCoordinates[1] + 19) ) < 80) {
+          player.roadsAllowed.push(surrRoad.index)
+        }
+      })
+    }
+    if (road.angle === 60) {
+      this.roadsArray.forEach((surrRoad) => {
+        const surroundingRoadCoordinates = surrRoad.coordinates
+        if (Math.abs(roadCoordinates[0] - (surroundingRoadCoordinates[0] + 4)) < 80 && Math.abs(roadCoordinates[1] - (surroundingRoadCoordinates[1] + 19) ) < 80) {
+          player.roadsAllowed.push(surrRoad.index)
+        }
+      })
+    }
+    if (road.angle === -60) {
+      this.roadsArray.forEach((surrRoad) => {
+        const surroundingRoadCoordinates = surrRoad.coordinates
+        if (Math.abs(roadCoordinates[0] - (surroundingRoadCoordinates[0] + 4)) < 80 && Math.abs(roadCoordinates[1] - (surroundingRoadCoordinates[1] + 19) ) < 80) {
+          player.roadsAllowed.push(surrRoad.index)
+        }
+      })
+    }
+  }
+
 }
 
 
