@@ -31,6 +31,7 @@ class BoardComponent extends Component{
         <RoadComponent 
           key={index} 
           index={index} 
+          road={road}
           coordinates={road.coordinates} 
           colour={road.colour}
           builtYet={road.builtYet} 

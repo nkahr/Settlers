@@ -14,6 +14,7 @@ class Game {
     this.initialRobberIndex = undefined
     this.nodesArray = []
     this.setup()
+    this.giveSurroundingRoadsToNodes()
   }
 
   setup() {
@@ -148,6 +149,18 @@ class Game {
     player4.resourceCards.push(rock8)
 
     /////////////////////////////////
+  }
+
+  giveSurroundingRoadsToNodes() {
+    this.nodesArray.forEach((node) => {
+      const nodeCoordinates = node.coordinates
+      this.roadsArray.forEach((road) => {
+        const roadCoordinates = road.coordinates
+        if (Math.abs(nodeCoordinates[0] - (roadCoordinates[0] + 12)) < 60 && Math.abs(nodeCoordinates[1] - (roadCoordinates[1] + 12) ) < 60) {
+          node.surroundingRoads.push(road)
+        }
+      }) 
+    })
   }
 
   giveResourceCardToPlayer(player, type) {

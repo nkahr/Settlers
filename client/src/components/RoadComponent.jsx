@@ -31,6 +31,7 @@ class RoadComponent extends Component {
     if (!this.props.builtYet && this.props.letPlayerBuildRoad(this.props.currentPlayer)) {
       this.props.colourRoads(clickedRoadIndex)
       this.props.mapNextPossibleRoads(this.props.currentPlayer, this.props.index)
+      this.props.currentPlayer.roadsBuilt.push(this.props.road)
     }
   }
 

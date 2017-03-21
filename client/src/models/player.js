@@ -8,7 +8,7 @@ class Player {
     this.roadsAvailable = 15
     this.settlementsAvailable = 5
     this.citiesAvailable = 4
-    this.built = []
+    this.roadsBuilt = []
     this.score = 0
     this.developmentCardsBought = []
     this.developmentCardsPlayed = []

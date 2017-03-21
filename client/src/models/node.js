@@ -7,6 +7,7 @@ class Node {
     this.hasSettlement = false
     this.hasCity = false
     this.allowConstruction = true
+    this.surroundingRoads = []
   }
 }
 
