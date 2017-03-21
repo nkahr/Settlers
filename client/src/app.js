@@ -1,14 +1,10 @@
 import React from 'react'
 import {render} from 'react-dom'
-import GameContainer from './containers/GameContainer'
+import MainContainer from './containers/MainContainer'
 
 window.onload = () => {
   render(
-    <div>
-      <GameContainer ></GameContainer>
-    </div>,
+    <MainContainer/>,
     document.getElementById('app')
   )
-
-
 }

@@ -8,6 +8,10 @@ class Game {
 
   constructor(options) {
     this.bank = new Bank()
+    this.player1 = options["player1"]
+    this.player2 = options["player2"]
+    this.player3 = options["player3"]
+    this.player4 = options["player4"]
     this.players = []
     this.tilesArray = []
     this.roadsArray = []
@@ -19,13 +23,13 @@ class Game {
   }
 
   setup() {
-    const player1 = new Player({name: "Craig", colour: "blue"})
+    const player1 = new Player({name: this.player1.name, colour: "blue"})
     this.players.push(player1)
-    const player2 = new Player({name: "Matthew", colour: "red"})
+    const player2 = new Player({name: this.player2.name, colour: "red"})
     this.players.push(player2)
-    const player3 = new Player({name: "Beth", colour: "white"})
+    const player3 = new Player({name: this.player3.name, colour: "white"})
     this.players.push(player3)
-    const player4 = new Player({name: "Simon", colour: "yellow"})
+    const player4 = new Player({name: this.player4.name, colour: "yellow"})
     this.players.push(player4)
 
     const tiles = new Tiles()
@@ -163,7 +167,6 @@ class Game {
       }) 
     })
   }
-
 
   giveSurroundingNodesToRoads() {
     this.roadsArray.forEach((road) => {

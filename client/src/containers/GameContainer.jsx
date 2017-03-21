@@ -9,7 +9,10 @@ const dice = new Dice()
 class GameContainer extends Component {
   constructor(props){
     super(props)
-    const newGame = new Game()
+    const newGame = new Game({player1: this.props.player1, 
+      player2: this.props.player2, 
+      player3: this.props.player3, 
+      player4: this.props.player4})
 
     this.state={
       game: newGame,
