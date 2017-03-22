@@ -22,6 +22,14 @@ class RoadComponent extends Component {
   }
 
   handleRoadClick() {
+
+    if (this.props.turn < 4 && this.props.currentPlayer.roadsAvailable === 14) {
+      return
+    }
+    if (this.props.turn > 3 && this.props.turn < 8 && this.props.currentPlayer.roadsAvailable === 13) {
+      return
+    }
+
     const clickedRoadIndex = this.props.index 
     console.log('index', clickedRoadIndex)
     console.log('road index', this.props.currentPlayer.roadsAllowed[0])

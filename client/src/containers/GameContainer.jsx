@@ -23,7 +23,10 @@ class GameContainer extends Component {
       robberIndex: newGame.initialRobberIndex, 
       previousRobberIndex: undefined, 
       currentPlayer: newGame.players[0],
-      players: newGame.players
+      players: newGame.players, 
+      turn: 0, 
+      showTurnButton: true, 
+      showRollDiceButton: false
     }
 
     this.handleClick = this.handleClick.bind(this)
@@ -74,15 +77,17 @@ class GameContainer extends Component {
             radar={this.state.game.radar.bind(this.state.game)}
             mapConstructionAround={this.state.game.mapConstructionAround.bind(this.state.game)}
             mapNextPossibleRoads ={this.state.game.mapNextPossibleRoads.bind(this.state.game)}
-            currentPlayer={this.state.currentPlayer}
-          /> 
+            turn={this.state.turn}
+            currentPlayer={this.state.currentPlayer}/> 
           <PlayerStatsComponent 
             currentPlayer={this.state.currentPlayer} 
+            turn={this.state.turn}
             getLongestRoadCount={this.getLongestRoadCount}
             checkForLongestRoadWinner={this.checkForLongestRoadWinner}
             nextTurn={this.nextTurn}
-            rollDice={this.rollDice}
-          />
+            showTurnButton={this.state.showTurnButton}
+            showRollDiceButton={this.state.showRollDiceButton}
+            rollDice={this.rollDice}/> 
         </div>
     }
   
@@ -104,7 +109,8 @@ class GameContainer extends Component {
     updatedRoadsArray[clickedRoadIndex].colour = colour
     updatedRoadsArray[clickedRoadIndex].builtYet = true
     let playerToUpdate = this.state.currentPlayer
-    // playerToUpdate.findLongestRoads()
+    playerToUpdate.hasLongestRoad = this.checkForLongestRoadWinner(playerToUpdate)
+
     this.setState({roadsArray: updatedRoadsArray, currentPlayer: playerToUpdate})
   }
 
@@ -120,18 +126,48 @@ class GameContainer extends Component {
   }
 
   nextTurn() {
-    if (this.state.currentPlayer === this.state.players[0]) {
-      this.setState({currentPlayer: this.state.players[1]})
+
+    if (this.state.turn < 4 && (this.state.currentPlayer.settlementsAvailable === 5 || this.state.currentPlayer.roadsAvailable === 15)) {
+      return 
     }
-    if (this.state.currentPlayer === this.state.players[1]) {
-      this.setState({currentPlayer: this.state.players[2]})
+
+    if ((this.state.turn > 3 && this.state.turn < 8) && (this.state.currentPlayer.settlementsAvailable === 4 || this.state.currentPlayer.roadsAvailable === 14)) {
+      return 
     }
-    if (this.state.currentPlayer === this.state.players[2]) {
-      this.setState({currentPlayer: this.state.players[3]})
+
+    const turn = this.state.turn + 1
+    let newCurrentPlayer
+
+    if (turn > 4 && turn < 8) {
+      if (this.state.currentPlayer === this.state.players[3]) {
+        newCurrentPlayer = this.state.players[2]
+      }
+      if (this.state.currentPlayer === this.state.players[2]) {
+        newCurrentPlayer = this.state.players[1]
+      }
+      if (this.state.currentPlayer === this.state.players[1]) {
+        newCurrentPlayer = this.state.players[0]
+      }
+    } else if (turn == 4) {
+      newCurrentPlayer = this.state.players[3]
+    } else if (turn == 8) {
+      newCurrentPlayer = this.state.players[0]
+    } else {
+      if (this.state.currentPlayer === this.state.players[0]) {
+        newCurrentPlayer = this.state.players[1]
+      }
+      if (this.state.currentPlayer === this.state.players[1]) {
+        newCurrentPlayer = this.state.players[2]
+      }
+      if (this.state.currentPlayer === this.state.players[2]) {
+        newCurrentPlayer = this.state.players[3]
+      }
+      if (this.state.currentPlayer === this.state.players[3]) {
+        newCurrentPlayer = this.state.players[0]
+      }
     }
-    if (this.state.currentPlayer === this.state.players[3]) {
-      this.setState({currentPlayer: this.state.players[0]})
-    }
+    this.setState({currentPlayer: newCurrentPlayer, turn: turn, showTurnButton: false, showRollDiceButton: true})
+    
   }
 
   handleClick(event) {
@@ -192,14 +228,17 @@ class GameContainer extends Component {
     const numberRolled = dice.rollDice()
     let playerToUpdate = this.state.currentPlayer
     playerToUpdate.numberRolled = numberRolled
-
-    this.state.currentPlayer.conqueredTiles.forEach((tile) => {
-      if (tile.number === numberRolled && tile.hasRobber === false) {
-        const resource = tile.resource
-        this.state.game.giveResourceCardToPlayer(playerToUpdate, resource)
-      }
+    console.log("players", this.state.players)
+    this.state.players.forEach((player) => {
+    console.log("player", player)
+       player.conqueredTiles.forEach((tile) => {
+        if (tile.number === numberRolled && tile.hasRobber === false) {
+          const resource = tile.resource
+          this.state.game.giveResourceCardToPlayer(player, resource)
+        }
+      })
     })
-    this.setState({currentPlayer: playerToUpdate})
+    this.setState({currentPlayer: playerToUpdate, showTurnButton: true, showRollDiceButton: false})
   }
 
 
