@@ -15,7 +15,14 @@ class OpponentsComponent extends Component{
         opponentStatsComponents.push(<OpponentStatsComponent key={index} player={player}/>)
       }
     })
-     
+
+    let numberRolled = 
+      <div key='rolled_number'>
+        <h4>Number rolled: </h4>
+        <h2>{this.props.numberRolled} </h2>
+      </div>
+
+    opponentStatsComponents.push(numberRolled)
 
     return (
       <div id="opponents-block"> 
