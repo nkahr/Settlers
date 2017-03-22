@@ -16,6 +16,7 @@ class Player {
     this.freeRoadCount = 2
     this.roadsAllowed = []
     this.longestRoads = []
+    this.hasLongestRoad = false
   }
 
 

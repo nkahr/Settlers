@@ -33,6 +33,8 @@ class GameContainer extends Component {
     this.colourSettlements = this.colourSettlements.bind(this)
     this.nextTurn = this.nextTurn.bind(this)
     this.winChecker = this.winChecker.bind(this)
+    this.getLongestRoadCount = this.getLongestRoadCount.bind(this)
+    this.checkForLongestRoadWinner = this.checkForLongestRoadWinner.bind(this)
   }
 
   render() {
@@ -74,6 +76,8 @@ class GameContainer extends Component {
           currentPlayer={this.state.currentPlayer}/> 
         <PlayerStatsComponent 
           currentPlayer={this.state.currentPlayer} 
+          getLongestRoadCount={this.getLongestRoadCount}
+          checkForLongestRoadWinner={this.checkForLongestRoadWinner}
           nextTurn={this.nextTurn}
           rollDice={this.rollDice}/> 
         {winScreen} 
@@ -92,6 +96,7 @@ class GameContainer extends Component {
     updatedRoadsArray[clickedRoadIndex].colour = colour
     updatedRoadsArray[clickedRoadIndex].builtYet = true
     let playerToUpdate = this.state.currentPlayer
+    // playerToUpdate.findLongestRoads()
     this.setState({roadsArray: updatedRoadsArray, currentPlayer: playerToUpdate})
   }
 
@@ -144,6 +149,35 @@ class GameContainer extends Component {
     // updatedNodesArray[clickedNodeIndex].hasSettlement = false
     let playerToUpdate = this.state.currentPlayer
     this.setState({nodesArray: updatedNodesArray, currentPlayer: playerToUpdate, classOfNode: 'city'})
+  }
+
+  getLongestRoadCount(player) {
+    let longestRoad = 0
+    player.longestRoads.forEach((road) => {
+      if (road.length > longestRoad) {
+        longestRoad = road.length
+      }
+    })
+    return longestRoad
+  }
+
+  checkForLongestRoadWinner(currentPlayer) {
+    let returnStatement = true
+    if (!currentPlayer.hasLongestRoad) {
+      this.state.players.forEach((player) => {
+        if (currentPlayer !== player && this.getLongestRoadCount(currentPlayer) <= this.getLongestRoadCount(player) || this.getLongestRoadCount(currentPlayer) < 5) {
+          returnStatement = false
+        } else if (currentPlayer !== player && player.hasLongestRoad == true) {
+          player.hasLongestRoad = false
+          player.score -= 2
+        }
+      })
+      if (returnStatement) {
+        currentPlayer.score += 2
+      }
+      return returnStatement
+    }
+    return returnStatement
   }
 
   rollDice() {

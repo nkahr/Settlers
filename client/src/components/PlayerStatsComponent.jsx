@@ -23,12 +23,10 @@ class PlayerStatsComponent extends Component{
 
     this.props.currentPlayer.findLongestRoads()
 
-    let longestRoad = 0
-    this.props.currentPlayer.longestRoads.forEach((road) => {
-      if (road.length > longestRoad) {
-        longestRoad = road.length
-      }
-    })
+    let longestRoad = this.props.getLongestRoadCount(this.props.currentPlayer)
+
+    this.props.currentPlayer.hasLongestRoad = this.props.checkForLongestRoadWinner(this.props.currentPlayer)
+    console.log("has longest road", this.props.currentPlayer.hasLongestRoad)
 
     return (
       <div id="player-stats-block"> 
@@ -48,6 +46,7 @@ class PlayerStatsComponent extends Component{
         <p> Rock: {resourceHash["rock"]} </p>
         <p> Crop: {resourceHash["crop"]} </p>
         <p> Longest Road: {longestRoad} </p>
+        <p> Has Longest Road: {this.props.currentPlayer.hasLongestRoad} </p>
       </div>
     )
   }
