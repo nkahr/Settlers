@@ -60,6 +60,10 @@ body {
   padding-top: 6px;
 }
 
+#invisibleButton {
+  display: none;
+}
+
 .robber {
   display: block;
   position: absolute;

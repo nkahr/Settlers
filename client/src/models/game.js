@@ -332,6 +332,7 @@ class Game {
         surrNode.allowConstruction = false
       }
     })
+    this.nodesArray[index].allowConstruction = true
     //////// GET SURROUNDING ROADS ALLOWED TO BE BUILT //////////////
     this.roadsArray.forEach((surrRoad) => {
       const surroundingRoadCoordinates = surrRoad.coordinates

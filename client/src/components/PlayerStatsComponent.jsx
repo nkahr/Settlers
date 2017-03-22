@@ -28,10 +28,25 @@ class PlayerStatsComponent extends Component{
     this.props.currentPlayer.hasLongestRoad = this.props.checkForLongestRoadWinner(this.props.currentPlayer)
     console.log("has longest road", this.props.currentPlayer.hasLongestRoad)
 
+    let rollDiceButtonId = "roll-dice-button"
+    let nextTurnButtonId = "next-turn-button"
+
+    if (this.props.turn < 8) {
+      rollDiceButtonId = "invisibleButton"
+      nextTurnButtonId = "next-turn-button"
+    } else {
+      if (!this.props.showRollDiceButton) {
+        rollDiceButtonId = "invisibleButton"
+      }
+      if (!this.props.showTurnButton) {
+        nextTurnButtonId = "invisibleButton"
+      }
+    }
+
     return (
       <div id="player-stats-block"> 
-        <button id="roll-dice-button" onClick={this.props.rollDice}> Roll Dice </button>
-        <button id="next-turn-button" onClick={this.props.nextTurn}> Next Turn </button>
+        <button id={rollDiceButtonId} onClick={this.props.rollDice}> Roll Dice </button>
+        <button id={nextTurnButtonId} onClick={this.props.nextTurn}> Next Turn </button>
         <h1> Player Stats </h1>
         <p> Name: {this.props.currentPlayer.name} </p>
         <p> Score: {this.props.currentPlayer.score} </p>

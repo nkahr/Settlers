@@ -23,6 +23,7 @@ class NodeComponent extends Component {
   handleNodeClick() {
     const clickedNodeIndex = this.props.index
     if (!this.props.allowConstruction) {
+      console.log("doesnt allow constructin")
       return 
     }
     if (!this.props.hasSettlement && !this.props.hasCity) {

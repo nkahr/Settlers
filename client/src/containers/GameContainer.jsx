@@ -22,7 +22,10 @@ class GameContainer extends Component {
       robberIndex: newGame.initialRobberIndex, 
       previousRobberIndex: undefined, 
       currentPlayer: newGame.players[0],
-      players: newGame.players
+      players: newGame.players, 
+      turn: 0, 
+      showTurnButton: true, 
+      showRollDiceButton: false
     }
 
     this.handleClick = this.handleClick.bind(this)
@@ -76,9 +79,12 @@ class GameContainer extends Component {
           currentPlayer={this.state.currentPlayer}/> 
         <PlayerStatsComponent 
           currentPlayer={this.state.currentPlayer} 
+          turn={this.state.turn}
           getLongestRoadCount={this.getLongestRoadCount}
           checkForLongestRoadWinner={this.checkForLongestRoadWinner}
           nextTurn={this.nextTurn}
+          showTurnButton={this.state.showTurnButton}
+          showRollDiceButton={this.state.showRollDiceButton}
           rollDice={this.rollDice}/> 
         {winScreen} 
       </div>
@@ -96,6 +102,8 @@ class GameContainer extends Component {
     updatedRoadsArray[clickedRoadIndex].colour = colour
     updatedRoadsArray[clickedRoadIndex].builtYet = true
     let playerToUpdate = this.state.currentPlayer
+    playerToUpdate.hasLongestRoad = this.checkForLongestRoadWinner(playerToUpdate)
+
     // playerToUpdate.findLongestRoads()
     this.setState({roadsArray: updatedRoadsArray, currentPlayer: playerToUpdate})
   }
@@ -112,17 +120,33 @@ class GameContainer extends Component {
   }
 
   nextTurn() {
-    if (this.state.currentPlayer === this.state.players[0]) {
-      this.setState({currentPlayer: this.state.players[1]})
-    }
-    if (this.state.currentPlayer === this.state.players[1]) {
-      this.setState({currentPlayer: this.state.players[2]})
-    }
-    if (this.state.currentPlayer === this.state.players[2]) {
-      this.setState({currentPlayer: this.state.players[3]})
-    }
-    if (this.state.currentPlayer === this.state.players[3]) {
-      this.setState({currentPlayer: this.state.players[0]})
+    const turn = this.state.turn + 1
+
+    if (turn > 4 && turn < 8) {
+      if (this.state.currentPlayer === this.state.players[3]) {
+        this.setState({currentPlayer: this.state.players[2], turn: turn})
+      }
+      if (this.state.currentPlayer === this.state.players[2]) {
+        this.setState({currentPlayer: this.state.players[1], turn: turn})
+      }
+      if (this.state.currentPlayer === this.state.players[1]) {
+        this.setState({currentPlayer: this.state.players[0], turn: turn})
+      }
+    } else if (turn == 4) {
+      this.setState({currentPlayer: this.state.players[3], turn: turn})
+    } else {
+      if (this.state.currentPlayer === this.state.players[0]) {
+        this.setState({currentPlayer: this.state.players[1], turn: turn})
+      }
+      if (this.state.currentPlayer === this.state.players[1]) {
+        this.setState({currentPlayer: this.state.players[2], turn: turn})
+      }
+      if (this.state.currentPlayer === this.state.players[2]) {
+        this.setState({currentPlayer: this.state.players[3], turn: turn})
+      }
+      if (this.state.currentPlayer === this.state.players[3]) {
+        this.setState({currentPlayer: this.state.players[0], turn: turn})
+      }
     }
   }
 
@@ -184,13 +208,17 @@ class GameContainer extends Component {
     const numberRolled = dice.rollDice()
     let playerToUpdate = this.state.currentPlayer
     playerToUpdate.numberRolled = numberRolled
-
-    this.state.currentPlayer.conqueredTiles.forEach((tile) => {
-      if (tile.number === numberRolled && tile.hasRobber === false) {
-        const resource = tile.resource
-        this.state.game.giveResourceCardToPlayer(playerToUpdate, resource)
-      }
+    console.log("players", this.state.players)
+    this.state.players.forEach((player) => {
+    console.log("player", player)
+       player.conqueredTiles.forEach((tile) => {
+        if (tile.number === numberRolled && tile.hasRobber === false) {
+          const resource = tile.resource
+          this.state.game.giveResourceCardToPlayer(player, resource)
+        }
+      })
     })
+
     this.setState({currentPlayer: playerToUpdate})
   }
 
