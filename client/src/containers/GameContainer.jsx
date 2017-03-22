@@ -288,6 +288,15 @@ class GameContainer extends Component {
       playerToUpdate.freeRoadCount += 2
       this.setState({currentPlayer: playerToUpdate})
     }
+    // if (type === "monopoly") {
+    //   let cardsToSteal = []
+    //   this.state.players.forEach((player) => {
+    //     player.resourceCards.forEach((card) => {
+    //       if card
+    //     })
+    //   })
+
+    // }
   }
 
 
