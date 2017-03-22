@@ -70,13 +70,13 @@ class MainContainer extends Component {
   }
 
   startGame() {
-    if (this.state.player1.name !== undefined && 
-      this.state.player2.name !== undefined &&
-      this.state.player3.name !== undefined &&
-      this.state.player4.name !== undefined) {
+    // if (this.state.player1.name !== undefined && 
+    //   this.state.player2.name !== undefined &&
+    //   this.state.player3.name !== undefined &&
+    //   this.state.player4.name !== undefined) {
       this.setState({gameOn: true})
 
-    }
+    // }
   }
 
 }

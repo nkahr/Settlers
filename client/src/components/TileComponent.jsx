@@ -21,12 +21,18 @@ class TileComponent extends React.Component {
     let component = ""
 
     if (this.props.hasRobber) {
-      component = <p style={numbersCoordinatesStyle} className='robber' onClick={this.handleRobberClick}> R </p>
+      component = <p style={numbersCoordinatesStyle} 
+      className='robber' 
+      onClick={this.handleRobberClick}> R </p>
     } else {
       if (this.props.resource !== 'desert') {
-        component = <p style={numbersCoordinatesStyle} className='tile-number' onClick={this.handleRobberClick}>{this.props.number}</p>
+        component = <p style={numbersCoordinatesStyle} 
+        className='tile-number' 
+        onClick={this.handleRobberClick}>{this.props.number}</p>
       } else {
-        component = <p style={numbersCoordinatesStyle} className='tile-number' onClick={this.handleRobberClick}></p>
+        component = <p style={numbersCoordinatesStyle} 
+        className='tile-number' 
+        onClick={this.handleRobberClick}></p>
       }
     }
 
