@@ -42,6 +42,8 @@ class GameContainer extends Component {
     this.getLongestRoadCount = this.getLongestRoadCount.bind(this)
     this.checkForLongestRoadWinner = this.checkForLongestRoadWinner.bind(this)
     this.tradeWithBank = this.tradeWithBank.bind(this)
+    this.getDevelopmentCard = this.getDevelopmentCard.bind(this)
+    this.playDevCard = this.playDevCard.bind(this)
   }
 
   render() {
@@ -91,7 +93,9 @@ class GameContainer extends Component {
             showTurnButton={this.state.showTurnButton}
             showRollDiceButton={this.state.showRollDiceButton}
             rollDice={this.rollDice}
-            tradeWithBank={this.tradeWithBank}/> 
+            tradeWithBank={this.tradeWithBank}
+            getDevelopmentCard={this.getDevelopmentCard}
+            playDevCard={this.playDevCard}/> 
         </div>
     }
   
@@ -257,6 +261,21 @@ class GameContainer extends Component {
     console.log("resources", this.state.currentPlayer.resourceCards)
     this.state.game.giveResourceCardToPlayer(this.state.currentPlayer, resourceToReceive)
     this.setState({currentPlayer: this.state.currentPlayer})
+  }
+
+  getDevelopmentCard() {
+    if (this.state.game.letPlayerBuyDevCard(this.state.currentPlayer)) {
+      this.state.game.giveDevelopmentCardToPlayer(this.state.currentPlayer)
+    }
+    
+  }
+
+  playDevCard(type) {
+    if (type === "pointsCard") {
+      let playerToUpdate = this.state.currentPlayer
+      playerToUpdate.score += 1
+      this.setState({currentPlayer: playerToUpdate})
+    }
   }
 
 
