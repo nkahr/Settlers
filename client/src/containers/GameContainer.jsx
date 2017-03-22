@@ -121,33 +121,44 @@ class GameContainer extends Component {
 
   nextTurn() {
     const turn = this.state.turn + 1
+    let newCurrentPlayer
 
     if (turn > 4 && turn < 8) {
       if (this.state.currentPlayer === this.state.players[3]) {
-        this.setState({currentPlayer: this.state.players[2], turn: turn})
+        newCurrentPlayer = this.state.players[2]
+        // this.setState({currentPlayer: this.state.players[2], turn: turn})
       }
       if (this.state.currentPlayer === this.state.players[2]) {
-        this.setState({currentPlayer: this.state.players[1], turn: turn})
+        newCurrentPlayer = this.state.players[1]
+        // this.setState({currentPlayer: this.state.players[1], turn: turn})
       }
       if (this.state.currentPlayer === this.state.players[1]) {
-        this.setState({currentPlayer: this.state.players[0], turn: turn})
+        newCurrentPlayer = this.state.players[0]
+        // this.setState({currentPlayer: this.state.players[0], turn: turn})
       }
     } else if (turn == 4) {
-      this.setState({currentPlayer: this.state.players[3], turn: turn})
+      newCurrentPlayer = this.state.players[3]
+
+      // this.setState({currentPlayer: this.state.players[3], turn: turn})
     } else {
       if (this.state.currentPlayer === this.state.players[0]) {
-        this.setState({currentPlayer: this.state.players[1], turn: turn})
+        newCurrentPlayer = this.state.players[1]
+        // this.setState({currentPlayer: this.state.players[1], turn: turn})
       }
       if (this.state.currentPlayer === this.state.players[1]) {
-        this.setState({currentPlayer: this.state.players[2], turn: turn})
+        newCurrentPlayer = this.state.players[2]
+        // this.setState({currentPlayer: this.state.players[2], turn: turn})
       }
       if (this.state.currentPlayer === this.state.players[2]) {
-        this.setState({currentPlayer: this.state.players[3], turn: turn})
+        newCurrentPlayer = this.state.players[3]
+        // this.setState({currentPlayer: this.state.players[3], turn: turn})
       }
       if (this.state.currentPlayer === this.state.players[3]) {
-        this.setState({currentPlayer: this.state.players[0], turn: turn})
+        newCurrentPlayer = this.state.players[0]
+        // this.setState({currentPlayer: this.state.players[0], turn: turn})
       }
     }
+    this.setState({currentPlayer: newCurrentPlayer, turn: turn, showTurnButton: false, showRollDiceButton: true})
   }
 
   handleClick(event) {
@@ -218,8 +229,7 @@ class GameContainer extends Component {
         }
       })
     })
-
-    this.setState({currentPlayer: playerToUpdate})
+    this.setState({currentPlayer: playerToUpdate, showTurnButton: true, showRollDiceButton: false})
   }
 
 
