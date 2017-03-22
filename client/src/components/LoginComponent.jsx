@@ -13,13 +13,13 @@ class LoginComponent extends Component {
     return (
       <div>
         <form>
-          Blue player: <input type="text" value="A" name="player1" onChange={this.handlePlayer1}/>
+          Blue player: <input type="text" value={this.props.player1name} name="player1" onChange={this.handlePlayer1}/>
           <br/>
-          Red player: <input type="text" value="B" name="player2" onChange={this.handlePlayer2}/>
+          Red player: <input type="text" value={this.props.player2name} name="player2" onChange={this.handlePlayer2}/>
           <br/>
-          White player: <input type="text" value="C" name="player3" onChange={this.handlePlayer3}/>
+          White player: <input type="text" value={this.props.player3name} name="player3" onChange={this.handlePlayer3}/>
           <br/>
-          Yellow player: <input type="text" value="D" name="player4" onChange={this.handlePlayer4}/>
+          Yellow player: <input type="text" value={this.props.player4name} name="player4" onChange={this.handlePlayer4}/>
           <br/>
         </form>
         <button onClick={this.props.startGame}> Start Game </button>

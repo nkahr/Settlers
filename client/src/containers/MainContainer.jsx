@@ -6,10 +6,10 @@ class MainContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      player1: {name: undefined}, 
-      player2: {name: undefined}, 
-      player3: {name: undefined}, 
-      player4: {name: undefined},
+      player1: {name: "1"}, 
+      player2: {name: "2"}, 
+      player3: {name: "3"}, 
+      player4: {name: "4"},
       gameOn: false
     }
     this.handlePlayer1 = this.handlePlayer1.bind(this)
@@ -70,13 +70,7 @@ class MainContainer extends Component {
   }
 
   startGame() {
-    // if (this.state.player1.name !== undefined && 
-    //   this.state.player2.name !== undefined &&
-    //   this.state.player3.name !== undefined &&
-    //   this.state.player4.name !== undefined) {
-      this.setState({gameOn: true})
-
-    // }
+    this.setState({gameOn: true})
   }
 
 }
