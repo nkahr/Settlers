@@ -48,8 +48,8 @@ class PlayerStatsComponent extends Component{
       }
     }
 
-    let dropDown = [<option> Resource to give </option>]
-    let allResourcesDropDown = [<option> Resource to receive </option>]
+    let dropDown = [<option selected="true" disabled> Resource to give </option>]
+    let allResourcesDropDown = [<option selected="true" disabled> Resource to receive </option>]
     let keys = Object.keys(resourceHash)
     keys.forEach((resource) => {
       if (resourceHash[resource] >= 4) {
