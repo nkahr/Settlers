@@ -4,7 +4,6 @@ class TileComponent extends React.Component {
   constructor(props) {
     super(props)
     this.state = { }
-
     this.handleRobberClick = this.handleRobberClick.bind(this)
   }
 
@@ -17,14 +16,14 @@ class TileComponent extends React.Component {
       left: this.props.coordinates[0] + 40,
       top: this.props.coordinates[1] + 39
     }
-
     let component = ""
 
     if (this.props.hasRobber) {
       component = <p style={numbersCoordinatesStyle} 
       className='robber' 
       onClick={this.handleRobberClick}> R </p>
-    } else {
+    } 
+    else {
       if (this.props.resource !== 'desert') {
         component = <p style={numbersCoordinatesStyle} 
         className='tile-number' 

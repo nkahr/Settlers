@@ -28,7 +28,9 @@ class GameContainer extends Component {
       players: newGame.players, 
       turn: 0, 
       showTurnButton: true, 
-      showRollDiceButton: false
+      showRollDiceButton: false,
+      sevenRolled: false,
+      numberRolled: undefined
     }
 
     this.handleClick = this.handleClick.bind(this)
@@ -67,6 +69,7 @@ class GameContainer extends Component {
           <OpponentsComponent 
             players={this.state.players}
             currentPlayer={this.state.currentPlayer}
+            numberRolled={this.state.numberRolled}
           /> 
           <BoardComponent    
             tiles={tiles} 
@@ -83,7 +86,8 @@ class GameContainer extends Component {
             mapConstructionAround={this.state.game.mapConstructionAround.bind(this.state.game)}
             mapNextPossibleRoads ={this.state.game.mapNextPossibleRoads.bind(this.state.game)}
             turn={this.state.turn}
-            currentPlayer={this.state.currentPlayer}/> 
+            currentPlayer={this.state.currentPlayer}
+          /> 
           <PlayerStatsComponent 
             currentPlayer={this.state.currentPlayer} 
             turn={this.state.turn}
@@ -108,7 +112,7 @@ class GameContainer extends Component {
 
   moveRobber(newRobberIndex) {
     const current = this.state.robberIndex
-    this.setState({previousRobberIndex: current, robberIndex: newRobberIndex})
+    this.setState({previousRobberIndex: current, robberIndex: newRobberIndex, sevenRolled: false})
   }
 
   colourRoads(clickedRoadIndex) {
@@ -134,6 +138,9 @@ class GameContainer extends Component {
   }
 
   nextTurn() {
+    if (this.state.sevenRolled === true) {
+      return
+    }
 
     if (this.state.turn < 4 && (this.state.currentPlayer.settlementsAvailable === 5 || this.state.currentPlayer.roadsAvailable === 15)) {
       return 
@@ -233,12 +240,14 @@ class GameContainer extends Component {
   }
 
   rollDice() {
+    let sevenRolled = false
     const numberRolled = dice.rollDice()
+    if (numberRolled === 7) {
+      sevenRolled = true
+    }
     let playerToUpdate = this.state.currentPlayer
     playerToUpdate.numberRolled = numberRolled
-    console.log("players", this.state.players)
     this.state.players.forEach((player) => {
-    console.log("player", player)
        player.conqueredTiles.forEach((tile) => {
         if (tile.number === numberRolled && tile.hasRobber === false) {
           const resource = tile.resource
@@ -246,7 +255,7 @@ class GameContainer extends Component {
         }
       })
     })
-    this.setState({currentPlayer: playerToUpdate, showTurnButton: true, showRollDiceButton: false})
+    this.setState({currentPlayer: playerToUpdate, showTurnButton: true, showRollDiceButton: false, sevenRolled: sevenRolled, numberRolled: numberRolled})
   }
 
   tradeWithBank(resourceToGive, resourceToReceive) {

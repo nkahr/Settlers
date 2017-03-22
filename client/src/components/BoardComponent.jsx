@@ -20,7 +20,6 @@ class BoardComponent extends Component{
           hasRobber={tile.hasRobber} 
           moveRobber={this.props.moveRobber} 
           currentPlayer={this.props.currentPlayer}
-
         />
       )
     })
