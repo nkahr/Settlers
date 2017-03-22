@@ -9,7 +9,7 @@ class Player {
     this.settlementsAvailable = 5
     this.citiesAvailable = 4
     this.roadsBuilt = []
-    this.score = 0
+    this.score = 5
     this.developmentCardsBought = []
     this.developmentCardsPlayed = []
     this.freeSettlementCount = 2
