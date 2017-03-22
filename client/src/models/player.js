@@ -19,7 +19,6 @@ class Player {
     this.hasLongestRoad = false
   }
 
-
   addNextRoad(arrayOfRoads, lastNode) {
     const lastRoad = arrayOfRoads[arrayOfRoads.length - 1]
     arrayOfRoads = arrayOfRoads.slice()

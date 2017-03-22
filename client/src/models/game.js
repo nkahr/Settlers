@@ -156,6 +156,13 @@ class Game {
     /////////////////////////////////
   }
 
+  shuffle(array) {
+    for (let i = array.length; i; i--) {
+      let rand = Math.floor(Math.random() * i);
+      [array[i - 1], array[rand]] = [array[rand], array[i - 1]];
+    }
+  }
+
   giveSurroundingRoadsToNodes() {
     this.nodesArray.forEach((node) => {
       const nodeCoordinates = node.coordinates
@@ -184,6 +191,12 @@ class Game {
     const newResCard = this.bank.generateResourceCard(type)
     player.resourceCards.push(newResCard)
     console.log('card', newResCard)
+  }
+
+  giveHalfCardsAway(player) {
+    const halfCards = Math.floor(player.resourceCards.length / 2)
+    this.shuffle(player.resourceCards)
+    player.resourceCards.splice(0, halfCards)
   }
 
   letPlayerBuildRoad(player) {

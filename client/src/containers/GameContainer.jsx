@@ -241,6 +241,11 @@ class GameContainer extends Component {
     const numberRolled = dice.rollDice()
     if (numberRolled === 7) {
       sevenRolled = true
+      this.state.players.forEach((player) => {
+        if (player.resourceCards.length > 7) {
+          this.state.game.giveHalfCardsAway(player)
+        }
+      })
     }
     let playerToUpdate = this.state.currentPlayer
     playerToUpdate.numberRolled = numberRolled
