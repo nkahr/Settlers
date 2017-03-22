@@ -31,7 +31,7 @@ class PlayerStatsComponent extends Component{
     let longestRoad = this.props.getLongestRoadCount(this.props.currentPlayer)
 
     this.props.currentPlayer.hasLongestRoad = this.props.checkForLongestRoadWinner(this.props.currentPlayer)
-    console.log("has longest road", this.props.currentPlayer.hasLongestRoad)
+    // console.log("has longest road", this.props.currentPlayer.hasLongestRoad)
 
     let rollDiceButtonId = "roll-dice-button"
     let nextTurnButtonId = "next-turn-button"
@@ -60,13 +60,33 @@ class PlayerStatsComponent extends Component{
       allResourcesDropDown.push(<option value={resource} > {resource} </option>)
     })
 
+    let backgroundColor = ""
+
+    switch (this.props.currentPlayer.colour) {
+      case "red":
+        backgroundColor = "#f25146"
+        break
+      case "blue":
+        backgroundColor = "#2774e8"
+        break
+      case "white":
+        backgroundColor = "#f9f9f7"
+        break
+      case "yellow":
+        backgroundColor = "#edde3b"
+        break
+    }
+
+    let activePlayerStyle = {
+      padding: 15,
+      backgroundColor: backgroundColor
+    }
 
     return (
-      <div id="player-stats-block"> 
+      <div style={activePlayerStyle} id="player-stats-block"> 
         <button id={rollDiceButtonId} onClick={this.props.rollDice}> Roll Dice </button>
         <button id={nextTurnButtonId} onClick={this.props.nextTurn}> Next Turn </button>
-        <h1> Player Stats </h1>
-        <p> Name: {this.props.currentPlayer.name} </p>
+        <h1> {this.props.currentPlayer.name} </h1>
         <p> Score: {this.props.currentPlayer.score} </p>
         <p> Colour: {this.props.currentPlayer.colour} </p>
         <p> Roads available: {this.props.currentPlayer.roadsAvailable} </p>
@@ -78,7 +98,6 @@ class PlayerStatsComponent extends Component{
         <p> Rock: {resourceHash["rock"]} </p>
         <p> Crop: {resourceHash["crop"]} </p>
         <p> Longest Road: {longestRoad} </p>
-        <p> Has Longest Road: {this.props.currentPlayer.hasLongestRoad} </p>
         <select onChange={this.onResourceToGiveSelect}> 
           {dropDown} 
         </select> 

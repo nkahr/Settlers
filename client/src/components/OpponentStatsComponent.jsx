@@ -6,11 +6,34 @@ class OpponentStatsComponent extends Component {
   }
 
   render() {
+    let backgroundColor = ""
+
+    switch (this.props.player.colour) {
+      case "red":
+        backgroundColor = "#f25146"
+        break
+      case "blue":
+        backgroundColor = "#2774e8"
+        break
+      case "white":
+        backgroundColor = "#f9f9f7"
+        break
+      case "yellow":
+        backgroundColor = "#edde3b"
+        break
+    }
+
+    let backgroundStyle = {
+      backgroundColor: backgroundColor,
+      padding: 10
+    }
+
+    console.log("bgstyle", backgroundStyle)
     return (
-      <div>
+      <div style={backgroundStyle}>
         <h3> {this.props.player.name} </h3>
         <p> Score: {this.props.player.score} </p>
-        <p> Number of Resource Cards: {this.props.player.resourceCards.length} </p>
+        <p> Resource Cards: {this.props.player.resourceCards.length} </p>
       </div>
     ) 
 

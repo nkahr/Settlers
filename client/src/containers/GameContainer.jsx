@@ -44,6 +44,7 @@ class GameContainer extends Component {
     this.getLongestRoadCount = this.getLongestRoadCount.bind(this)
     this.checkForLongestRoadWinner = this.checkForLongestRoadWinner.bind(this)
     this.tradeWithBank = this.tradeWithBank.bind(this)
+    this.shuffle = this.shuffle.bind(this)
   }
 
   render() {
@@ -108,8 +109,46 @@ class GameContainer extends Component {
   }
 
   moveRobber(newRobberIndex) {
+    let players = this.state.players
     const current = this.state.robberIndex
-    this.setState({previousRobberIndex: current, robberIndex: newRobberIndex, sevenRolled: false})
+    ///////// STEAL ONE RANDOM CARD FROM PLAYERS ON TILE ////////////////////
+    let coloursOfPlayersOnThisTile = []
+    this.state.tilesArray[newRobberIndex].surroundingNodes.forEach((node) => {
+      // console.log("node colour", node.colour)
+      if (node.colour !== undefined && node.colour !== this.state.currentPlayer.colour) {
+        coloursOfPlayersOnThisTile.push(node.colour)
+      }
+    })
+    // console.log("all colours", coloursOfPlayersOnThisTile)
+    if (coloursOfPlayersOnThisTile.length > 0) {
+      let colourOfBlockedPlayer = ""
+      let randPlayerIndex = undefined
+      randPlayerIndex = Math.floor(Math.random() * coloursOfPlayersOnThisTile.length)
+      colourOfBlockedPlayer = coloursOfPlayersOnThisTile[randPlayerIndex]
+      // console.log("random colour", colourOfBlockedPlayer)
+      players.forEach((player) => {
+        // console.log("player being proven", player)
+        if (player !== this.state.currentPlayer && player.colour === colourOfBlockedPlayer) {
+          // console.log("unlucky player", player)
+          if (player.resourceCards.length > 0) {
+            this.shuffle(player.resourceCards)
+            const stolenCard = player.resourceCards[0]
+            // console.log("stolenCard", stolenCard)
+            this.state.currentPlayer.resourceCards.push(stolenCard)
+            player.resourceCards.splice(0,1)
+            // console.log("unlucky player", player)
+          }
+        }
+      }) 
+    }
+    this.setState({previousRobberIndex: current, robberIndex: newRobberIndex, sevenRolled: false, players: players})
+  }
+
+  shuffle(array) {
+    for (let i = array.length; i; i--) {
+      let rand = Math.floor(Math.random() * i);
+      [array[i - 1], array[rand]] = [array[rand], array[i - 1]];
+    }
   }
 
   colourRoads(clickedRoadIndex) {
@@ -126,7 +165,7 @@ class GameContainer extends Component {
   winChecker() {
     let winner = false
     this.state.players.forEach((player) => {
-      console.log("player", player.score)
+      // console.log("player", player.score)
       if (player.score >= 10) {
         winner = player.name
       }

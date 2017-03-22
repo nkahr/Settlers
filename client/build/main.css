@@ -121,3 +121,41 @@ body {
   width: 400px;
   margin: 200px auto;
 }
+
+#welcome-screen {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: tomato;
+}
+
+#welcome-screen h1 {
+  display: block;
+  width: 400px;
+  margin: 200px auto 10px;
+}
+
+#welcome-screen h2 {
+  display: block;
+  width: 400px;
+  margin: 20px auto 10px;
+}
+
+#welcome-screen form {
+  display: block;
+  width: 400px;
+  margin: 20px auto 10px;
+}
+
+#welcome-screen button {
+  display: block;
+  width: 400px;
+  margin: 30px auto 200px;
+}
+
+.welcome-input {
+  margin: 15px;
+}

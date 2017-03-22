@@ -8,6 +8,7 @@ class TileComponent extends React.Component {
   }
 
   render() {
+
     let coordinatesStyle = {
       left: this.props.coordinates[0],
       top: this.props.coordinates[1]

@@ -18,6 +18,7 @@ class Game {
     this.initialRobberIndex = undefined
     this.nodesArray = []
     this.setup()
+    this.mapNodesAroundTile()
     this.giveSurroundingRoadsToNodes()
     this.giveSurroundingNodesToRoads()
   }
@@ -324,6 +325,7 @@ class Game {
     return false
   }
 
+  //////////// GETTING CONQUERED TILES /////////////////////////////
   radar(player, index) {
     const node = this.nodesArray[index]
     const nodeCoordinates = node.coordinates
@@ -355,6 +357,21 @@ class Game {
         }
       }
     }) 
+  }
+
+  mapNodesAroundTile() {
+    this.tilesArray.forEach((tile) => {
+      const tileCoordinates = tile.coordinates
+      this.nodesArray.forEach((surrNode) => {
+        const surroundingNodeCoordinates = surrNode.coordinates
+        if (
+          Math.abs((tileCoordinates[0] + 60) - (surroundingNodeCoordinates[0] + 12)) < 80 && 
+          Math.abs((tileCoordinates[1] + 69) - (surroundingNodeCoordinates[1] + 12)) < 90
+          ) {
+          tile.surroundingNodes.push(surrNode)
+        }
+      })
+    })
   }
 
   mapNextPossibleRoads(player, index) {
@@ -393,6 +410,5 @@ class Game {
   }
 
 }
-
 
 export default Game

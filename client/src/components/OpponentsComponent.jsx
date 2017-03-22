@@ -16,8 +16,12 @@ class OpponentsComponent extends Component{
       }
     })
 
+    let numberRolledStyle = {
+      padding: 10
+    }
+
     let numberRolled = 
-      <div key='rolled_number'>
+      <div style={numberRolledStyle} key='rolled_number'>
         <h4>Number rolled: </h4>
         <h2>{this.props.numberRolled} </h2>
       </div>

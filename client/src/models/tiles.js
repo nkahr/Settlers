@@ -33,7 +33,6 @@ class Tiles {
 
   setup() {
     let indexOfDesert = this.resourcesArray.indexOf("desert")
-    console.log('desert index', indexOfDesert)
     this.numbersArray.splice(indexOfDesert, 0, 0)
     for (let i = 0; i < this.resourcesArray.length; i++) {
       const tile = new Tile({
@@ -44,7 +43,6 @@ class Tiles {
       })
       this.tilesArray.push(tile)
     }
-    console.log('tiles', this.tilesArray)
     this.tilesArray[indexOfDesert].hasRobber = true
     this.indexOfDesert = indexOfDesert
   }

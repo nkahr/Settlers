@@ -4,6 +4,7 @@ class Tile {
     this.resource = options["resource"]
     this.coordinates = options["coordinates"]
     this.hasRobber = options["hasRobber"]
+    this.surroundingNodes = []
   }
 }
 

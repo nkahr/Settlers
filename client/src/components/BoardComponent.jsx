@@ -13,17 +13,18 @@ class BoardComponent extends Component{
       return (
         <TileComponent 
           key={index} 
-          index={index} 
+          index={index}
+          surroundingNodes={tile.surroundingNodes}
           coordinates={tile.coordinates} 
           resource={tile.resource} 
           number={tile.number} 
           hasRobber={tile.hasRobber} 
           moveRobber={this.props.moveRobber} 
           currentPlayer={this.props.currentPlayer}
+          mapNodesAroundTile={this.props.mapNodesAroundTile}
         />
       )
     })
-
 
     const roadComponents = this.props.roads.map((road, index) => {
       return (
@@ -43,7 +44,7 @@ class BoardComponent extends Component{
         />
       )
     })
-    console.log("nodes", this.props.nodes)
+    // console.log("nodes", this.props.nodes)
     const nodeComponents = this.props.nodes.map((node, index) => {
       return (
         <NodeComponent 
