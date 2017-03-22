@@ -36,6 +36,7 @@ class BoardComponent extends Component{
           colour={road.colour}
           builtYet={road.builtYet} 
           angle={road.angle} 
+          turn={this.props.turn}
           colourRoads={this.props.colourRoads} 
           letPlayerBuildRoad={this.props.letPlayerBuildRoad} 
           mapNextPossibleRoads={this.props.mapNextPossibleRoads}
@@ -52,6 +53,7 @@ class BoardComponent extends Component{
           index={index} 
           hasSettlement = {node.hasSettlement}
           hasCity = {node.hasCity}
+          turn={this.props.turn}
           coordinates={node.coordinates} 
           allowConstruction={node.allowConstruction} 
           colourSettlements={this.props.colourSettlements}

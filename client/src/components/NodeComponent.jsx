@@ -21,6 +21,14 @@ class NodeComponent extends Component {
   }
 
   handleNodeClick() {
+
+    if (this.props.turn < 4 && this.props.currentPlayer.settlementsAvailable === 4) {
+      return
+    }
+    if (this.props.turn > 3 && this.props.turn < 8 && this.props.currentPlayer.settlementsAvailable === 3) {
+      return
+    }
+
     const clickedNodeIndex = this.props.index
     if (!this.props.allowConstruction) {
       console.log("doesnt allow constructin")

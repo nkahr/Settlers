@@ -77,6 +77,7 @@ class GameContainer extends Component {
             radar={this.state.game.radar.bind(this.state.game)}
             mapConstructionAround={this.state.game.mapConstructionAround.bind(this.state.game)}
             mapNextPossibleRoads ={this.state.game.mapNextPossibleRoads.bind(this.state.game)}
+            turn={this.state.turn}
             currentPlayer={this.state.currentPlayer}/> 
           <PlayerStatsComponent 
             currentPlayer={this.state.currentPlayer} 
@@ -110,7 +111,6 @@ class GameContainer extends Component {
     let playerToUpdate = this.state.currentPlayer
     playerToUpdate.hasLongestRoad = this.checkForLongestRoadWinner(playerToUpdate)
 
-    // playerToUpdate.findLongestRoads()
     this.setState({roadsArray: updatedRoadsArray, currentPlayer: playerToUpdate})
   }
 
@@ -126,45 +126,48 @@ class GameContainer extends Component {
   }
 
   nextTurn() {
+
+    if (this.state.turn < 4 && (this.state.currentPlayer.settlementsAvailable === 5 || this.state.currentPlayer.roadsAvailable === 15)) {
+      return 
+    }
+
+    if ((this.state.turn > 3 && this.state.turn < 8) && (this.state.currentPlayer.settlementsAvailable === 4 || this.state.currentPlayer.roadsAvailable === 14)) {
+      return 
+    }
+
     const turn = this.state.turn + 1
     let newCurrentPlayer
 
     if (turn > 4 && turn < 8) {
       if (this.state.currentPlayer === this.state.players[3]) {
         newCurrentPlayer = this.state.players[2]
-        // this.setState({currentPlayer: this.state.players[2], turn: turn})
       }
       if (this.state.currentPlayer === this.state.players[2]) {
         newCurrentPlayer = this.state.players[1]
-        // this.setState({currentPlayer: this.state.players[1], turn: turn})
       }
       if (this.state.currentPlayer === this.state.players[1]) {
         newCurrentPlayer = this.state.players[0]
-        // this.setState({currentPlayer: this.state.players[0], turn: turn})
       }
     } else if (turn == 4) {
       newCurrentPlayer = this.state.players[3]
-
-      // this.setState({currentPlayer: this.state.players[3], turn: turn})
+    } else if (turn == 8) {
+      newCurrentPlayer = this.state.players[0]
     } else {
       if (this.state.currentPlayer === this.state.players[0]) {
         newCurrentPlayer = this.state.players[1]
-        // this.setState({currentPlayer: this.state.players[1], turn: turn})
       }
       if (this.state.currentPlayer === this.state.players[1]) {
         newCurrentPlayer = this.state.players[2]
-        // this.setState({currentPlayer: this.state.players[2], turn: turn})
       }
       if (this.state.currentPlayer === this.state.players[2]) {
         newCurrentPlayer = this.state.players[3]
-        // this.setState({currentPlayer: this.state.players[3], turn: turn})
       }
       if (this.state.currentPlayer === this.state.players[3]) {
         newCurrentPlayer = this.state.players[0]
-        // this.setState({currentPlayer: this.state.players[0], turn: turn})
       }
     }
     this.setState({currentPlayer: newCurrentPlayer, turn: turn, showTurnButton: false, showRollDiceButton: true})
+    
   }
 
   handleClick(event) {
