@@ -4,6 +4,7 @@ import OpponentsComponent from '../components/OpponentsComponent'
 import PlayerStatsComponent from '../components/PlayerStatsComponent'
 import WinnerComponent from '../components/WinnerComponent'
 import Game from '../models/game'
+import Bank from '../models/bank'
 import Dice from '../models/dice'
 const dice = new Dice()
 
@@ -14,6 +15,7 @@ class GameContainer extends Component {
       player2: this.props.player2, 
       player3: this.props.player3, 
       player4: this.props.player4})
+    const bank = new Bank()
 
     this.state={
       game: newGame,
@@ -39,6 +41,7 @@ class GameContainer extends Component {
     this.winChecker = this.winChecker.bind(this)
     this.getLongestRoadCount = this.getLongestRoadCount.bind(this)
     this.checkForLongestRoadWinner = this.checkForLongestRoadWinner.bind(this)
+    this.tradeWithBank = this.tradeWithBank.bind(this)
   }
 
   render() {
@@ -87,7 +90,8 @@ class GameContainer extends Component {
             nextTurn={this.nextTurn}
             showTurnButton={this.state.showTurnButton}
             showRollDiceButton={this.state.showRollDiceButton}
-            rollDice={this.rollDice}/> 
+            rollDice={this.rollDice}
+            tradeWithBank={this.tradeWithBank}/> 
         </div>
     }
   
@@ -239,6 +243,20 @@ class GameContainer extends Component {
       })
     })
     this.setState({currentPlayer: playerToUpdate, showTurnButton: true, showRollDiceButton: false})
+  }
+
+  tradeWithBank(resourceToGive, resourceToReceive) {
+    for (let i = 0; i < 4; i++) {
+      for (let j = 0; j < this.state.currentPlayer.resourceCards.length; j++) {
+        if (this.state.currentPlayer.resourceCards[j].type === resourceToGive) {
+          this.state.currentPlayer.resourceCards.splice(j, 1)
+          break
+        }
+      }
+    }
+    console.log("resources", this.state.currentPlayer.resourceCards)
+    this.state.game.giveResourceCardToPlayer(this.state.currentPlayer, resourceToReceive)
+    this.setState({currentPlayer: this.state.currentPlayer})
   }
 
 

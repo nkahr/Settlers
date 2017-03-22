@@ -5,6 +5,11 @@ import React, { Component } from 'react'
 class PlayerStatsComponent extends Component{
   constructor(props) {
     super(props)
+    this.state = {
+      resourceToTrade: undefined
+    }
+    this.onResourceToGiveSelect = this.onResourceToGiveSelect.bind(this)
+    this.onResourceToReceiveSelect = this.onResourceToReceiveSelect.bind(this)
   }
 
   render() {
@@ -43,6 +48,19 @@ class PlayerStatsComponent extends Component{
       }
     }
 
+    let dropDown = [<option> Resource to give </option>]
+    let allResourcesDropDown = [<option> Resource to receive </option>]
+    let keys = Object.keys(resourceHash)
+    keys.forEach((resource) => {
+      if (resourceHash[resource] >= 4) {
+        dropDown.push(<option value={resource} > {resource} </option>)
+      }
+    })
+    keys.forEach((resource) => {
+      allResourcesDropDown.push(<option value={resource} > {resource} </option>)
+    })
+
+
     return (
       <div id="player-stats-block"> 
         <button id={rollDiceButtonId} onClick={this.props.rollDice}> Roll Dice </button>
@@ -62,8 +80,25 @@ class PlayerStatsComponent extends Component{
         <p> Crop: {resourceHash["crop"]} </p>
         <p> Longest Road: {longestRoad} </p>
         <p> Has Longest Road: {this.props.currentPlayer.hasLongestRoad} </p>
+        <select onChange={this.onResourceToGiveSelect}> {dropDown} </select> 
+        <select onChange={this.onResourceToReceiveSelect}> {allResourcesDropDown} </select> 
       </div>
     )
+  }
+
+
+  onResourceToGiveSelect(event) {
+    const resource = event.target.value
+    if (resource) {
+      this.setState({resourceToTrade: resource})
+    }
+  }
+
+  onResourceToReceiveSelect(event) {
+    const resourceToReceive = event.target.value
+    if (resourceToReceive) {
+      this.props.tradeWithBank(this.state.resourceToTrade, resourceToReceive)
+    }
   }
 
 }
