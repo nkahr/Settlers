@@ -12,14 +12,20 @@ class Bank {
     return resCard
   }
 
-  generateDevelopmentCard() {
-    const devCard = this.developmentCards[0]
+  generateDevelopmentCard () {
+    const length = this.developmentCards.length
+    const randomIndex = Math.floor(Math.random() * length)  
+    const devCard = this.developmentCards[randomIndex]
     return devCard
   }
 
   setup() {
     for (let i = 0; i < 10; i++) {
       const newDevCard = new DevelopmentCard({type: "pointsCard"}) 
+      this.developmentCards.push(newDevCard)
+    }
+    for (let i = 0; i < 10; i++) {
+      const newDevCard = new DevelopmentCard({type: "roadBuilding"}) 
       this.developmentCards.push(newDevCard)
     }
   }

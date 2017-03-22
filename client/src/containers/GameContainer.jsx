@@ -267,13 +267,25 @@ class GameContainer extends Component {
     if (this.state.game.letPlayerBuyDevCard(this.state.currentPlayer)) {
       this.state.game.giveDevelopmentCardToPlayer(this.state.currentPlayer)
     }
+    this.forceUpdate()
     
   }
 
   playDevCard(type) {
+    for (let i = 0; i < this.state.currentPlayer.developmentCards.length; i++){
+      if (this.state.currentPlayer.developmentCards[i].type === type) {
+        this.state.currentPlayer.developmentCards.splice(i, 1)
+        break
+      }
+    }
     if (type === "pointsCard") {
       let playerToUpdate = this.state.currentPlayer
       playerToUpdate.score += 1
+      this.setState({currentPlayer: playerToUpdate})
+    }
+    if (type === "roadBuilding") {
+      let playerToUpdate = this.state.currentPlayer
+      playerToUpdate.freeRoadCount += 2
       this.setState({currentPlayer: playerToUpdate})
     }
   }
