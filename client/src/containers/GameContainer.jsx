@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import BoardComponent from '../components/BoardComponent'
 import OpponentsComponent from '../components/OpponentsComponent'
 import PlayerStatsComponent from '../components/PlayerStatsComponent'
+import WinnerComponent from '../components/WinnerComponent'
 import Game from '../models/game'
 import Dice from '../models/dice'
 const dice = new Dice()
@@ -38,49 +39,56 @@ class GameContainer extends Component {
   }
 
   render() {
-
-    let winScreen = ""
+    let screen = ""
+    ////////////// WINNER SCREEN /////////////////////
     if (this.winChecker()) {
-      winScreen = <h1> {this.winChecker()} wins </h1>
+      screen = <WinnerComponent winner={this.winChecker()}/>
     }
+    ///////////// GAME SCREEN /////////////////////////
+    else {
+      const tiles = this.state.tilesArray
+      if (this.state.previousRobberIndex !== undefined) {
+        tiles[this.state.previousRobberIndex].hasRobber = false
+      }
+      tiles[this.state.robberIndex].hasRobber = true
 
-    const tiles = this.state.tilesArray
-    if (this.state.previousRobberIndex !== undefined) {
-      tiles[this.state.previousRobberIndex].hasRobber = false
+      const roads = this.state.roadsArray
+      const nodes = this.state.nodesArray
+      screen = 
+        <div>
+          <OpponentsComponent 
+            players={this.state.players}
+            currentPlayer={this.state.currentPlayer}
+          /> 
+          <BoardComponent    
+            tiles={tiles} 
+            roads={roads} 
+            nodes={nodes} 
+            moveRobber={this.moveRobber} 
+            colourRoads = {this.colourRoads} 
+            colourSettlements = {this.colourSettlements}
+            buildCity = {this.buildCity}
+            letPlayerBuildRoad={this.state.game.letPlayerBuildRoad} 
+            letPlayerBuildSettlement={this.state.game.letPlayerBuildSettlement}
+            letPlayerBuildCity={this.state.game.letPlayerBuildCity}
+            radar={this.state.game.radar.bind(this.state.game)}
+            mapConstructionAround={this.state.game.mapConstructionAround.bind(this.state.game)}
+            mapNextPossibleRoads ={this.state.game.mapNextPossibleRoads.bind(this.state.game)}
+            currentPlayer={this.state.currentPlayer}
+          /> 
+          <PlayerStatsComponent 
+            currentPlayer={this.state.currentPlayer} 
+            getLongestRoadCount={this.getLongestRoadCount}
+            checkForLongestRoadWinner={this.checkForLongestRoadWinner}
+            nextTurn={this.nextTurn}
+            rollDice={this.rollDice}
+          />
+        </div>
     }
-    tiles[this.state.robberIndex].hasRobber = true
-
-    const roads = this.state.roadsArray
-    const nodes = this.state.nodesArray
   
     return(
       <div id="game-container" onClick={this.handleClick}>
-        <OpponentsComponent 
-          players={this.state.players}
-          currentPlayer={this.state.currentPlayer}
-        /> 
-        <BoardComponent    
-          tiles={tiles} 
-          roads={roads} 
-          nodes={nodes} 
-          moveRobber={this.moveRobber} 
-          colourRoads = {this.colourRoads} 
-          colourSettlements = {this.colourSettlements}
-          buildCity = {this.buildCity}
-          letPlayerBuildRoad={this.state.game.letPlayerBuildRoad} 
-          letPlayerBuildSettlement={this.state.game.letPlayerBuildSettlement}
-          letPlayerBuildCity={this.state.game.letPlayerBuildCity}
-          radar={this.state.game.radar.bind(this.state.game)}
-          mapConstructionAround={this.state.game.mapConstructionAround.bind(this.state.game)}
-          mapNextPossibleRoads ={this.state.game.mapNextPossibleRoads.bind(this.state.game)}
-          currentPlayer={this.state.currentPlayer}/> 
-        <PlayerStatsComponent 
-          currentPlayer={this.state.currentPlayer} 
-          getLongestRoadCount={this.getLongestRoadCount}
-          checkForLongestRoadWinner={this.checkForLongestRoadWinner}
-          nextTurn={this.nextTurn}
-          rollDice={this.rollDice}/> 
-        {winScreen} 
+        {screen}
       </div>
     )
   }
