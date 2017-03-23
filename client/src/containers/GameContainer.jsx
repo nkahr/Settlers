@@ -45,6 +45,8 @@ class GameContainer extends Component {
     this.checkForLongestRoadWinner = this.checkForLongestRoadWinner.bind(this)
     this.tradeWithBank = this.tradeWithBank.bind(this)
     this.shuffle = this.shuffle.bind(this)
+    this.getDevelopmentCard = this.getDevelopmentCard.bind(this)
+    this.playDevCard = this.playDevCard.bind(this)
   }
 
   render() {
@@ -97,7 +99,8 @@ class GameContainer extends Component {
             showRollDiceButton={this.state.showRollDiceButton}
             rollDice={this.rollDice}
             tradeWithBank={this.tradeWithBank}
-          /> 
+            getDevelopmentCard={this.getDevelopmentCard}
+            playDevCard={this.playDevCard}/> 
         </div>
     }
   
@@ -311,6 +314,42 @@ class GameContainer extends Component {
     console.log("resources", this.state.currentPlayer.resourceCards)
     this.state.game.giveResourceCardToPlayer(this.state.currentPlayer, resourceToReceive)
     this.setState({currentPlayer: this.state.currentPlayer})
+  }
+
+  getDevelopmentCard() {
+    if (this.state.game.letPlayerBuyDevCard(this.state.currentPlayer)) {
+      this.state.game.giveDevelopmentCardToPlayer(this.state.currentPlayer)
+    }
+    this.forceUpdate()
+    
+  }
+
+  playDevCard(type) {
+    for (let i = 0; i < this.state.currentPlayer.developmentCards.length; i++){
+      if (this.state.currentPlayer.developmentCards[i].type === type) {
+        this.state.currentPlayer.developmentCards.splice(i, 1)
+        break
+      }
+    }
+    if (type === "pointsCard") {
+      let playerToUpdate = this.state.currentPlayer
+      playerToUpdate.score += 1
+      this.setState({currentPlayer: playerToUpdate})
+    }
+    if (type === "roadBuilding") {
+      let playerToUpdate = this.state.currentPlayer
+      playerToUpdate.freeRoadCount += 2
+      this.setState({currentPlayer: playerToUpdate})
+    }
+    // if (type === "monopoly") {
+    //   let cardsToSteal = []
+    //   this.state.players.forEach((player) => {
+    //     player.resourceCards.forEach((card) => {
+    //       if card
+    //     })
+    //   })
+
+    // }
   }
 
 

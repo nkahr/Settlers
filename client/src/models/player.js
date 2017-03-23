@@ -4,6 +4,7 @@ class Player {
     this.colour = options["colour"]
     this.numberRolled = "none"
     this.resourceCards = []
+    this.developmentCards = []
     this.conqueredTiles = []
     this.roadsAvailable = 15
     this.settlementsAvailable = 5

@@ -200,6 +200,12 @@ class Game {
     player.resourceCards.splice(0, halfCards)
   }
 
+  giveDevelopmentCardToPlayer(player) {
+    const newDevCard = this.bank.generateDevelopmentCard()
+    player.developmentCards.push(newDevCard)
+    console.log('card', newDevCard)
+  }
+
   letPlayerBuildRoad(player) {
     if (player.freeRoadCount) {
       player.freeRoadCount -= 1
@@ -287,6 +293,42 @@ class Game {
     }
     return false
   }
+
+  letPlayerBuyDevCard(player) {
+
+    let rockIndex = undefined
+    let cropIndex = undefined
+    let sheepIndex = undefined
+    let indices = []
+    for (let i = 0; i < player.resourceCards.length; i++) {
+      if (player.resourceCards[i].type === "rock") {
+        rockIndex = i
+      }
+      if(player.resourceCards[i].type === "crop") {
+        cropIndex = i
+      }
+      if(player.resourceCards[i].type === "sheep") {
+        sheepIndex = i
+      }
+    }
+    indices.push(...[rockIndex, cropIndex, sheepIndex])
+    indices = indices.filter((index) => { 
+      return index != undefined 
+    })
+
+    if (indices.length === 3) {
+      indices.sort((a, b) => {
+        return b - a
+      })
+
+      indices.forEach((index) => {
+        player.resourceCards.splice(index, 1)
+      })
+      return true
+    }
+    return false
+  }
+
 
   letPlayerBuildCity(player) {
     if (player.citiesAvailable === 0) {

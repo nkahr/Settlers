@@ -10,6 +10,7 @@ class PlayerStatsComponent extends Component{
     }
     this.onResourceToGiveSelect = this.onResourceToGiveSelect.bind(this)
     this.onResourceToReceiveSelect = this.onResourceToReceiveSelect.bind(this)
+    this.playDevCard = this.playDevCard.bind(this)
   }
 
   render() {
@@ -82,10 +83,18 @@ class PlayerStatsComponent extends Component{
       backgroundColor: backgroundColor
     }
 
+    let devCards = this.props.currentPlayer.developmentCards.map((card) => {
+      return (
+        <button value={card.type} onClick={this.playDevCard}> {card.type}</button>
+      )
+    })
+
     return (
       <div style={activePlayerStyle} id="player-stats-block"> 
         <button id={rollDiceButtonId} onClick={this.props.rollDice}> Roll Dice </button>
         <button id={nextTurnButtonId} onClick={this.props.nextTurn}> Next Turn </button>
+        <button id="development-card" onClick={this.props.getDevelopmentCard}> Buy Development Card </button>
+        <h3> Active player </h3>
         <h1> {this.props.currentPlayer.name} </h1>
         <p> Score: {this.props.currentPlayer.score} </p>
         <p> Colour: {this.props.currentPlayer.colour} </p>
@@ -104,10 +113,10 @@ class PlayerStatsComponent extends Component{
         <select onChange={this.onResourceToReceiveSelect}> 
           {allResourcesDropDown} 
         </select> 
+        {devCards}
       </div>
     )
   }
-
 
   onResourceToGiveSelect(event) {
     const resource = event.target.value
@@ -121,6 +130,12 @@ class PlayerStatsComponent extends Component{
     if (resourceToReceive) {
       this.props.tradeWithBank(this.state.resourceToTrade, resourceToReceive)
     }
+  }
+
+  playDevCard(event) {
+    console.log("test")
+    const type = event.target.value
+    this.props.playDevCard(type)
   }
 
 }
