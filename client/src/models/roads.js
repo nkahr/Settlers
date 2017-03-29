@@ -31,7 +31,7 @@ class Roads {
       return item + xInc
     })
 
-    const yInc = 0
+    const yInc = 20
     this.yArray = 
       [
       500, 500, 500, 500, 

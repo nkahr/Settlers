@@ -28,7 +28,7 @@ class Nodes {
       return item + xInc
     })
 
-    const yInc = 0
+    const yInc = 20
     this.yArray = [
       575, 575, 575,
       542, 542, 542, 542,

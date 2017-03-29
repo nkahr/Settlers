@@ -14,7 +14,7 @@ class Tiles {
       return item + xInc
     })
 
-    const yInc = 0
+    const yInc = 20
     this.yArray = [465, 465, 465, 361.5, 258.5, 155.5, 52.5, 52.5, 52.5, 155.5, 258.5, 361.5, 361.5, 361.5, 258.5, 155.5, 155.5, 258.5, 258.5]
     this.yArray = this.yArray.map((item) => {
       return item + yInc
