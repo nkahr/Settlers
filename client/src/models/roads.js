@@ -4,7 +4,7 @@ class Roads {
   constructor() {
     this.roadsArray = []
 
-    const xInc = 0
+    const xInc = 50
     this.xArray = 
       [
       345, 465, 585, 705, 

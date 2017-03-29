@@ -8,6 +8,7 @@ class Node {
     this.hasCity = false
     this.allowConstruction = true
     this.surroundingRoads = []
+    this.port = false
   }
 }
 

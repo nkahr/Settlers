@@ -9,7 +9,7 @@ class Nodes {
   }
 
   setup() {
-    const xInc = 0
+    const xInc = 50
     this.xArray = [
       397, 517, 637,
       338, 458, 578, 698,
