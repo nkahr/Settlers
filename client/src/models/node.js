@@ -1,6 +1,7 @@
 class Node {
   constructor(options) {
     this.coordinates = options["coordinates"]
+    this.port = options["port"]
     this.surroundingTiles = []
     this.colour = undefined
     this.classOfNode = 'node'
@@ -8,7 +9,6 @@ class Node {
     this.hasCity = false
     this.allowConstruction = true
     this.surroundingRoads = []
-    this.port = false
   }
 }
 

@@ -41,10 +41,9 @@ class Game {
     this.initialRobberIndex = tiles.indexOfDesert
     const roads = new Roads()
     this.roadsArray = roads.roadsArray
-    const nodes = new Nodes()
-    this.nodesArray = nodes.nodesArray
     this.shuffle(this.portTypesArray)
-    console.log('typesArray', this.portTypesArray)
+    const nodes = new Nodes({portTypesArray: this.portTypesArray})
+    this.nodesArray = nodes.nodesArray
     const ports = new Ports({portTypesArray: this.portTypesArray})
     this.portsArray = ports.portsArray
 
