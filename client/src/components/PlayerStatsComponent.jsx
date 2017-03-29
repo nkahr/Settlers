@@ -32,7 +32,6 @@ class PlayerStatsComponent extends Component{
     let longestRoad = this.props.getLongestRoadCount(this.props.currentPlayer)
 
     this.props.currentPlayer.hasLongestRoad = this.props.checkForLongestRoadWinner(this.props.currentPlayer)
-    // console.log("has longest road", this.props.currentPlayer.hasLongestRoad)
 
     let rollDiceButtonId = "roll-dice-button"
     let nextTurnButtonId = "next-turn-button"
@@ -85,7 +84,9 @@ class PlayerStatsComponent extends Component{
 
     let devCards = this.props.currentPlayer.developmentCards.map((card) => {
       return (
-        <button value={card.type} onClick={this.playDevCard}> {card.type}</button>
+        <div class="dev-card">
+          <button value={card.type} onClick={this.playDevCard}> {card.type}</button>
+        </div>
       )
     })
 
@@ -133,7 +134,6 @@ class PlayerStatsComponent extends Component{
   }
 
   playDevCard(event) {
-    console.log("test")
     const type = event.target.value
     this.props.playDevCard(type)
   }

@@ -191,7 +191,6 @@ class Game {
   giveResourceCardToPlayer(player, type) {
     const newResCard = this.bank.generateResourceCard(type)
     player.resourceCards.push(newResCard)
-    console.log('card', newResCard)
   }
 
   giveHalfCardsAway(player) {
@@ -203,7 +202,6 @@ class Game {
   giveDevelopmentCardToPlayer(player) {
     const newDevCard = this.bank.generateDevelopmentCard()
     player.developmentCards.push(newDevCard)
-    console.log('card', newDevCard)
   }
 
   letPlayerBuildRoad(player) {

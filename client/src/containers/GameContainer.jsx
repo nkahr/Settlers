@@ -117,29 +117,22 @@ class GameContainer extends Component {
     ///////// STEAL ONE RANDOM CARD FROM PLAYERS ON TILE ////////////////////
     let coloursOfPlayersOnThisTile = []
     this.state.tilesArray[newRobberIndex].surroundingNodes.forEach((node) => {
-      // console.log("node colour", node.colour)
       if (node.colour !== undefined && node.colour !== this.state.currentPlayer.colour) {
         coloursOfPlayersOnThisTile.push(node.colour)
       }
     })
-    // console.log("all colours", coloursOfPlayersOnThisTile)
     if (coloursOfPlayersOnThisTile.length > 0) {
       let colourOfBlockedPlayer = ""
       let randPlayerIndex = undefined
       randPlayerIndex = Math.floor(Math.random() * coloursOfPlayersOnThisTile.length)
       colourOfBlockedPlayer = coloursOfPlayersOnThisTile[randPlayerIndex]
-      // console.log("random colour", colourOfBlockedPlayer)
       players.forEach((player) => {
-        // console.log("player being proven", player)
         if (player !== this.state.currentPlayer && player.colour === colourOfBlockedPlayer) {
-          // console.log("unlucky player", player)
           if (player.resourceCards.length > 0) {
             this.shuffle(player.resourceCards)
             const stolenCard = player.resourceCards[0]
-            // console.log("stolenCard", stolenCard)
             this.state.currentPlayer.resourceCards.push(stolenCard)
             player.resourceCards.splice(0,1)
-            // console.log("unlucky player", player)
           }
         }
       }) 
@@ -168,7 +161,6 @@ class GameContainer extends Component {
   winChecker() {
     let winner = false
     this.state.players.forEach((player) => {
-      // console.log("player", player.score)
       if (player.score >= 10) {
         winner = player.name
       }
@@ -311,7 +303,6 @@ class GameContainer extends Component {
         }
       }
     }
-    console.log("resources", this.state.currentPlayer.resourceCards)
     this.state.game.giveResourceCardToPlayer(this.state.currentPlayer, resourceToReceive)
     this.setState({currentPlayer: this.state.currentPlayer})
   }

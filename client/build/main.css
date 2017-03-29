@@ -159,3 +159,7 @@ body {
 .welcome-input {
   margin: 15px;
 }
+
+.dev-card {
+  display: block;
+}
