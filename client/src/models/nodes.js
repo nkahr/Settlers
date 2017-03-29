@@ -72,7 +72,7 @@ class Nodes {
         })
         this.nodesArray.push(node)
       }
-      else if (this.xArray[i] === (575 + xInc) && this.yArray[i] === (542 + yInc)) {
+      else if (this.xArray[i] === (578 + xInc) && this.yArray[i] === (542 + yInc)) {
         const node = new Node({
           coordinates: [ this.xArray[i], this.yArray[i] ],
           port: this.portTypesArray[1]
@@ -192,7 +192,6 @@ class Nodes {
         this.nodesArray.push(node)
       }
     }
-    console.log('fresh nodesArray', this.nodesArray)
   }
 
 }

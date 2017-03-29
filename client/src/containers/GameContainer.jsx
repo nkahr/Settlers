@@ -229,14 +229,10 @@ class GameContainer extends Component {
     let updatedNodesArray = this.state.nodesArray
     updatedNodesArray[clickedNodeIndex].colour = colour
     updatedNodesArray[clickedNodeIndex].hasSettlement = true
-    console.log('updated nodes', updatedNodesArray)
-    console.log('index', clickedNodeIndex)
-    console.log('updated nodes clicked', updatedNodesArray[clickedNodeIndex])
     this.state.currentPlayer.settledNodes.push(updatedNodesArray[clickedNodeIndex])
     let playerToUpdate = this.state.currentPlayer
     this.setState({nodesArray: updatedNodesArray, currentPlayer: playerToUpdate})
     console.log('clicked node', this.state.nodesArray[clickedNodeIndex])
-
   }
 
   buildCity(clickedNodeIndex) {
@@ -303,14 +299,52 @@ class GameContainer extends Component {
   }
 
   tradeWithBank(resourceToGive, resourceToReceive) {
-    for (let i = 0; i < 4; i++) {
-      for (let j = 0; j < this.state.currentPlayer.resourceCards.length; j++) {
-        if (this.state.currentPlayer.resourceCards[j].type === resourceToGive) {
-          this.state.currentPlayer.resourceCards.splice(j, 1)
-          break
+    this.state.currentPlayer.settledNodes.forEach((node) => {
+      if (resourceToGive === node.port) {
+        for (let i = 0; i < 2; i++) {
+          for (let j = 0; j < this.state.currentPlayer.resourceCards.length; j++) {
+            if (this.state.currentPlayer.resourceCards[j].type === resourceToGive) {
+              this.state.currentPlayer.resourceCards.splice(j, 1)
+              break
+            }
+          }
         }
       }
-    }
+      else if (node.port === "three_to_one") {
+        for (let i = 0; i < 3; i++) {
+          for (let j = 0; j < this.state.currentPlayer.resourceCards.length; j++) {
+            if (this.state.currentPlayer.resourceCards[j].type === resourceToGive) {
+              this.state.currentPlayer.resourceCards.splice(j, 1)
+              break
+            }
+          }
+        }
+      }
+      else {
+        for (let i = 0; i < 4; i++) {
+          for (let j = 0; j < this.state.currentPlayer.resourceCards.length; j++) {
+            if (this.state.currentPlayer.resourceCards[j].type === resourceToGive) {
+              this.state.currentPlayer.resourceCards.splice(j, 1)
+              break
+            }
+          }
+        }
+      }
+    })
+
+
+    // for (let i = 0; i < 4; i++) {
+    //   for (let j = 0; j < this.state.currentPlayer.resourceCards.length; j++) {
+    //     if (this.state.currentPlayer.resourceCards[j].type === resourceToGive) {
+    //       this.state.currentPlayer.resourceCards.splice(j, 1)
+    //       break
+    //     }
+    //   }
+    // }
+    
+
+
+
     this.state.game.giveResourceCardToPlayer(this.state.currentPlayer, resourceToReceive)
     this.setState({currentPlayer: this.state.currentPlayer})
   }

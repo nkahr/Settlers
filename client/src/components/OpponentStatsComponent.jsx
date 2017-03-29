@@ -28,7 +28,6 @@ class OpponentStatsComponent extends Component {
       padding: 10
     }
 
-    console.log("bgstyle", backgroundStyle)
     return (
       <div style={backgroundStyle}>
         <h3> {this.props.player.name} </h3>

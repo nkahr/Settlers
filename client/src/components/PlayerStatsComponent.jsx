@@ -49,13 +49,45 @@ class PlayerStatsComponent extends Component{
     }
 
     let dropDown = [<option selected="true" disabled> Resource to give </option>]
+
     let allResourcesDropDown = [<option selected="true" disabled> Resource to receive </option>]
+
     let keys = Object.keys(resourceHash)
-    keys.forEach((resource) => {
-      if (resourceHash[resource] >= 4) {
-        dropDown.push(<option value={resource} > {resource} </option>)
-      }
+
+    this.props.currentPlayer.settledNodes.forEach((node) => {
+      keys.forEach((resource) => {
+        if (node.port === "three_to_one") {
+          if (resourceHash[resource] >= 3) {
+            dropDown.push(<option value={resource} > {resource} </option>)
+          }
+        }
+        else if (resourceHash[resource] >= 4) {
+          dropDown.push(<option value={resource} > {resource} </option>)
+        }
+        else if (node.port === resource) {
+          if (resourceHash[resource] >= 2) {
+            dropDown.push(<option value={resource} > {resource} </option>)
+          }
+        }
+      })
     })
+
+
+
+
+
+
+
+
+    // keys.forEach((resource) => {
+
+    //   if (resourceHash[resource] >= 4) {
+    //     dropDown.push(<option value={resource} > {resource} </option>)
+    //   }
+    // })
+
+
+
     keys.forEach((resource) => {
       allResourcesDropDown.push(<option value={resource} > {resource} </option>)
     })
