@@ -29,6 +29,20 @@ class NodeComponent extends Component {
       return
     }
 
+
+    ///////////// CHECKING FOR SURROUNDING ROADS OF CURRENT PLAYER ///////////////////////
+    if (this.props.turn >= 8) {
+      let matchingRoads = []
+      this.props.node.surroundingRoads.forEach((road) => {
+        if (road.colour === this.props.currentPlayer.colour) {
+          matchingRoads.push(road)
+        }
+      })
+      if (matchingRoads.length === 0) {
+        return
+      } 
+    }
+    
     const clickedNodeIndex = this.props.index
     if (!this.props.allowConstruction) {
       console.log("doesnt allow construction")

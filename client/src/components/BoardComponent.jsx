@@ -64,6 +64,7 @@ class BoardComponent extends Component{
           mapConstructionAround={this.props.mapConstructionAround}
           currentPlayer={this.props.currentPlayer}
           classOfNode={node.classOfNode}
+          node={node}
         />
       )
     })
