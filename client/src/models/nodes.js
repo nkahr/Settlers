@@ -57,7 +57,7 @@ class Nodes {
         })
         this.nodesArray.push(node)
       }
-      if (this.xArray[i] === (397 + xInc) && this.yArray[i] === (575 + yInc)) {
+      else if (this.xArray[i] === (397 + xInc) && this.yArray[i] === (575 + yInc)) {
         const node = new Node({
           coordinates: [ this.xArray[i], this.yArray[i] ],
           port: this.portTypesArray[0]
@@ -65,14 +65,14 @@ class Nodes {
         this.nodesArray.push(node)
       }
       ///////////// 2 ///////////////////
-      if (this.xArray[i] === (517 + xInc) && this.yArray[i] === (575 + yInc)) {
+      else if (this.xArray[i] === (517 + xInc) && this.yArray[i] === (575 + yInc)) {
         const node = new Node({
           coordinates: [ this.xArray[i], this.yArray[i] ],
           port: this.portTypesArray[1]
         })
         this.nodesArray.push(node)
       }
-      if (this.xArray[i] === (575 + xInc) && this.yArray[i] === (542 + yInc)) {
+      else if (this.xArray[i] === (575 + xInc) && this.yArray[i] === (542 + yInc)) {
         const node = new Node({
           coordinates: [ this.xArray[i], this.yArray[i] ],
           port: this.portTypesArray[1]
@@ -80,14 +80,14 @@ class Nodes {
         this.nodesArray.push(node)
       }
       ///////////// 3 ///////////////////
-      if (this.xArray[i] === (698 + xInc) && this.yArray[i] === (473 + yInc)) {
+      else if (this.xArray[i] === (698 + xInc) && this.yArray[i] === (473 + yInc)) {
         const node = new Node({
           coordinates: [ this.xArray[i], this.yArray[i] ],
           port: this.portTypesArray[2]
         })
         this.nodesArray.push(node)
       }
-      if (this.xArray[i] === (757 + xInc) && this.yArray[i] === (440 + yInc)) {
+      else if (this.xArray[i] === (757 + xInc) && this.yArray[i] === (440 + yInc)) {
         const node = new Node({
           coordinates: [ this.xArray[i], this.yArray[i] ],
           port: this.portTypesArray[2]
@@ -95,14 +95,14 @@ class Nodes {
         this.nodesArray.push(node)
       }
       ///////////// 4 ///////////////////
-      if (this.xArray[i] === (818 + xInc) && this.yArray[i] === (336 + yInc)) {
+      else if (this.xArray[i] === (818 + xInc) && this.yArray[i] === (336 + yInc)) {
         const node = new Node({
           coordinates: [ this.xArray[i], this.yArray[i] ],
           port: this.portTypesArray[3]
         })
         this.nodesArray.push(node)
       }
-      if (this.xArray[i] === (818 + xInc) && this.yArray[i] === (267 + yInc)) {
+      else if (this.xArray[i] === (818 + xInc) && this.yArray[i] === (267 + yInc)) {
         const node = new Node({
           coordinates: [ this.xArray[i], this.yArray[i] ],
           port: this.portTypesArray[3]
@@ -110,14 +110,14 @@ class Nodes {
         this.nodesArray.push(node)
       }
       ///////////// 5 ///////////////////
-      if (this.xArray[i] === (757 + xInc) && this.yArray[i] === (165 + yInc)) {
+      else if (this.xArray[i] === (757 + xInc) && this.yArray[i] === (165 + yInc)) {
         const node = new Node({
           coordinates: [ this.xArray[i], this.yArray[i] ],
           port: this.portTypesArray[4]
         })
         this.nodesArray.push(node)
       }
-      if (this.xArray[i] === (698 + xInc) && this.yArray[i] === (130 + yInc)) {
+      else if (this.xArray[i] === (698 + xInc) && this.yArray[i] === (130 + yInc)) {
         const node = new Node({
           coordinates: [ this.xArray[i], this.yArray[i] ],
           port: this.portTypesArray[4]
@@ -125,14 +125,14 @@ class Nodes {
         this.nodesArray.push(node)
       }
       ///////////// 6 ///////////////////
-      if (this.xArray[i] === (578 + xInc) && this.yArray[i] === (61 + yInc)) {
+      else if (this.xArray[i] === (578 + xInc) && this.yArray[i] === (61 + yInc)) {
         const node = new Node({
           coordinates: [ this.xArray[i], this.yArray[i] ],
           port: this.portTypesArray[5]
         })
         this.nodesArray.push(node)
       }
-      if (this.xArray[i] === (517 + xInc) && this.yArray[i] === (28 + yInc)) {
+      else if (this.xArray[i] === (517 + xInc) && this.yArray[i] === (28 + yInc)) {
         const node = new Node({
           coordinates: [ this.xArray[i], this.yArray[i] ],
           port: this.portTypesArray[5]
@@ -140,14 +140,14 @@ class Nodes {
         this.nodesArray.push(node)
       }
       ///////////// 7 ///////////////////
-      if (this.xArray[i] === (397 + xInc) && this.yArray[i] === (28 + yInc)) {
+      else if (this.xArray[i] === (397 + xInc) && this.yArray[i] === (28 + yInc)) {
         const node = new Node({
           coordinates: [ this.xArray[i], this.yArray[i] ],
           port: this.portTypesArray[6]
         })
         this.nodesArray.push(node)
       }
-      if (this.xArray[i] === (338 + xInc) && this.yArray[i] === (61 + yInc)) {
+      else if (this.xArray[i] === (338 + xInc) && this.yArray[i] === (61 + yInc)) {
         const node = new Node({
           coordinates: [ this.xArray[i], this.yArray[i] ],
           port: this.portTypesArray[6]
@@ -155,14 +155,14 @@ class Nodes {
         this.nodesArray.push(node)
       }
       ///////////// 8 ///////////////////
-      if (this.xArray[i] === (277 + xInc) && this.yArray[i] === (165 + yInc)) {
+      else if (this.xArray[i] === (277 + xInc) && this.yArray[i] === (165 + yInc)) {
         const node = new Node({
           coordinates: [ this.xArray[i], this.yArray[i] ],
           port: this.portTypesArray[7]
         })
         this.nodesArray.push(node)
       }
-      if (this.xArray[i] === (277 + xInc) && this.yArray[i] === (234 + yInc)) {
+      else if (this.xArray[i] === (277 + xInc) && this.yArray[i] === (234 + yInc)) {
         const node = new Node({
           coordinates: [ this.xArray[i], this.yArray[i] ],
           port: this.portTypesArray[7]
@@ -170,14 +170,14 @@ class Nodes {
         this.nodesArray.push(node)
       }
       ///////////// 9 ///////////////////
-      if (this.xArray[i] === (277 + xInc) && this.yArray[i] === (371 + yInc)) {
+      else if (this.xArray[i] === (277 + xInc) && this.yArray[i] === (371 + yInc)) {
         const node = new Node({
           coordinates: [ this.xArray[i], this.yArray[i] ],
           port: this.portTypesArray[8]
         })
         this.nodesArray.push(node)
       }
-      if (this.xArray[i] === (277 + xInc) && this.yArray[i] === (440 + yInc)) {
+      else if (this.xArray[i] === (277 + xInc) && this.yArray[i] === (440 + yInc)) {
         const node = new Node({
           coordinates: [ this.xArray[i], this.yArray[i] ],
           port: this.portTypesArray[8]
@@ -192,6 +192,7 @@ class Nodes {
         this.nodesArray.push(node)
       }
     }
+    console.log('fresh nodesArray', this.nodesArray)
   }
 
 }

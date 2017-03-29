@@ -29,7 +29,6 @@ class NodeComponent extends Component {
       return
     }
 
-
     ///////////// CHECKING FOR SURROUNDING ROADS OF CURRENT PLAYER ///////////////////////
     if (this.props.turn >= 8) {
       let matchingRoads = []

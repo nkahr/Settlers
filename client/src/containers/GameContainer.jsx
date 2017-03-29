@@ -229,8 +229,14 @@ class GameContainer extends Component {
     let updatedNodesArray = this.state.nodesArray
     updatedNodesArray[clickedNodeIndex].colour = colour
     updatedNodesArray[clickedNodeIndex].hasSettlement = true
+    console.log('updated nodes', updatedNodesArray)
+    console.log('index', clickedNodeIndex)
+    console.log('updated nodes clicked', updatedNodesArray[clickedNodeIndex])
+    this.state.currentPlayer.settledNodes.push(updatedNodesArray[clickedNodeIndex])
     let playerToUpdate = this.state.currentPlayer
     this.setState({nodesArray: updatedNodesArray, currentPlayer: playerToUpdate})
+    console.log('clicked node', this.state.nodesArray[clickedNodeIndex])
+
   }
 
   buildCity(clickedNodeIndex) {
@@ -239,7 +245,6 @@ class GameContainer extends Component {
     updatedNodesArray[clickedNodeIndex].colour = colour
     updatedNodesArray[clickedNodeIndex].hasCity = true
     updatedNodesArray[clickedNodeIndex].classOfNode = 'city'
-    // updatedNodesArray[clickedNodeIndex].hasSettlement = false
     let playerToUpdate = this.state.currentPlayer
     this.setState({nodesArray: updatedNodesArray, currentPlayer: playerToUpdate, classOfNode: 'city'})
   }

@@ -18,6 +18,11 @@ class Player {
     this.roadsAllowed = []
     this.longestRoads = []
     this.hasLongestRoad = false
+
+
+    this.settledNodes = []
+
+
   }
 
   addNextRoad(arrayOfRoads, lastNode) {
