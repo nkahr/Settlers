@@ -22,6 +22,7 @@ class GameContainer extends Component {
       tilesArray: newGame.tilesArray, 
       roadsArray: newGame.roadsArray,
       nodesArray: newGame.nodesArray,
+      portsArray: newGame.portsArray,
       robberIndex: newGame.initialRobberIndex, 
       previousRobberIndex: undefined, 
       currentPlayer: newGame.players[0],
@@ -65,6 +66,7 @@ class GameContainer extends Component {
 
       const roads = this.state.roadsArray
       const nodes = this.state.nodesArray
+      const ports = this.state.portsArray
       screen = 
         <div>
           <OpponentsComponent 
@@ -76,6 +78,7 @@ class GameContainer extends Component {
             tiles={tiles} 
             roads={roads} 
             nodes={nodes} 
+            ports={ports}
             moveRobber={this.moveRobber} 
             colourRoads = {this.colourRoads} 
             colourSettlements = {this.colourSettlements}

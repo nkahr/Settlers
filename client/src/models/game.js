@@ -3,6 +3,7 @@ import Tiles from './tiles'
 import Roads from './roads'
 import Bank from './bank'
 import Nodes from './nodes'
+import Ports from './ports'
 
 class Game {
 
@@ -15,6 +16,8 @@ class Game {
     this.players = []
     this.tilesArray = []
     this.roadsArray = []
+    this.portsArray = []
+    this.portTypesArray = ["sheep", "rock", "crop", "clay", "wood", "three_to_one", "three_to_one", "three_to_one", "three_to_one"]
     this.initialRobberIndex = undefined
     this.nodesArray = []
     this.setup()
@@ -40,6 +43,10 @@ class Game {
     this.roadsArray = roads.roadsArray
     const nodes = new Nodes()
     this.nodesArray = nodes.nodesArray
+    this.shuffle(this.portTypesArray)
+    console.log('typesArray', this.portTypesArray)
+    const ports = new Ports({portTypesArray: this.portTypesArray})
+    this.portsArray = ports.portsArray
 
     ///////// just for testing purposes /////////
 

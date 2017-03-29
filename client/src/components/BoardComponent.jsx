@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import TileComponent from '../components/TileComponent'
 import RoadComponent from '../components/RoadComponent'
 import NodeComponent from '../components/NodeComponent'
+import PortComponent from '../components/PortComponent'
 
 class BoardComponent extends Component{
   constructor(props) {
@@ -65,12 +66,26 @@ class BoardComponent extends Component{
           currentPlayer={this.props.currentPlayer}
           classOfNode={node.classOfNode}
           node={node}
+          ports={this.props.ports}
+        />
+      )
+    })
+
+    const portComponents = this.props.ports.map((port, index) => {
+      return (
+        <PortComponent 
+          key={index} 
+          index={index}
+          coordinates={port.coordinates} 
+          type={port.type}
+          angle={port.angle}
         />
       )
     })
 
     return (
       <div> 
+        {portComponents}
         {tileComponents}
         {roadComponents}
         {nodeComponents}
