@@ -21,6 +21,7 @@ class Player {
 
 
     this.settledNodes = []
+    this.portTypes = []
 
 
   }

@@ -230,6 +230,10 @@ class GameContainer extends Component {
     updatedNodesArray[clickedNodeIndex].colour = colour
     updatedNodesArray[clickedNodeIndex].hasSettlement = true
     this.state.currentPlayer.settledNodes.push(updatedNodesArray[clickedNodeIndex])
+    if(updatedNodesArray[clickedNodeIndex].port !== false && 
+      !this.state.currentPlayer.portTypes.includes(updatedNodesArray[clickedNodeIndex].port)) {
+      this.state.currentPlayer.portTypes.push(updatedNodesArray[clickedNodeIndex].port)
+    }
     let playerToUpdate = this.state.currentPlayer
     this.setState({nodesArray: updatedNodesArray, currentPlayer: playerToUpdate})
     console.log('clicked node', this.state.nodesArray[clickedNodeIndex])
@@ -299,6 +303,18 @@ class GameContainer extends Component {
   }
 
   tradeWithBank(resourceToGive, resourceToReceive) {
+
+
+
+    ///////////////// PROBABLY ADD AN EMPTY ARRAY 'DISCOUNTS' AND ADD THERE ALL PORTS DIFFERENT TO FALSE, DEPENDING ON THE LENGTH OF THIS ARRAY PROCEED FURTHER WITH IF STATEMENTS ///////////////////////////////////
+
+
+
+
+
+
+
+
     this.state.currentPlayer.settledNodes.forEach((node) => {
       if (resourceToGive === node.port) {
         for (let i = 0; i < 2; i++) {

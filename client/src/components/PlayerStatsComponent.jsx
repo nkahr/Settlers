@@ -56,28 +56,23 @@ class PlayerStatsComponent extends Component{
 
     this.props.currentPlayer.settledNodes.forEach((node) => {
       keys.forEach((resource) => {
-        if (node.port === "three_to_one") {
+        if (node.port === resource) {
+          if (resourceHash[resource] >= 2) {
+            dropDown.push(<option value={resource} > {resource} </option>)
+          }
+        }
+        else if (node.port === "three_to_one") {
           if (resourceHash[resource] >= 3) {
             dropDown.push(<option value={resource} > {resource} </option>)
           }
         }
-        else if (resourceHash[resource] >= 4) {
-          dropDown.push(<option value={resource} > {resource} </option>)
-        }
-        else if (node.port === resource) {
-          if (resourceHash[resource] >= 2) {
+        else {
+          if (resourceHash[resource] >= 4) {
             dropDown.push(<option value={resource} > {resource} </option>)
           }
         }
       })
     })
-
-
-
-
-
-
-
 
     // keys.forEach((resource) => {
 
