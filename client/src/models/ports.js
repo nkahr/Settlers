@@ -7,13 +7,13 @@ class Ports {
     this.anglesArray = [30,-30,-30,-90,-150,-150,-210,-270,-270]
 
     const xInc = 0
-    this.xArray = [380, 591, 771, 876, 771, 591, 380, 275, 275]
+    this.xArray = [392, 579, 759, 853, 759, 579, 392, 298, 298]
     this.xArray = this.xArray.map((item) => {
       return item + xInc
     })
 
     const yInc = 0
-    this.yArray = [602, 602, 499, 318, 137, 34, 34, 215, 421]
+    this.yArray = [589, 589, 486, 325, 164, 61, 61, 221, 428]
     this.yArray = this.yArray.map((item) => {
       return item + yInc
     })
