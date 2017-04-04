@@ -303,6 +303,10 @@ class GameContainer extends Component {
   }
 
   tradeWithBank(resourceToGive, resourceToReceive) {
+    if (resourceToReceive === "Resource to receive") {
+      return
+    }
+
     let resourceAmount = 0
     this.state.currentPlayer.resourceCards.forEach((resource) => {
       if (resourceToGive === resource.type) {
@@ -334,7 +338,7 @@ class GameContainer extends Component {
       }
       this.state.game.giveResourceCardToPlayer(this.state.currentPlayer, resourceToReceive)
     }
-    else if  (resourceAmount >= 4) {
+    else if (resourceAmount >= 4) {
       for (let i = 0; i < 4; i++) {
         for (let j = 0; j < this.state.currentPlayer.resourceCards.length; j++) {
           if (this.state.currentPlayer.resourceCards[j].type === resourceToGive) {

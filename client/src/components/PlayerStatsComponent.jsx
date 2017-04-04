@@ -46,9 +46,9 @@ class PlayerStatsComponent extends Component{
       }
     }
 
-    let dropDown = [<option selected="true" disabled> Resource to give </option>]
+    let dropDown = [<option selected="true" > Resource to give </option>]
 
-    let allResourcesDropDown = [<option selected="true" disabled> Resource to receive </option>]
+    let allResourcesDropDown = [<option selected="true" > Resource to receive </option>]
 
     let keys = Object.keys(resourceHash)
 
