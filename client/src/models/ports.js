@@ -25,7 +25,7 @@ class Ports {
     for (let i = 0; i < this.portTypesArray.length; i++) {
       const port = new Port({
         type: this.portTypesArray[i],
-        coordinates: [ this.xArray[i], this.yArray[i]],
+        coordinates: [ this.xArray[i], this.yArray[i] ],
         angle: this.anglesArray[i]
       })
       this.portsArray.push(port)

@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-// import Dice from '../models/dice'
-// const dice = new Dice()
 
 class PlayerStatsComponent extends Component{
   constructor(props) {
@@ -54,25 +52,74 @@ class PlayerStatsComponent extends Component{
 
     let keys = Object.keys(resourceHash)
 
-    this.props.currentPlayer.settledNodes.forEach((node) => {
-      keys.forEach((resource) => {
-        if (node.port === resource) {
-          if (resourceHash[resource] >= 2) {
-            dropDown.push(<option value={resource} > {resource} </option>)
-          }
+
+
+    // if (this.props.currentPlayer.portTypes.length === 0) {
+    //   keys.forEach((resource) => {
+    //     if (resourceHash[resource] >= 4) {
+    //       dropDown.push(<option value={resource} > {resource} </option>)
+    //     }
+    //   })
+    // }
+    // else if (this.props.currentPlayer.portTypes.length === 1) {
+    //   if (this.props.currentPlayer.portTypes[0] === "three_to_one") {
+    //     keys.forEach((resource) => {
+    //       if (resourceHash[resource] >= 3) {
+    //         dropDown.push(<option value={resource} > {resource} </option>)
+    //       }
+    //     })
+    //   }
+    //   else {
+    //     keys.forEach((resource) => {
+    //       if (this.props.currentPlayer.portTypes[0] === resource) {
+    //         if (resourceHash[resource] >= 2) {
+    //           dropDown.push(<option value={resource} > {resource} </option>)
+    //         }
+    //       }
+    //       else {
+    //         if (resourceHash[resource] >= 4) {
+    //           dropDown.push(<option value={resource} > {resource} </option>)
+    //         }
+    //       }
+    //     })
+    //   }
+    // }
+    // else { 
+    keys.forEach((resource) => {
+      if (this.props.currentPlayer.portTypes.includes(resource) && 
+        resourceHash[resource] >= 2) {
+          dropDown.push(<option value={resource} > {resource} </option>)
+      }
+      else if (this.props.currentPlayer.portTypes.includes("three_to_one") && resourceHash[resource] >= 3) {
+        dropDown.push(<option value={resource} > {resource} </option>)
+      }
+      else {
+        if (resourceHash[resource] >= 4) {
+          dropDown.push(<option value={resource} > {resource} </option>)
         }
-        else if (node.port === "three_to_one") {
-          if (resourceHash[resource] >= 3) {
-            dropDown.push(<option value={resource} > {resource} </option>)
-          }
-        }
-        else {
-          if (resourceHash[resource] >= 4) {
-            dropDown.push(<option value={resource} > {resource} </option>)
-          }
-        }
-      })
+      }
     })
+    // }
+
+    // this.props.currentPlayer.settledNodes.forEach((node) => {
+    //   keys.forEach((resource) => {
+    //     if (node.port === resource) {
+    //       if (resourceHash[resource] >= 2) {
+    //         dropDown.push(<option value={resource} > {resource} </option>)
+    //       }
+    //     }
+    //     else if (node.port === "three_to_one") {
+    //       if (resourceHash[resource] >= 3) {
+    //         dropDown.push(<option value={resource} > {resource} </option>)
+    //       }
+    //     }
+    //     else {
+    //       if (resourceHash[resource] >= 4) {
+    //         dropDown.push(<option value={resource} > {resource} </option>)
+    //       }
+    //     }
+    //   })
+    // })
 
     // keys.forEach((resource) => {
 
