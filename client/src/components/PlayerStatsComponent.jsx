@@ -52,39 +52,7 @@ class PlayerStatsComponent extends Component{
 
     let keys = Object.keys(resourceHash)
 
-
-
-    // if (this.props.currentPlayer.portTypes.length === 0) {
-    //   keys.forEach((resource) => {
-    //     if (resourceHash[resource] >= 4) {
-    //       dropDown.push(<option value={resource} > {resource} </option>)
-    //     }
-    //   })
-    // }
-    // else if (this.props.currentPlayer.portTypes.length === 1) {
-    //   if (this.props.currentPlayer.portTypes[0] === "three_to_one") {
-    //     keys.forEach((resource) => {
-    //       if (resourceHash[resource] >= 3) {
-    //         dropDown.push(<option value={resource} > {resource} </option>)
-    //       }
-    //     })
-    //   }
-    //   else {
-    //     keys.forEach((resource) => {
-    //       if (this.props.currentPlayer.portTypes[0] === resource) {
-    //         if (resourceHash[resource] >= 2) {
-    //           dropDown.push(<option value={resource} > {resource} </option>)
-    //         }
-    //       }
-    //       else {
-    //         if (resourceHash[resource] >= 4) {
-    //           dropDown.push(<option value={resource} > {resource} </option>)
-    //         }
-    //       }
-    //     })
-    //   }
-    // }
-    // else { 
+    /////////// RESOURCE TO GIVE DISPLAY ///////////////////
     keys.forEach((resource) => {
       if (this.props.currentPlayer.portTypes.includes(resource) && 
         resourceHash[resource] >= 2) {
@@ -99,37 +67,7 @@ class PlayerStatsComponent extends Component{
         }
       }
     })
-    // }
-
-    // this.props.currentPlayer.settledNodes.forEach((node) => {
-    //   keys.forEach((resource) => {
-    //     if (node.port === resource) {
-    //       if (resourceHash[resource] >= 2) {
-    //         dropDown.push(<option value={resource} > {resource} </option>)
-    //       }
-    //     }
-    //     else if (node.port === "three_to_one") {
-    //       if (resourceHash[resource] >= 3) {
-    //         dropDown.push(<option value={resource} > {resource} </option>)
-    //       }
-    //     }
-    //     else {
-    //       if (resourceHash[resource] >= 4) {
-    //         dropDown.push(<option value={resource} > {resource} </option>)
-    //       }
-    //     }
-    //   })
-    // })
-
-    // keys.forEach((resource) => {
-
-    //   if (resourceHash[resource] >= 4) {
-    //     dropDown.push(<option value={resource} > {resource} </option>)
-    //   }
-    // })
-
-
-
+    ////////// RESOURCE TO GET DISPLAY ///////////////////////
     keys.forEach((resource) => {
       allResourcesDropDown.push(<option value={resource} > {resource} </option>)
     })

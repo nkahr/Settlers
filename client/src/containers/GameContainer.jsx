@@ -303,65 +303,49 @@ class GameContainer extends Component {
   }
 
   tradeWithBank(resourceToGive, resourceToReceive) {
-
-
-
-    ///////////////// PROBABLY ADD AN EMPTY ARRAY 'DISCOUNTS' AND ADD THERE ALL PORTS DIFFERENT TO FALSE, DEPENDING ON THE LENGTH OF THIS ARRAY PROCEED FURTHER WITH IF STATEMENTS ///////////////////////////////////
-
-
-
-
-
-
-
-
-    this.state.currentPlayer.settledNodes.forEach((node) => {
-      if (resourceToGive === node.port) {
-        for (let i = 0; i < 2; i++) {
-          for (let j = 0; j < this.state.currentPlayer.resourceCards.length; j++) {
-            if (this.state.currentPlayer.resourceCards[j].type === resourceToGive) {
-              this.state.currentPlayer.resourceCards.splice(j, 1)
-              break
-            }
-          }
-        }
-      }
-      else if (node.port === "three_to_one") {
-        for (let i = 0; i < 3; i++) {
-          for (let j = 0; j < this.state.currentPlayer.resourceCards.length; j++) {
-            if (this.state.currentPlayer.resourceCards[j].type === resourceToGive) {
-              this.state.currentPlayer.resourceCards.splice(j, 1)
-              break
-            }
-          }
-        }
-      }
-      else {
-        for (let i = 0; i < 4; i++) {
-          for (let j = 0; j < this.state.currentPlayer.resourceCards.length; j++) {
-            if (this.state.currentPlayer.resourceCards[j].type === resourceToGive) {
-              this.state.currentPlayer.resourceCards.splice(j, 1)
-              break
-            }
-          }
-        }
+    let resourceAmount = 0
+    this.state.currentPlayer.resourceCards.forEach((resource) => {
+      if (resourceToGive === resource.type) {
+        resourceAmount += 1
       }
     })
 
+    if (this.state.currentPlayer.portTypes.includes(resourceToGive) 
+      && resourceAmount >= 2) {
+      for (let i = 0; i < 2; i++) {
+        for (let j = 0; j < this.state.currentPlayer.resourceCards.length; j++) {
+          if (this.state.currentPlayer.resourceCards[j].type === resourceToGive) {
+            this.state.currentPlayer.resourceCards.splice(j, 1)
+            break
+          }
+        }
+      }
+      this.state.game.giveResourceCardToPlayer(this.state.currentPlayer, resourceToReceive)
+    }
+    else if (this.state.currentPlayer.portTypes.includes("three_to_one")
+      && resourceAmount >= 3) {
+      for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < this.state.currentPlayer.resourceCards.length; j++) {
+          if (this.state.currentPlayer.resourceCards[j].type === resourceToGive) {
+            this.state.currentPlayer.resourceCards.splice(j, 1)
+            break
+          }
+        }
+      }
+      this.state.game.giveResourceCardToPlayer(this.state.currentPlayer, resourceToReceive)
+    }
+    else if  (resourceAmount >= 4) {
+      for (let i = 0; i < 4; i++) {
+        for (let j = 0; j < this.state.currentPlayer.resourceCards.length; j++) {
+          if (this.state.currentPlayer.resourceCards[j].type === resourceToGive) {
+            this.state.currentPlayer.resourceCards.splice(j, 1)
+            break
+          }
+        }
+      }
+      this.state.game.giveResourceCardToPlayer(this.state.currentPlayer, resourceToReceive)
+    }
 
-    // for (let i = 0; i < 4; i++) {
-    //   for (let j = 0; j < this.state.currentPlayer.resourceCards.length; j++) {
-    //     if (this.state.currentPlayer.resourceCards[j].type === resourceToGive) {
-    //       this.state.currentPlayer.resourceCards.splice(j, 1)
-    //       break
-    //     }
-    //   }
-    // }
-    
-
-
-
-    this.state.game.giveResourceCardToPlayer(this.state.currentPlayer, resourceToReceive)
     this.setState({currentPlayer: this.state.currentPlayer})
   }
 

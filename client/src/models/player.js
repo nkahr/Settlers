@@ -18,12 +18,8 @@ class Player {
     this.roadsAllowed = []
     this.longestRoads = []
     this.hasLongestRoad = false
-
-
     this.settledNodes = []
     this.portTypes = []
-
-
   }
 
   addNextRoad(arrayOfRoads, lastNode) {
