@@ -1,7 +1,8 @@
+var path = require('path')
 var config = {
   entry: './src/app.js',
   output: {
-    path: './build',
+    path: path.resolve('./build', './dist'),
     filename: 'bundle.js'
   },
   devtool: "source-map",
