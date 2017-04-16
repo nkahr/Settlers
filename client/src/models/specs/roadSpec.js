@@ -22,5 +22,9 @@ describe("Road Tests", function(){
     assert.equal("blue", road.colour)
   })
 
+  it("should have index", function(){
+    assert.equal(0, road.index)
+  })
+
 
 })
