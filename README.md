@@ -1,2 +1,2 @@
 # Settlers
-like catan but good 
+like catan but good
