@@ -14,13 +14,13 @@ describe("Road Tests", function(){
     assert.deepEqual([345, 500], road.coordinates)
   })
 
-  // it("should have angle", function(){
-  //   assert.deepEqual([392, 598], node.coordinates)
-  // })
+  it("should have angle", function(){
+    assert.equal(0, road.angle)
+  })
 
-  // it("should have colour", function(){
-  //   assert.deepEqual([392, 598], node.coordinates)
-  // })
+  it("should have colour", function(){
+    assert.equal("blue", road.colour)
+  })
 
 
 })
