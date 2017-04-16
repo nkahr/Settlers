@@ -14,4 +14,12 @@ describe("Port Tests", function(){
     assert.deepEqual([392, 598], port.coordinates)
   })
 
+  it("should have type", function(){
+    assert.deepEqual("three_to_one", port.type)
+  })
+
+  it("should have angle", function(){
+    assert.deepEqual(30, port.angle)
+  })
+
 })
