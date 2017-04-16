@@ -17,4 +17,8 @@ describe("Node Tests", function(){
     assert.equal(port, node.port)
   })
 
+  it("should have coordinates", function(){
+    assert.deepEqual([392, 598], node.coordinates)
+  })
+
 })
