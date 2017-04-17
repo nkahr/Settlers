@@ -11,10 +11,12 @@ const dice = new Dice()
 class GameContainer extends Component {
   constructor(props){
     super(props)
-    const newGame = new Game({player1: this.props.player1, 
+    const newGame = new Game({
+      player1: this.props.player1, 
       player2: this.props.player2, 
       player3: this.props.player3, 
-      player4: this.props.player4})
+      player4: this.props.player4
+    })
     const bank = new Bank()
 
     this.state={
@@ -103,7 +105,8 @@ class GameContainer extends Component {
             rollDice={this.rollDice}
             tradeWithBank={this.tradeWithBank}
             getDevelopmentCard={this.getDevelopmentCard}
-            playDevCard={this.playDevCard}/> 
+            playDevCard={this.playDevCard}
+          /> 
         </div>
     }
   
@@ -349,7 +352,6 @@ class GameContainer extends Component {
       }
       this.state.game.giveResourceCardToPlayer(this.state.currentPlayer, resourceToReceive)
     }
-
     this.setState({currentPlayer: this.state.currentPlayer})
   }
 
@@ -358,7 +360,6 @@ class GameContainer extends Component {
       this.state.game.giveDevelopmentCardToPlayer(this.state.currentPlayer)
     }
     this.forceUpdate()
-    
   }
 
   playDevCard(type) {
@@ -378,17 +379,7 @@ class GameContainer extends Component {
       playerToUpdate.freeRoadCount += 2
       this.setState({currentPlayer: playerToUpdate})
     }
-    // if (type === "monopoly") {
-    //   let cardsToSteal = []
-    //   this.state.players.forEach((player) => {
-    //     player.resourceCards.forEach((card) => {
-    //       if card
-    //     })
-    //   })
-
-    // }
   }
-
 
 }
 

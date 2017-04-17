@@ -48,8 +48,3 @@ class LoginComponent extends Component {
 }
 
 export default LoginComponent
-
-
-// Player 2: <input type="text" value="" name="player2" onChange={this.props.handlePlayer2} />
-// Player 3: <input type="text" value="" name="player3" onChange={this.props.handlePlayer3} />
-// Player 4: <input type="text" value="" name="player4" onChange={this.props.handlePlayer4} />
