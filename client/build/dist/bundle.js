@@ -10347,13 +10347,13 @@ var PlayerStatsComponent = function (_Component) {
 
       var dropDown = [_react2.default.createElement(
         "option",
-        { selected: "true" },
-        " Resource to give "
+        { selected: "true", disabled: true },
+        " Resource to trade "
       )];
 
       var allResourcesDropDown = [_react2.default.createElement(
         "option",
-        { selected: "true" },
+        { selected: "true", disabled: true },
         " Resource to receive "
       )];
 
@@ -10544,12 +10544,12 @@ var PlayerStatsComponent = function (_Component) {
         ),
         _react2.default.createElement(
           "select",
-          { onChange: this.onResourceToGiveSelect },
+          { onChange: this.onResourceToGiveSelect, id: "resourceToGive" },
           dropDown
         ),
         _react2.default.createElement(
           "select",
-          { onChange: this.onResourceToReceiveSelect },
+          { onChange: this.onResourceToReceiveSelect, id: "resourceToReceive" },
           allResourcesDropDown
         ),
         devCards
@@ -10566,9 +10566,11 @@ var PlayerStatsComponent = function (_Component) {
   }, {
     key: "onResourceToReceiveSelect",
     value: function onResourceToReceiveSelect(event) {
-      var resourceToReceive = event.target.value;
-      if (resourceToReceive) {
-        this.props.tradeWithBank(this.state.resourceToTrade, resourceToReceive);
+      var resource = event.target.value;
+      if (resource) {
+        this.props.tradeWithBank(this.state.resourceToTrade, resource);
+        resourceToGive.options[0].selected = true;
+        resourceToReceive.options[0].selected = true;
       }
     }
   }, {

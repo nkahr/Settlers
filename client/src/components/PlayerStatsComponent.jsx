@@ -46,9 +46,9 @@ class PlayerStatsComponent extends Component{
       }
     }
 
-    let dropDown = [<option selected="true" > Resource to give </option>]
+    let dropDown = [<option selected="true" disabled> Resource to trade </option>]
 
-    let allResourcesDropDown = [<option selected="true" > Resource to receive </option>]
+    let allResourcesDropDown = [<option selected="true" disabled> Resource to receive </option>]
 
     let keys = Object.keys(resourceHash)
 
@@ -120,10 +120,10 @@ class PlayerStatsComponent extends Component{
         <p> Rock: {resourceHash["rock"]} </p>
         <p> Crop: {resourceHash["crop"]} </p>
         <p> Longest Road: {longestRoad} </p>
-        <select onChange={this.onResourceToGiveSelect}> 
+        <select onChange={this.onResourceToGiveSelect} id="resourceToGive"> 
           {dropDown} 
         </select> 
-        <select onChange={this.onResourceToReceiveSelect}> 
+        <select onChange={this.onResourceToReceiveSelect} id="resourceToReceive"> 
           {allResourcesDropDown} 
         </select> 
         {devCards}
@@ -139,9 +139,11 @@ class PlayerStatsComponent extends Component{
   }
 
   onResourceToReceiveSelect(event) {
-    const resourceToReceive = event.target.value
-    if (resourceToReceive) {
-      this.props.tradeWithBank(this.state.resourceToTrade, resourceToReceive)
+    const resource = event.target.value
+    if (resource) {
+      this.props.tradeWithBank(this.state.resourceToTrade, resource)
+      resourceToGive.options[0].selected=true
+      resourceToReceive.options[0].selected=true
     }
   }
 
