@@ -1,2 +1,2 @@
 # Settlers
-like catan but good
+A React implementation of the board game "Settlers of Catan"
