@@ -27,5 +27,9 @@ describe("Game Tests", function(){
     assert.equal(19, game.tilesArray.length)
   })
 
+  it("should have 72 possible roads", function(){
+    assert.equal(72, game.roadsArray.length)
+  })
+
 
 })
