@@ -35,4 +35,80 @@ describe("Game Tests", function(){
     assert.equal(9, game.portsArray.length)
   })
 
+  it("can give resource card to player", function(){
+    game.giveResourceCardToPlayer(player1, "sheep")
+    assert.equal(1, player1.resourceCards.length)
+    assert.equal("sheep", player1.resourceCards[0].type)
+  })
+
+  it("can give multiple resource cards to player", function(){
+    game.giveResourceCardToPlayer(player1, "sheep")
+    game.giveResourceCardToPlayer(player1, "rock")
+    assert.equal(2, player1.resourceCards.length)
+  })
+
+  it("can remove half a player's cards if player has 2 cards", function(){
+    game.giveResourceCardToPlayer(player1, "sheep")
+    game.giveResourceCardToPlayer(player1, "rock")
+    game.giveHalfCardsAway(player1)
+    assert.equal(1, player1.resourceCards.length)
+  })
+
+  it("giveHalfCardsAway removes 1 card when player has 3 cards", function(){
+    game.giveResourceCardToPlayer(player1, "sheep")
+    game.giveResourceCardToPlayer(player1, "rock")
+    game.giveResourceCardToPlayer(player1, "wood")
+    game.giveHalfCardsAway(player1)
+    assert.equal(2, player1.resourceCards.length)
+  })
+
+  it("giveHalfCardsAway removes 2 card when player has 4 cards", function(){
+    game.giveResourceCardToPlayer(player1, "sheep")
+    game.giveResourceCardToPlayer(player1, "rock")
+    game.giveResourceCardToPlayer(player1, "wood")
+    game.giveResourceCardToPlayer(player1, "wood")
+    game.giveHalfCardsAway(player1)
+    assert.equal(2, player1.resourceCards.length)
+  })
+
+  it("can give development card to player", function(){
+    game.giveDevelopmentCardToPlayer(player1)
+    assert.equal(1, player1.developmentCards.length)
+  })
+
+  it("can give multiple development cards to player", function(){
+    game.giveDevelopmentCardToPlayer(player1)
+    game.giveDevelopmentCardToPlayer(player1)
+    assert.equal(2, player1.developmentCards.length)
+  })
+
+  it("let player build road if they don't have resources and freeRoadCount is greater than zero", function(){
+    assert.equal(2, player1.freeRoadCount)
+    assert.equal(true, game.letPlayerBuildRoad(player1))
+  })
+
+  it("freeRoadCount decreases when first road is built", function(){
+    game.letPlayerBuildRoad(player1)
+    assert.equal(1, player1.freeRoadCount)
+  })
+
+  it("roadsAvailable decreases when road is built", function(){
+    game.letPlayerBuildRoad(player1)
+    assert.equal(14, player1.roadsAvailable)
+  })
+
+  it("don't let player build road if they don't have resources and freeRoadCount is zero", function(){
+    player1.freeRoadCount = 0 
+    assert.equal(0, player1.freeRoadCount)
+    assert.equal(0, player1.resourceCards.length)
+    assert.equal(false, game.letPlayerBuildRoad(player1))
+  })
+
+  it("let player build road if they have wood and clay", function(){
+    player1.freeRoadCount = 0 
+    game.giveResourceCardToPlayer(player1, "wood")    
+    game.giveResourceCardToPlayer(player1, "clay")    
+    assert.equal(true, game.letPlayerBuildRoad(player1))
+  })
+
 })
