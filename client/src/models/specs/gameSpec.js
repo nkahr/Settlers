@@ -31,5 +31,8 @@ describe("Game Tests", function(){
     assert.equal(72, game.roadsArray.length)
   })
 
+  it("should have 9 possible ports", function(){
+    assert.equal(9, game.portsArray.length)
+  })
 
 })
