@@ -23,5 +23,9 @@ describe("Game Tests", function(){
     assert.equal(4, game.players.length)
   })
 
+  it("should have 19 tiles", function(){
+    assert.equal(19, game.tilesArray.length)
+  })
+
 
 })
