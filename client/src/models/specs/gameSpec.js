@@ -129,4 +129,9 @@ describe("Game Tests", function(){
     assert.equal(false, game.letPlayerBuildSettlement(player1))
   })
 
+  it("settlementsAvailable decreases when settlement is built", function(){
+    game.letPlayerBuildSettlement(player1)
+    assert.equal(4, player1.settlementsAvailable)
+  })
+
 })
