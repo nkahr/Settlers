@@ -143,4 +143,14 @@ describe("Game Tests", function(){
     assert.equal(true, game.letPlayerBuildSettlement(player1))
   })
 
+  it("resources are removed after building settlement", function(){
+    player1.freeSettlementCount = 0 
+    game.giveResourceCardToPlayer(player1, "wood")    
+    game.giveResourceCardToPlayer(player1, "clay")    
+    game.giveResourceCardToPlayer(player1, "crop")    
+    game.giveResourceCardToPlayer(player1, "sheep")    
+    game.letPlayerBuildSettlement(player1)
+    assert.equal(0, player1.resourceCards.length)
+  })
+
 })
