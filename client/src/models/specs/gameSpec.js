@@ -111,4 +111,9 @@ describe("Game Tests", function(){
     assert.equal(true, game.letPlayerBuildRoad(player1))
   })
 
+  it("freeSettlementCount decreases when first settlement is built", function(){
+    game.letPlayerBuildSettlement(player1)
+    assert.equal(1, player1.freeSettlementCount)
+  })
+
 })
