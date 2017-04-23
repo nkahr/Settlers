@@ -134,4 +134,13 @@ describe("Game Tests", function(){
     assert.equal(4, player1.settlementsAvailable)
   })
 
+  it("let player build settlement if they have wood, clay, crop and sheep", function(){
+    player1.freeSettlementCount = 0 
+    game.giveResourceCardToPlayer(player1, "wood")    
+    game.giveResourceCardToPlayer(player1, "clay")    
+    game.giveResourceCardToPlayer(player1, "crop")    
+    game.giveResourceCardToPlayer(player1, "sheep")    
+    assert.equal(true, game.letPlayerBuildSettlement(player1))
+  })
+
 })
