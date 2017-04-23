@@ -116,4 +116,10 @@ describe("Game Tests", function(){
     assert.equal(1, player1.freeSettlementCount)
   })
 
+  it("can only build two free settlements", function(){
+    assert.equal(true, game.letPlayerBuildSettlement(player1))
+    assert.equal(true, game.letPlayerBuildSettlement(player1))
+    assert.equal(false, game.letPlayerBuildSettlement(player1))
+  })
+
 })
