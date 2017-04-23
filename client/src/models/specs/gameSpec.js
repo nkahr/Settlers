@@ -97,7 +97,7 @@ describe("Game Tests", function(){
     assert.equal(14, player1.roadsAvailable)
   })
 
-  it("don't let player build road if they don't have resources and freeRoadCount is zero", function(){
+  it("don't let player build road if they don't have resources", function(){
     player1.freeRoadCount = 0 
     assert.equal(0, player1.freeRoadCount)
     assert.equal(0, player1.resourceCards.length)
@@ -119,6 +119,13 @@ describe("Game Tests", function(){
   it("can only build two free settlements", function(){
     assert.equal(true, game.letPlayerBuildSettlement(player1))
     assert.equal(true, game.letPlayerBuildSettlement(player1))
+    assert.equal(false, game.letPlayerBuildSettlement(player1))
+  })
+
+  it("don't let player build settlement if they don't have resources", function(){
+    player1.freeSettlementCount = 0 
+    assert.equal(0, player1.freeSettlementCount)
+    assert.equal(0, player1.resourceCards.length)
     assert.equal(false, game.letPlayerBuildSettlement(player1))
   })
 
