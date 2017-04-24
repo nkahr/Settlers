@@ -97,6 +97,8 @@ class GameContainer extends Component {
           <PlayerStatsComponent 
             currentPlayer={this.state.currentPlayer} 
             turn={this.state.turn}
+            roads={roads} 
+            nodes={nodes} 
             getLongestRoadCount={this.getLongestRoadCount}
             checkForLongestRoadWinner={this.checkForLongestRoadWinner}
             nextTurn={this.nextTurn}

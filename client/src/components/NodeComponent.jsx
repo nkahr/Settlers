@@ -32,7 +32,8 @@ class NodeComponent extends Component {
     ///////////// CHECKING FOR SURROUNDING ROADS OF CURRENT PLAYER ///////////////////////
     if (this.props.turn >= 8) {
       let matchingRoads = []
-      this.props.node.surroundingRoads.forEach((road) => {
+      this.props.node.surroundingRoads.forEach((roadIndex) => {
+        const road = this.props.roads[roadIndex]
         if (road.colour === this.props.currentPlayer.colour) {
           matchingRoads.push(road)
         }

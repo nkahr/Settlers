@@ -1,5 +1,6 @@
 class Node {
   constructor(options) {
+    this.index = options["index"]
     this.coordinates = options["coordinates"]
     this.port = options["port"]
     this.surroundingTiles = []

@@ -67,6 +67,7 @@ class BoardComponent extends Component{
           classOfNode={node.classOfNode}
           node={node}
           ports={this.props.ports}
+          roads={this.props.roads}
         />
       )
     })

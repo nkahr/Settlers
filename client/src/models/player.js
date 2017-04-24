@@ -22,11 +22,12 @@ class Player {
     this.portTypes = []
   }
 
-  addNextRoad(arrayOfRoads, lastNode) {
+  addNextRoad(arrayOfRoads, lastNode, allRoads, allNodes) {
     const lastRoad = arrayOfRoads[arrayOfRoads.length - 1]
     arrayOfRoads = arrayOfRoads.slice()
       let surroundingRoadsOwned = []
-      lastNode.surroundingRoads.forEach((surroundingRoad) => {
+      lastNode.surroundingRoads.forEach((surroundingRoadIndex) => {
+        const surroundingRoad = allRoads[surroundingRoadIndex]
         if (surroundingRoad.colour === this.colour) {
           surroundingRoadsOwned.push(surroundingRoad)
         }
@@ -39,10 +40,14 @@ class Player {
           ///////////// CLONE ARRAY FOR CASE OF ROAD SPLIT ////////////
           let clonedArrayOfRoads = arrayOfRoads.slice()
           clonedArrayOfRoads.push(surrRoad)
-          const nodesSurroundingNewRoad = surrRoad.surroundingNodes
+          const nodeIndicesSurroundingNewRoad = surrRoad.surroundingNodes
+          let nodesSurroundingNewRoad = []
+          nodeIndicesSurroundingNewRoad.forEach((nodeIndex) => {
+            nodesSurroundingNewRoad.push(allNodes[nodeIndex])
+          })
           nodesSurroundingNewRoad.forEach((node) => {
             if (node !== lastNode) {
-              this.addNextRoad(clonedArrayOfRoads, node)
+              this.addNextRoad(clonedArrayOfRoads, node, allRoads, allNodes)
             }
           })
         }
@@ -50,11 +55,13 @@ class Player {
     }
   }
 
-  findLongestRoads() {
+  findLongestRoads(allRoads, allNodes) {
     this.roadsBuilt.forEach((road) => {
-      road.surroundingNodes.forEach((node) => {
+      road.surroundingNodes.forEach((nodeIndex) => {
+        const node = allNodes[nodeIndex]
         let surroundingRoadsOwned = []
-        node.surroundingRoads.forEach((surroundingRoad) => {
+        node.surroundingRoads.forEach((surroundingRoadIndex) => {
+          const surroundingRoad = allRoads[surroundingRoadIndex]
           if (surroundingRoad.colour === this.colour) {
             surroundingRoadsOwned.push(surroundingRoad)
           }
@@ -63,10 +70,14 @@ class Player {
         if (surroundingRoadsOwned.length === 1) {
           let arrayOfRoads = []
           arrayOfRoads.push(road)
-          const nodes = road.surroundingNodes
+          const nodeIndices = road.surroundingNodes
+          let nodes = []
+          nodeIndices.forEach((nodeIndex) => {
+            nodes.push(allNodes[nodeIndex])
+          })
           nodes.forEach((nodeInstance) => {
             if (nodeInstance !== node) {
-              this.addNextRoad(arrayOfRoads, nodeInstance)
+              this.addNextRoad(arrayOfRoads, nodeInstance, allRoads, allNodes)
             }
           })
         }

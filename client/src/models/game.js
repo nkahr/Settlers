@@ -176,7 +176,7 @@ class Game {
       this.roadsArray.forEach((road) => {
         const roadCoordinates = road.coordinates
         if (Math.abs(nodeCoordinates[0] - (roadCoordinates[0] + 12)) < 60 && Math.abs(nodeCoordinates[1] - (roadCoordinates[1] + 12) ) < 60) {
-          node.surroundingRoads.push(road)
+          node.surroundingRoads.push(road.index)
         }
       }) 
     })
@@ -188,7 +188,7 @@ class Game {
       this.nodesArray.forEach((node) => {
         const nodeCoordinates = node.coordinates
         if (Math.abs(nodeCoordinates[0] - (roadCoordinates[0] + 12)) < 60 && Math.abs(nodeCoordinates[1] - (roadCoordinates[1] + 12) ) < 60) {
-          road.surroundingNodes.push(node)
+          road.surroundingNodes.push(node.index)
         }
       }) 
     })

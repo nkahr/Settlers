@@ -25,7 +25,7 @@ class PlayerStatsComponent extends Component{
       resourceHash[resourceCard.type] += 1
     })
 
-    this.props.currentPlayer.findLongestRoads()
+    this.props.currentPlayer.findLongestRoads(this.props.roads, this.props.nodes)
 
     let longestRoad = this.props.getLongestRoadCount(this.props.currentPlayer)
 
