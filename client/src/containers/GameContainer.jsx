@@ -1,3 +1,6 @@
+const io = require('socket.io-client')  
+
+const socket = io()
 import React, { Component } from 'react'
 import BoardComponent from '../components/BoardComponent'
 import OpponentsComponent from '../components/OpponentsComponent'
@@ -36,6 +39,10 @@ class GameContainer extends Component {
       numberRolled: undefined
     }
 
+    socket.on('receive data', (payload) => {   
+      this.updateDataFromSockets(payload)
+    })
+
     this.handleClick = this.handleClick.bind(this)
     this.moveRobber = this.moveRobber.bind(this)
     this.rollDice = this.rollDice.bind(this)
@@ -50,6 +57,24 @@ class GameContainer extends Component {
     this.shuffle = this.shuffle.bind(this)
     this.getDevelopmentCard = this.getDevelopmentCard.bind(this)
     this.playDevCard = this.playDevCard.bind(this)
+    this.updateDataFromSockets = this.updateDataFromSockets.bind(this)
+    this.setStateAndBroadcast = this.setStateAndBroadcast.bind(this)
+  }
+
+  setStateAndBroadcast(newData) {
+    console.log('newData: ', newData)
+    console.log("set state and broadcast beg")
+    this.setState(newData)
+    console.log("set state and broadcast middle")
+    // const test = JSON.stringify(newData)
+    // socket.emit('game event', test)
+    console.log("set state and broadcast end")
+  }
+
+  updateDataFromSockets(payload) {
+  console.log("updateDataFromSockets")
+  this.setState(payload)
+  console.log("updateDataFromSockets end")
   }
 
   render() {
@@ -157,7 +182,7 @@ class GameContainer extends Component {
         }
       }) 
     }
-    this.setState({previousRobberIndex: current, robberIndex: newRobberIndex, sevenRolled: false, players: players})
+    this.setStateAndBroadcast({previousRobberIndex: current, robberIndex: newRobberIndex, sevenRolled: false, players: players})
   }
 
   colourRoads(clickedRoadIndex) {
@@ -168,7 +193,7 @@ class GameContainer extends Component {
     let playerToUpdate = this.state.currentPlayer
     playerToUpdate.hasLongestRoad = this.checkForLongestRoadWinner(playerToUpdate)
 
-    this.setState({roadsArray: updatedRoadsArray, currentPlayer: playerToUpdate})
+    this.setStateAndBroadcast({roadsArray: updatedRoadsArray, currentPlayer: playerToUpdate})
   }
 
   colourSettlements(clickedNodeIndex) {
@@ -182,7 +207,7 @@ class GameContainer extends Component {
       this.state.currentPlayer.portTypes.push(updatedNodesArray[clickedNodeIndex].port)
     }
     let playerToUpdate = this.state.currentPlayer
-    this.setState({nodesArray: updatedNodesArray, currentPlayer: playerToUpdate})
+    this.setStateAndBroadcast({nodesArray: updatedNodesArray, currentPlayer: playerToUpdate})
     console.log('clicked node', this.state.nodesArray[clickedNodeIndex])
   }
 
@@ -217,7 +242,7 @@ class GameContainer extends Component {
         }
       })
     })
-    this.setState({currentPlayer: playerToUpdate, showTurnButton: true, showRollDiceButton: false, sevenRolled: sevenRolled, numberRolled: numberRolled})
+    this.setStateAndBroadcast({currentPlayer: playerToUpdate, showTurnButton: true, showRollDiceButton: false, sevenRolled: sevenRolled, numberRolled: numberRolled})
   }
 
   nextTurn() {
@@ -264,7 +289,7 @@ class GameContainer extends Component {
         newCurrentPlayer = this.state.players[0]
       }
     }
-    this.setState({currentPlayer: newCurrentPlayer, turn: turn, showTurnButton: false, showRollDiceButton: true})
+    this.setStateAndBroadcast({currentPlayer: newCurrentPlayer, turn: turn, showTurnButton: false, showRollDiceButton: true})
     
   }
 
@@ -275,7 +300,7 @@ class GameContainer extends Component {
     updatedNodesArray[clickedNodeIndex].hasCity = true
     updatedNodesArray[clickedNodeIndex].classOfNode = 'city'
     let playerToUpdate = this.state.currentPlayer
-    this.setState({nodesArray: updatedNodesArray, currentPlayer: playerToUpdate, classOfNode: 'city'})
+    this.setStateAndBroadcast({nodesArray: updatedNodesArray, currentPlayer: playerToUpdate, classOfNode: 'city'})
   }
 
   getLongestRoadCount(player) {
@@ -354,7 +379,9 @@ class GameContainer extends Component {
       }
       this.state.game.giveResourceCardToPlayer(this.state.currentPlayer, resourceToReceive)
     }
-    this.setState({currentPlayer: this.state.currentPlayer})
+    // this.setState({currentPlayer: this.state.currentPlayer})
+
+    this.setStateAndBroadcast({currentPlayer: this.state.currentPlayer})
   }
 
   getDevelopmentCard() {
@@ -374,12 +401,12 @@ class GameContainer extends Component {
     if (type === "pointsCard") {
       let playerToUpdate = this.state.currentPlayer
       playerToUpdate.score += 1
-      this.setState({currentPlayer: playerToUpdate})
+      this.setStateAndBroadcast({currentPlayer: playerToUpdate})
     }
     if (type === "roadBuilding") {
       let playerToUpdate = this.state.currentPlayer
       playerToUpdate.freeRoadCount += 2
-      this.setState({currentPlayer: playerToUpdate})
+      this.setStateAndBroadcast({currentPlayer: playerToUpdate})
     }
   }
 
