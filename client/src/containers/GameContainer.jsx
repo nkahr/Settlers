@@ -62,9 +62,9 @@ class GameContainer extends Component {
   setStateAndBroadcast(newData) {
     console.log('newData: ', newData)
     console.log("set state and broadcast beg")
-    // this.setState(newData)
+    this.setState(newData)
     console.log("set state and broadcast middle")
-    const test = JSON.stringify(newData)
+    // const test = JSON.stringify(newData)
     // socket.emit('game event', test)
     console.log("set state and broadcast end")
   }
