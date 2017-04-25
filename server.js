@@ -16,9 +16,10 @@ io.on('connection', function(socket) {
     console.log('user disconnected');
   });
 
-  // socket.on('game event', function(data) {
-  //   socket.broadcast.to(data).emit('receive data', data)
-  // }
+  socket.on('game-event', function(data) {
+    console.log("on game event")
+    io.emit('receive data', data)
+  }
 
 });
 

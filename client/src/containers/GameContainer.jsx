@@ -39,7 +39,9 @@ class GameContainer extends Component {
       numberRolled: undefined
     }
 
-    socket.on('receive data', (payload) => {   
+    socket.on('game-event', (payload) => {   
+      console.log("on receiving data")
+      console.log("payload", payload)
       this.updateDataFromSockets(payload)
     })
 
@@ -61,14 +63,19 @@ class GameContainer extends Component {
     this.setStateAndBroadcast = this.setStateAndBroadcast.bind(this)
   }
 
+  componentDidMount() {
+    socket.on('game-event', (payload) => {   
+      console.log("on receiving data")
+      console.log("payload", payload)
+      this.updateDataFromSockets(payload)
+    })
+  }
+
   setStateAndBroadcast(newData) {
-    console.log('newData: ', newData)
-    console.log("set state and broadcast beg")
     this.setState(newData)
-    console.log("set state and broadcast middle")
     // const test = JSON.stringify(newData)
-    // socket.emit('game event', test)
-    console.log("set state and broadcast end")
+    socket.emit('game-event', newData)
+    console.log("set state and broadcast (end)")
   }
 
   updateDataFromSockets(payload) {
@@ -78,6 +85,11 @@ class GameContainer extends Component {
   }
 
   render() {
+    socket.on('game-event', (payload) => {   
+      console.log("on receiving data")
+      console.log("payload", payload)
+      this.updateDataFromSockets(payload)
+    })
     let screen = ""
     ////////////// WINNER SCREEN /////////////////////
     if (this.winChecker()) {
