@@ -17,11 +17,12 @@ io.on('connection', function(socket) {
   });
 
   socket.on('game-event', function(data) {
-    console.log("on game event")
+    console.log("on game event in server.js")
     io.emit('receive data', data)
-  }
+  })
 
 });
+
 
 http.listen(3000, function(){
   console.log('listening on *:3000');

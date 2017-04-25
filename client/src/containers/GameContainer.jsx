@@ -39,11 +39,11 @@ class GameContainer extends Component {
       numberRolled: undefined
     }
 
-    socket.on('game-event', (payload) => {   
-      console.log("on receiving data")
-      console.log("payload", payload)
-      this.updateDataFromSockets(payload)
-    })
+    // socket.on('receive data', (payload) => {   
+    //   console.log("on receiving data")
+    //   console.log("payload", payload)
+    //   this.updateDataFromSockets(payload)
+    // })
 
     this.handleClick = this.handleClick.bind(this)
     this.moveRobber = this.moveRobber.bind(this)
@@ -64,7 +64,7 @@ class GameContainer extends Component {
   }
 
   componentDidMount() {
-    socket.on('game-event', (payload) => {   
+    socket.on('receive data', (payload) => {   
       console.log("on receiving data")
       console.log("payload", payload)
       this.updateDataFromSockets(payload)
@@ -80,6 +80,7 @@ class GameContainer extends Component {
 
   updateDataFromSockets(payload) {
   console.log("updateDataFromSockets")
+  console.log("payload2", payload)
   this.setState(payload)
   console.log("updateDataFromSockets end")
   }

@@ -1,3 +1,7 @@
+const io = require('socket.io-client')  
+
+const socket = io()
+
 import React, { Component } from 'react'
 import LoginComponent from '../components/LoginComponent'
 import GameContainer from './GameContainer'
@@ -12,11 +16,34 @@ class MainContainer extends Component {
       player4: {name: "4"},
       gameOn: false
     }
+
+    socket.on('login-event', (payload) => {   
+      console.log("on receiving login data")
+      console.log("payload", payload)
+      this.updateDataFromSockets(payload)
+    })
+
     this.handlePlayer1 = this.handlePlayer1.bind(this)
     this.handlePlayer2 = this.handlePlayer2.bind(this)
     this.handlePlayer3 = this.handlePlayer3.bind(this)
     this.handlePlayer4 = this.handlePlayer4.bind(this)
     this.startGame = this.startGame.bind(this)
+    this.updateDataFromSockets = this.updateDataFromSockets.bind(this)
+    this.setStateAndBroadcast = this.setStateAndBroadcast.bind(this)
+  }
+
+
+  setStateAndBroadcast(newData) {
+    this.setState(newData)
+    // const test = JSON.stringify(newData)
+    socket.emit('login-event', newData)
+    console.log("set state and broadcast (end)")
+  }
+
+  updateDataFromSockets(payload) {
+  console.log("updateDataFromSockets")
+  this.setState(payload)
+  console.log("updateDataFromSockets end")
   }
 
   render() {
@@ -54,23 +81,23 @@ class MainContainer extends Component {
 
 
   handlePlayer1(name) {
-    this.setState({player1: {name: name}})
+    this.setStateAndBroadcast({player1: {name: name}})
   }
 
   handlePlayer2(name) {
-    this.setState({player2: {name: name}})
+    this.setStateAndBroadcast({player2: {name: name}})
   }
   
   handlePlayer3(name) {
-    this.setState({player3: {name: name}})
+    this.setStateAndBroadcast({player3: {name: name}})
   }
 
   handlePlayer4(name) {
-    this.setState({player4: {name: name}})
+    this.setStateAndBroadcast({player4: {name: name}})
   }
 
   startGame() {
-    this.setState({gameOn: true})
+    this.setStateAndBroadcast({gameOn: true})
   }
 
 }
