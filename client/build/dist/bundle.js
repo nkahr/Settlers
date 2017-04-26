@@ -10299,10 +10299,12 @@ var PlayerStatsComponent = function (_Component) {
     var _this = _possibleConstructorReturn(this, (PlayerStatsComponent.__proto__ || Object.getPrototypeOf(PlayerStatsComponent)).call(this, props));
 
     _this.state = {
-      resourceToTrade: undefined
+      resourceToTrade: undefined,
+      resourceToReceive: undefined
     };
     _this.onResourceToGiveSelect = _this.onResourceToGiveSelect.bind(_this);
     _this.onResourceToReceiveSelect = _this.onResourceToReceiveSelect.bind(_this);
+    _this.makeTradeWithBank = _this.makeTradeWithBank.bind(_this);
     _this.playDevCard = _this.playDevCard.bind(_this);
     return _this;
   }
@@ -10552,6 +10554,11 @@ var PlayerStatsComponent = function (_Component) {
           { onChange: this.onResourceToReceiveSelect, id: "resourceToReceive" },
           allResourcesDropDown
         ),
+        _react2.default.createElement(
+          "button",
+          { onClick: this.makeTradeWithBank },
+          " Trade "
+        ),
         devCards
       );
     }
@@ -10568,10 +10575,16 @@ var PlayerStatsComponent = function (_Component) {
     value: function onResourceToReceiveSelect(event) {
       var resource = event.target.value;
       if (resource) {
-        this.props.tradeWithBank(this.state.resourceToTrade, resource);
-        resourceToGive.options[0].selected = true;
-        resourceToReceive.options[0].selected = true;
+        this.setState({ resourceToReceive: resource });
       }
+    }
+  }, {
+    key: "makeTradeWithBank",
+    value: function makeTradeWithBank() {
+      this.props.tradeWithBank(this.state.resourceToTrade, this.state.resourceToReceive);
+      resourceToGive.options[0].selected = true;
+      resourceToReceive.options[0].selected = true;
+      this.setState({ resourceToTrade: undefined, resourceToReceive: undefined });
     }
   }, {
     key: "playDevCard",

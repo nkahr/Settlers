@@ -4,10 +4,12 @@ class PlayerStatsComponent extends Component{
   constructor(props) {
     super(props)
     this.state = {
-      resourceToTrade: undefined
+      resourceToTrade: undefined,
+      resourceToReceive: undefined
     }
     this.onResourceToGiveSelect = this.onResourceToGiveSelect.bind(this)
     this.onResourceToReceiveSelect = this.onResourceToReceiveSelect.bind(this)
+    this.makeTradeWithBank = this.makeTradeWithBank.bind(this)
     this.playDevCard = this.playDevCard.bind(this)
   }
 
@@ -125,7 +127,8 @@ class PlayerStatsComponent extends Component{
         </select> 
         <select onChange={this.onResourceToReceiveSelect} id="resourceToReceive"> 
           {allResourcesDropDown} 
-        </select> 
+        </select>
+        <button onClick={this.makeTradeWithBank}> Trade </button>
         {devCards}
       </div>
     )
@@ -141,10 +144,15 @@ class PlayerStatsComponent extends Component{
   onResourceToReceiveSelect(event) {
     const resource = event.target.value
     if (resource) {
-      this.props.tradeWithBank(this.state.resourceToTrade, resource)
-      resourceToGive.options[0].selected=true
-      resourceToReceive.options[0].selected=true
+      this.setState({resourceToReceive: resource})
     }
+  }
+
+  makeTradeWithBank() {
+    this.props.tradeWithBank(this.state.resourceToTrade, this.state.resourceToReceive)
+    resourceToGive.options[0].selected=true
+    resourceToReceive.options[0].selected=true
+    this.setState({resourceToTrade: undefined, resourceToReceive: undefined})
   }
 
   playDevCard(event) {
