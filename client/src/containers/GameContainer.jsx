@@ -39,12 +39,6 @@ class GameContainer extends Component {
       numberRolled: undefined
     }
 
-    // socket.on('receive data', (payload) => {   
-    //   console.log("on receiving data")
-    //   console.log("payload", payload)
-    //   this.updateDataFromSockets(payload)
-    // })
-
     this.handleClick = this.handleClick.bind(this)
     this.moveRobber = this.moveRobber.bind(this)
     this.rollDice = this.rollDice.bind(this)
