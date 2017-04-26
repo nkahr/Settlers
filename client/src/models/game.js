@@ -333,7 +333,6 @@ class Game {
     return false
   }
 
-
   letPlayerBuildCity(player) {
     if (player.citiesAvailable === 0) {
       return false
@@ -372,13 +371,18 @@ class Game {
   }
 
   //////////// GETTING CONQUERED TILES /////////////////////////////
-  radar(player, index) {
+  radar(player, index, turn) {
     const node = this.nodesArray[index]
     const nodeCoordinates = node.coordinates
     this.tilesArray.forEach((tile) => {
       const tileCoordinates = tile.coordinates
       if (Math.abs(nodeCoordinates[0] - (tileCoordinates[0] + 60)) < 100 && Math.abs(nodeCoordinates[1] - (tileCoordinates[1] + 69) ) < 100) {
         player.conqueredTiles.push(tile)
+        ///// RESOURCES FOR SECOND SETTLEMENT /////
+        if (tile.resource !== "desert" && turn > 3 && turn < 8) {
+          const setupPhaseResource = this.bank.generateResourceCard(tile.resource)
+          player.resourceCards.push(setupPhaseResource)
+        }
       }
     })
   }

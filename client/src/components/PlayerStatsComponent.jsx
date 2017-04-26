@@ -54,7 +54,7 @@ class PlayerStatsComponent extends Component{
 
     let keys = Object.keys(resourceHash)
 
-    /////////// RESOURCE TO GIVE DISPLAY ///////////////////
+    /////////// RESOURCE TO GIVE DROPDOWN ///////////////////
     keys.forEach((resource) => {
       if (this.props.currentPlayer.portTypes.includes(resource) && 
         resourceHash[resource] >= 2) {
@@ -69,7 +69,7 @@ class PlayerStatsComponent extends Component{
         }
       }
     })
-    ////////// RESOURCE TO GET DISPLAY ///////////////////////
+    ////////// RESOURCE TO GET DROPDOWN ///////////////////////
     keys.forEach((resource) => {
       allResourcesDropDown.push(<option value={resource} > {resource} </option>)
     })

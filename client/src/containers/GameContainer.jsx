@@ -215,8 +215,7 @@ class GameContainer extends Component {
         newCurrentPlayer = this.state.players[0]
       }
     }
-    this.setState({currentPlayer: newCurrentPlayer, turn: turn, showTurnButton: false, showRollDiceButton: true})
-    
+    this.setState({currentPlayer: newCurrentPlayer, turn: turn, showTurnButton: false, showRollDiceButton: true})    
   }
 
   handleClick(event) {

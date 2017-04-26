@@ -10069,14 +10069,14 @@ var NodeComponent = function (_Component) {
       if (!this.props.hasSettlement && !this.props.hasCity) {
         if (this.props.letPlayerBuildSettlement(this.props.currentPlayer)) {
           this.props.colourSettlements(this.props.index);
-          this.props.radar(this.props.currentPlayer, this.props.index);
+          this.props.radar(this.props.currentPlayer, this.props.index, this.props.turn);
           this.props.mapConstructionAround(this.props.currentPlayer, this.props.index);
         }
       }
       if (this.props.hasSettlement && !this.props.hasCity) {
         if (this.props.letPlayerBuildCity(this.props.currentPlayer)) {
           this.props.buildCity(this.props.index);
-          this.props.radar(this.props.currentPlayer, this.props.index);
+          this.props.radar(this.props.currentPlayer, this.props.index, this.props.turn);
         }
       }
     }
@@ -10361,7 +10361,7 @@ var PlayerStatsComponent = function (_Component) {
 
       var keys = Object.keys(resourceHash);
 
-      /////////// RESOURCE TO GIVE DISPLAY ///////////////////
+      /////////// RESOURCE TO GIVE DROPDOWN ///////////////////
       keys.forEach(function (resource) {
         if (_this2.props.currentPlayer.portTypes.includes(resource) && resourceHash[resource] >= 2) {
           dropDown.push(_react2.default.createElement(
@@ -10391,7 +10391,7 @@ var PlayerStatsComponent = function (_Component) {
           }
         }
       });
-      ////////// RESOURCE TO GET DISPLAY ///////////////////////
+      ////////// RESOURCE TO GET DROPDOWN ///////////////////////
       keys.forEach(function (resource) {
         allResourcesDropDown.push(_react2.default.createElement(
           "option",
@@ -11862,13 +11862,20 @@ var Game = function () {
 
   }, {
     key: 'radar',
-    value: function radar(player, index) {
+    value: function radar(player, index, turn) {
+      var _this3 = this;
+
       var node = this.nodesArray[index];
       var nodeCoordinates = node.coordinates;
       this.tilesArray.forEach(function (tile) {
         var tileCoordinates = tile.coordinates;
         if (Math.abs(nodeCoordinates[0] - (tileCoordinates[0] + 60)) < 100 && Math.abs(nodeCoordinates[1] - (tileCoordinates[1] + 69)) < 100) {
           player.conqueredTiles.push(tile);
+          ///// RESOURCES FOR SECOND SETTLEMENT /////
+          if (tile.resource !== "desert" && turn > 3 && turn < 8) {
+            var setupPhaseResource = _this3.bank.generateResourceCard(tile.resource);
+            player.resourceCards.push(setupPhaseResource);
+          }
         }
       });
     }
@@ -11898,11 +11905,11 @@ var Game = function () {
   }, {
     key: 'mapNodesAroundTile',
     value: function mapNodesAroundTile() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.tilesArray.forEach(function (tile) {
         var tileCoordinates = tile.coordinates;
-        _this3.nodesArray.forEach(function (surrNode) {
+        _this4.nodesArray.forEach(function (surrNode) {
           var surroundingNodeCoordinates = surrNode.coordinates;
           if (Math.abs(tileCoordinates[0] + 60 - (surroundingNodeCoordinates[0] + 12)) < 80 && Math.abs(tileCoordinates[1] + 69 - (surroundingNodeCoordinates[1] + 12)) < 90) {
             tile.surroundingNodes.push(surrNode);
@@ -12029,6 +12036,7 @@ var Nodes = function () {
         return item + yInc;
       });
 
+      ////////// PORT ASSIGNMENT TO NODES ///////////////
       for (var i = 0; i < this.xArray.length; i++) {
         ///////////// 1 ///////////////////
         if (this.xArray[i] === 338 + xInc && this.yArray[i] === 542 + yInc) {

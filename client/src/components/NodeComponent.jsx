@@ -50,14 +50,14 @@ class NodeComponent extends Component {
     if (!this.props.hasSettlement && !this.props.hasCity) {
       if (this.props.letPlayerBuildSettlement(this.props.currentPlayer)) {
         this.props.colourSettlements(this.props.index)
-        this.props.radar(this.props.currentPlayer, this.props.index)
+        this.props.radar(this.props.currentPlayer, this.props.index, this.props.turn)
         this.props.mapConstructionAround(this.props.currentPlayer, this.props.index)
       }
     }
     if (this.props.hasSettlement && !this.props.hasCity) {
       if (this.props.letPlayerBuildCity(this.props.currentPlayer)) {
         this.props.buildCity(this.props.index)
-        this.props.radar(this.props.currentPlayer, this.props.index)
+        this.props.radar(this.props.currentPlayer, this.props.index, this.props.turn)
       }
     } 
   }
