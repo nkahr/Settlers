@@ -299,7 +299,6 @@ class Game {
   }
 
   letPlayerBuyDevCard(player) {
-
     let rockIndex = undefined
     let cropIndex = undefined
     let sheepIndex = undefined

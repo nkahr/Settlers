@@ -152,6 +152,7 @@ class GameContainer extends Component {
         }
       }) 
     }
+    this.state.currentPlayer.knightPlayed = false
     this.setState({previousRobberIndex: current, robberIndex: newRobberIndex, sevenRolled: false, players: players})
   }
 
@@ -375,6 +376,11 @@ class GameContainer extends Component {
     if (type === "roadBuilding") {
       let playerToUpdate = this.state.currentPlayer
       playerToUpdate.freeRoadCount += 2
+      this.setState({currentPlayer: playerToUpdate})
+    }
+    if (type === "knight") {
+      let playerToUpdate = this.state.currentPlayer
+      playerToUpdate.knightPlayed = true
       this.setState({currentPlayer: playerToUpdate})
     }
     // if (type === "monopoly") {

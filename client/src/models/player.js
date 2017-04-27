@@ -20,6 +20,7 @@ class Player {
     this.hasLongestRoad = false
     this.settledNodes = []
     this.portTypes = []
+    this.knightPlayed = false
   }
 
   addNextRoad(arrayOfRoads, lastNode) {
