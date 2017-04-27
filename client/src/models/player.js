@@ -21,6 +21,8 @@ class Player {
     this.settledNodes = []
     this.portTypes = []
     this.knightPlayed = false
+    this.armySize = 0
+    this.hasBiggestArmy = false
   }
 
   addNextRoad(arrayOfRoads, lastNode) {

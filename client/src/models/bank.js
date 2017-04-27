@@ -21,14 +21,14 @@ class Bank {
   }
 
   setup() {
-    for (let i = 0; i < 5; i++) {
-      const newDevCard = new DevelopmentCard({type: "pointsCard"}) 
-      this.developmentCards.push(newDevCard)
-    }
-    for (let i = 0; i < 2; i++) {
-      const newDevCard = new DevelopmentCard({type: "roadBuilding"}) 
-      this.developmentCards.push(newDevCard)
-    }
+    // for (let i = 0; i < 5; i++) {
+    //   const newDevCard = new DevelopmentCard({type: "pointsCard"}) 
+    //   this.developmentCards.push(newDevCard)
+    // }
+    // for (let i = 0; i < 2; i++) {
+    //   const newDevCard = new DevelopmentCard({type: "roadBuilding"}) 
+    //   this.developmentCards.push(newDevCard)
+    // }
     for (let i = 0; i < 15; i++) {
       const newDevCard = new DevelopmentCard({type: "knight"})
       this.developmentCards.push(newDevCard)

@@ -44,6 +44,7 @@ class GameContainer extends Component {
     this.winChecker = this.winChecker.bind(this)
     this.getLongestRoadCount = this.getLongestRoadCount.bind(this)
     this.checkForLongestRoadWinner = this.checkForLongestRoadWinner.bind(this)
+    this.checkForBiggestArmyWinner = this.checkForBiggestArmyWinner.bind(this)
     this.tradeWithBank = this.tradeWithBank.bind(this)
     this.shuffle = this.shuffle.bind(this)
     this.getDevelopmentCard = this.getDevelopmentCard.bind(this)
@@ -103,7 +104,8 @@ class GameContainer extends Component {
             rollDice={this.rollDice}
             tradeWithBank={this.tradeWithBank}
             getDevelopmentCard={this.getDevelopmentCard}
-            playDevCard={this.playDevCard}/> 
+            playDevCard={this.playDevCard}
+          /> 
         </div>
     }
   
@@ -213,7 +215,7 @@ class GameContainer extends Component {
         }
       })
     })
-    this.setState({currentPlayer: playerToUpdate, showTurnButton: true, showRollDiceButton: false, sevenRolled: sevenRolled, numberRolled: numberRolled})
+    this.setState({players: this.state.players, showTurnButton: true, showRollDiceButton: false, sevenRolled: sevenRolled, numberRolled: numberRolled})
   }
 
   nextTurn() {
@@ -230,6 +232,7 @@ class GameContainer extends Component {
     }
 
     const turn = this.state.turn + 1
+    
     let newCurrentPlayer
 
     if (turn > 4 && turn < 8) {
@@ -260,6 +263,9 @@ class GameContainer extends Component {
         newCurrentPlayer = this.state.players[0]
       }
     }
+
+    newCurrentPlayer.numberRolled = "none"
+    
     this.setState({currentPlayer: newCurrentPlayer, turn: turn, showTurnButton: false, showRollDiceButton: true})    
   }
 
@@ -287,9 +293,12 @@ class GameContainer extends Component {
     let returnStatement = true
     if (!currentPlayer.hasLongestRoad) {
       this.state.players.forEach((player) => {
-        if (currentPlayer !== player && this.getLongestRoadCount(currentPlayer) <= this.getLongestRoadCount(player) || this.getLongestRoadCount(currentPlayer) < 5) {
+        if (currentPlayer !== player && this.getLongestRoadCount(currentPlayer) <= this.getLongestRoadCount(player) 
+          || this.getLongestRoadCount(currentPlayer) < 5) {
           returnStatement = false
-        } else if (currentPlayer !== player && player.hasLongestRoad == true) {
+        } 
+        else if (currentPlayer !== player 
+          && player.hasLongestRoad === true) {
           player.hasLongestRoad = false
           player.score -= 2
         }
@@ -300,6 +309,29 @@ class GameContainer extends Component {
       return returnStatement
     }
     return returnStatement
+  }
+
+  checkForBiggestArmyWinner(currentPlayer) {
+    let returnStatement = true
+    let playersBeingChecked = this.state.players
+    if (!currentPlayer.hasBiggestArmy) {
+      playersBeingChecked.forEach((player) => {
+        if (currentPlayer !== player && currentPlayer.armySize <= player.armySize
+          || currentPlayer.armySize < 3) {
+          returnStatement = false
+        }
+        else if (currentPlayer !==  player
+          && player.hasBiggestArmy === true) {
+          player.hasBiggestArmy = false
+          player.score -= 2
+        }
+      })
+      if (returnStatement) {
+        currentPlayer.score += 2
+        currentPlayer.hasBiggestArmy = true
+      }
+    }
+    this.setState({players: playersBeingChecked})
   }
 
   tradeWithBank(resourceToGive, resourceToReceive) {
@@ -358,7 +390,6 @@ class GameContainer extends Component {
       this.state.game.giveDevelopmentCardToPlayer(this.state.currentPlayer)
     }
     this.forceUpdate()
-    
   }
 
   playDevCard(type) {
@@ -381,7 +412,9 @@ class GameContainer extends Component {
     if (type === "knight") {
       let playerToUpdate = this.state.currentPlayer
       playerToUpdate.knightPlayed = true
+      playerToUpdate.armySize += 1
       this.setState({currentPlayer: playerToUpdate})
+      this.checkForBiggestArmyWinner(this.state.currentPlayer)
     }
     // if (type === "monopoly") {
     //   let cardsToSteal = []

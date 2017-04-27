@@ -31,6 +31,8 @@ class PlayerStatsComponent extends Component{
 
     let longestRoad = this.props.getLongestRoadCount(this.props.currentPlayer)
 
+    let armySize = this.props.currentPlayer.armySize
+
     this.props.currentPlayer.hasLongestRoad = this.props.checkForLongestRoadWinner(this.props.currentPlayer)
 
     let rollDiceButtonId = "roll-dice-button"
@@ -122,6 +124,7 @@ class PlayerStatsComponent extends Component{
         <p> Rock: {resourceHash["rock"]} </p>
         <p> Crop: {resourceHash["crop"]} </p>
         <p> Longest Road: {longestRoad} </p>
+        <p> Army size: {armySize} </p>
         <select onChange={this.onResourceToGiveSelect} id="resourceToGive"> 
           {dropDown} 
         </select> 
