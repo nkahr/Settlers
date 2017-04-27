@@ -73,7 +73,9 @@ class PlayerStatsComponent extends Component{
     })
     ////////// RESOURCE TO GET DROPDOWN ///////////////////////
     keys.forEach((resource) => {
-      allResourcesDropDown.push(<option value={resource} > {resource} </option>)
+      if (resource !== this.state.resourceToTrade) {
+        allResourcesDropDown.push(<option value={resource}> {resource} </option>)
+      }
     })
 
     let backgroundColor = ""
