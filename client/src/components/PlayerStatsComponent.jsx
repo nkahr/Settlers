@@ -4,11 +4,14 @@ class PlayerStatsComponent extends Component{
   constructor(props) {
     super(props)
     this.state = {
-      resourceToTrade: undefined
+      resourceToTrade: undefined,
+      resourceToReceive: undefined
     }
     this.onResourceToGiveSelect = this.onResourceToGiveSelect.bind(this)
     this.onResourceToReceiveSelect = this.onResourceToReceiveSelect.bind(this)
+    this.makeTradeWithBank = this.makeTradeWithBank.bind(this)
     this.playDevCard = this.playDevCard.bind(this)
+    this.onMonopolySelect = this.onMonopolySelect.bind(this)
   }
 
   render() {
@@ -29,6 +32,8 @@ class PlayerStatsComponent extends Component{
 
     let longestRoad = this.props.getLongestRoadCount(this.props.currentPlayer)
 
+    let armySize = this.props.currentPlayer.armySize
+
     this.props.currentPlayer.hasLongestRoad = this.props.checkForLongestRoadWinner(this.props.currentPlayer)
 
     let rollDiceButtonId = "roll-dice-button"
@@ -46,13 +51,15 @@ class PlayerStatsComponent extends Component{
       }
     }
 
-    let dropDown = [<option selected="true" > Resource to give </option>]
+    let dropDown = [<option selected="true" disabled> Resource to trade </option>]
 
-    let allResourcesDropDown = [<option selected="true" > Resource to receive </option>]
+    let allResourcesDropDown = [<option selected="true" disabled> Resource to receive </option>]
+
+    let monopolyDropDown = [<option selected="true" disabled> Monopoly </option>]
 
     let keys = Object.keys(resourceHash)
 
-    /////////// RESOURCE TO GIVE DISPLAY ///////////////////
+    /////////// RESOURCE TO TRADE DROPDOWN ///////////////////
     keys.forEach((resource) => {
       if (this.props.currentPlayer.portTypes.includes(resource) && 
         resourceHash[resource] >= 2) {
@@ -67,9 +74,17 @@ class PlayerStatsComponent extends Component{
         }
       }
     })
-    ////////// RESOURCE TO GET DISPLAY ///////////////////////
+    
+    ////////// RESOURCE TO RECEIVE DROPDOWN ///////////////////////
     keys.forEach((resource) => {
-      allResourcesDropDown.push(<option value={resource} > {resource} </option>)
+      if (resource !== this.state.resourceToTrade) {
+        allResourcesDropDown.push(<option value={resource}> {resource} </option>)
+      }
+    })
+
+    ////////// RESOURCES TO MONOPOLY DROPDOWN /////////////////////
+    keys.forEach((resource) => {
+      monopolyDropDown.push(<option value={resource}> {resource} </option>)
     })
 
     let backgroundColor = ""
@@ -95,11 +110,23 @@ class PlayerStatsComponent extends Component{
     }
 
     let devCards = this.props.currentPlayer.developmentCards.map((card) => {
-      return (
-        <div class="dev-card">
-          <button value={card.type} onClick={this.playDevCard}> {card.type}</button>
-        </div>
-      )
+      if (card.type !== "monopoly") {
+        return (
+          <div className="dev-card">
+            <button value={card.type} onClick={this.playDevCard}> {card.type}</button>
+          </div>
+        )
+      }
+      else {
+        return (
+          <div className="dev-card">
+            <select onChange={this.onMonopolySelect}>
+              {monopolyDropDown}
+            </select>
+          </div>
+        )
+      }
+      
     })
 
     return (
@@ -120,12 +147,14 @@ class PlayerStatsComponent extends Component{
         <p> Rock: {resourceHash["rock"]} </p>
         <p> Crop: {resourceHash["crop"]} </p>
         <p> Longest Road: {longestRoad} </p>
-        <select onChange={this.onResourceToGiveSelect}> 
+        <p> Army size: {armySize} </p>
+        <select onChange={this.onResourceToGiveSelect} id="resourceToGive"> 
           {dropDown} 
         </select> 
-        <select onChange={this.onResourceToReceiveSelect}> 
+        <select onChange={this.onResourceToReceiveSelect} id="resourceToReceive"> 
           {allResourcesDropDown} 
-        </select> 
+        </select>
+        <button onClick={this.makeTradeWithBank}> Trade </button>
         {devCards}
       </div>
     )
@@ -139,15 +168,28 @@ class PlayerStatsComponent extends Component{
   }
 
   onResourceToReceiveSelect(event) {
-    const resourceToReceive = event.target.value
-    if (resourceToReceive) {
-      this.props.tradeWithBank(this.state.resourceToTrade, resourceToReceive)
+    const resource = event.target.value
+    if (resource) {
+      this.setState({resourceToReceive: resource})
     }
+  }
+
+  makeTradeWithBank() {
+    this.props.tradeWithBank(this.state.resourceToTrade, this.state.resourceToReceive)
+    resourceToGive.options[0].selected=true
+    resourceToReceive.options[0].selected=true
+    this.setState({resourceToTrade: undefined, resourceToReceive: undefined})
   }
 
   playDevCard(event) {
     const type = event.target.value
     this.props.playDevCard(type)
+  }
+
+  ////////////////// TO PLAY MONOPOLY CARD /////////////////////////////
+  onMonopolySelect(event) {
+    const resource = event.target.value
+    this.props.playMonopoly(resource)
   }
 
 }

@@ -48,6 +48,7 @@ class Nodes {
       return item + yInc
     })
 
+    ////////// PORT ASSIGNMENT TO NODES ///////////////
     for (let i = 0; i < this.xArray.length; i++) {
       ///////////// 1 ///////////////////
       if (this.xArray[i] === (338 + xInc)  && this.yArray[i] === (542 + yInc)) {

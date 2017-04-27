@@ -46,6 +46,7 @@ class BoardComponent extends Component{
       )
     })
 
+
     const nodeComponents = this.props.nodes.map((node, index) => {
       return (
         <NodeComponent 

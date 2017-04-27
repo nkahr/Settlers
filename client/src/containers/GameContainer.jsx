@@ -49,25 +49,26 @@ class GameContainer extends Component {
     this.winChecker = this.winChecker.bind(this)
     this.getLongestRoadCount = this.getLongestRoadCount.bind(this)
     this.checkForLongestRoadWinner = this.checkForLongestRoadWinner.bind(this)
+    this.checkForBiggestArmyWinner = this.checkForBiggestArmyWinner.bind(this)
     this.tradeWithBank = this.tradeWithBank.bind(this)
     this.shuffle = this.shuffle.bind(this)
     this.getDevelopmentCard = this.getDevelopmentCard.bind(this)
     this.playDevCard = this.playDevCard.bind(this)
     this.updateDataFromSockets = this.updateDataFromSockets.bind(this)
     this.setStateAndBroadcast = this.setStateAndBroadcast.bind(this)
+    this.playMonopoly = this.playMonopoly.bind(this)
   }
 
-  componentDidMount() {
-    socket.on('receive data', (payload) => {   
-      console.log("on receiving data")
-      console.log("payload", payload)
-      this.updateDataFromSockets(payload)
-    })
-  }
+  // componentDidMount() {
+  //   socket.on('receive data', (payload) => {   
+  //     console.log("on receiving data")
+  //     console.log("payload", payload)
+  //     this.updateDataFromSockets(payload)
+  //   })
+  // }
 
   setStateAndBroadcast(newData) {
     this.setState(newData)
-    // const test = JSON.stringify(newData)
     socket.emit('game-event', newData)
     console.log("set state and broadcast (end)")
   }
@@ -77,6 +78,7 @@ class GameContainer extends Component {
   console.log("payload2", payload)
   this.setState(payload)
   console.log("updateDataFromSockets end")
+
   }
 
   render() {
@@ -140,6 +142,7 @@ class GameContainer extends Component {
             tradeWithBank={this.tradeWithBank}
             getDevelopmentCard={this.getDevelopmentCard}
             playDevCard={this.playDevCard}
+            playMonopoly={this.playMonopoly}
           /> 
         </div>
     }
@@ -189,6 +192,8 @@ class GameContainer extends Component {
         }
       }) 
     }
+
+    this.state.currentPlayer.knightPlayed = false
     this.setStateAndBroadcast({previousRobberIndex: current, robberIndex: newRobberIndex, sevenRolled: false, players: players})
   }
 
@@ -249,7 +254,8 @@ class GameContainer extends Component {
         }
       })
     })
-    this.setStateAndBroadcast({currentPlayer: playerToUpdate, showTurnButton: true, showRollDiceButton: false, sevenRolled: sevenRolled, numberRolled: numberRolled})
+
+    this.setStateAndBroadcast({players: this.state.players, showTurnButton: true, showRollDiceButton: false, sevenRolled: sevenRolled, numberRolled: numberRolled})
   }
 
   nextTurn() {
@@ -266,6 +272,7 @@ class GameContainer extends Component {
     }
 
     const turn = this.state.turn + 1
+    
     let newCurrentPlayer
 
     if (turn > 4 && turn < 8) {
@@ -296,8 +303,10 @@ class GameContainer extends Component {
         newCurrentPlayer = this.state.players[0]
       }
     }
-    this.setStateAndBroadcast({currentPlayer: newCurrentPlayer, turn: turn, showTurnButton: false, showRollDiceButton: true})
+
+    newCurrentPlayer.numberRolled = "none"
     
+    this.setStateAndBroadcast({currentPlayer: newCurrentPlayer, turn: turn, showTurnButton: false, showRollDiceButton: true})    
   }
 
   buildCity(clickedNodeIndex) {
@@ -324,9 +333,12 @@ class GameContainer extends Component {
     let returnStatement = true
     if (!currentPlayer.hasLongestRoad) {
       this.state.players.forEach((player) => {
-        if (currentPlayer !== player && this.getLongestRoadCount(currentPlayer) <= this.getLongestRoadCount(player) || this.getLongestRoadCount(currentPlayer) < 5) {
+        if (currentPlayer !== player && this.getLongestRoadCount(currentPlayer) <= this.getLongestRoadCount(player) 
+          || this.getLongestRoadCount(currentPlayer) < 5) {
           returnStatement = false
-        } else if (currentPlayer !== player && player.hasLongestRoad == true) {
+        } 
+        else if (currentPlayer !== player 
+          && player.hasLongestRoad === true) {
           player.hasLongestRoad = false
           player.score -= 2
         }
@@ -337,6 +349,29 @@ class GameContainer extends Component {
       return returnStatement
     }
     return returnStatement
+  }
+
+  checkForBiggestArmyWinner(currentPlayer) {
+    let returnStatement = true
+    let playersBeingChecked = this.state.players
+    if (!currentPlayer.hasBiggestArmy) {
+      playersBeingChecked.forEach((player) => {
+        if (currentPlayer !== player && currentPlayer.armySize <= player.armySize
+          || currentPlayer.armySize < 3) {
+          returnStatement = false
+        }
+        else if (currentPlayer !==  player
+          && player.hasBiggestArmy === true) {
+          player.hasBiggestArmy = false
+          player.score -= 2
+        }
+      })
+      if (returnStatement) {
+        currentPlayer.score += 2
+        currentPlayer.hasBiggestArmy = true
+      }
+    }
+    this.setState({players: playersBeingChecked})
   }
 
   tradeWithBank(resourceToGive, resourceToReceive) {
@@ -415,6 +450,39 @@ class GameContainer extends Component {
       playerToUpdate.freeRoadCount += 2
       this.setStateAndBroadcast({currentPlayer: playerToUpdate})
     }
+
+
+    if (type === "knight") {
+      let playerToUpdate = this.state.currentPlayer
+      playerToUpdate.knightPlayed = true
+      playerToUpdate.armySize += 1
+      this.setStateAndBroadcast({currentPlayer: playerToUpdate})
+      this.checkForBiggestArmyWinner(this.state.currentPlayer)
+    }
+  }
+
+  playMonopoly(resourceType) {
+    for (let i = 0; i < this.state.currentPlayer.developmentCards.length; i++){
+      if (this.state.currentPlayer.developmentCards[i].type === "monopoly") {
+        this.state.currentPlayer.developmentCards.splice(i, 1)
+        break
+      }
+    }
+    let playersToSteal = this.state.players
+    let playerToUpdate = this.state.currentPlayer
+    let totalCardsStolen = 0
+    playersToSteal.forEach((player) => {
+      if (player !== playerToUpdate && player.resourceCards.length > 0) {
+        for (let i = (player.resourceCards.length - 1); i >= 0; i--) {
+          if(player.resourceCards[i].type === resourceType) {
+            player.resourceCards.splice(i, 1)
+            this.state.game.giveResourceCardToPlayer(playerToUpdate, resourceType)
+          }
+        }
+      }
+    })
+    this.setStateAndBroadcast({currentPlayer: playerToUpdate, players: playersToSteal})
+
   }
 
 }
