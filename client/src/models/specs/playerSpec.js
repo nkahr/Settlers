@@ -41,4 +41,16 @@ describe("Player Tests", function(){
   it("should have 4 cities available", function(){
     assert.equal(4, player.citiesAvailable)
   })
+
+  it("should start with army size 0", function(){
+    assert.equal(0, player.armySize)
+  })
+
+  it("should start with false value of knight played", function(){
+    assert.equal(false, player.knightPlayed)
+  })
+
+  it("should start with false value of biggest army", function(){
+    assert.equal(false, player.hasBiggestArmy)
+  })
 })
