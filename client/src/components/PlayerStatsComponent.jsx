@@ -11,6 +11,7 @@ class PlayerStatsComponent extends Component{
     this.onResourceToReceiveSelect = this.onResourceToReceiveSelect.bind(this)
     this.makeTradeWithBank = this.makeTradeWithBank.bind(this)
     this.playDevCard = this.playDevCard.bind(this)
+    this.onMonopolySelect = this.onMonopolySelect.bind(this)
   }
 
   render() {
@@ -54,9 +55,11 @@ class PlayerStatsComponent extends Component{
 
     let allResourcesDropDown = [<option selected="true" disabled> Resource to receive </option>]
 
+    let monopolyDropDown = [<option selected="true" disabled> Monopoly </option>]
+
     let keys = Object.keys(resourceHash)
 
-    /////////// RESOURCE TO GIVE DROPDOWN ///////////////////
+    /////////// RESOURCE TO TRADE DROPDOWN ///////////////////
     keys.forEach((resource) => {
       if (this.props.currentPlayer.portTypes.includes(resource) && 
         resourceHash[resource] >= 2) {
@@ -71,11 +74,17 @@ class PlayerStatsComponent extends Component{
         }
       }
     })
-    ////////// RESOURCE TO GET DROPDOWN ///////////////////////
+    
+    ////////// RESOURCE TO RECEIVE DROPDOWN ///////////////////////
     keys.forEach((resource) => {
       if (resource !== this.state.resourceToTrade) {
         allResourcesDropDown.push(<option value={resource}> {resource} </option>)
       }
+    })
+
+    ////////// RESOURCES TO MONOPOLY DROPDOWN /////////////////////
+    keys.forEach((resource) => {
+      monopolyDropDown.push(<option value={resource}> {resource} </option>)
     })
 
     let backgroundColor = ""
@@ -101,11 +110,23 @@ class PlayerStatsComponent extends Component{
     }
 
     let devCards = this.props.currentPlayer.developmentCards.map((card) => {
-      return (
-        <div class="dev-card">
-          <button value={card.type} onClick={this.playDevCard}> {card.type}</button>
-        </div>
-      )
+      if (card.type !== "monopoly") {
+        return (
+          <div className="dev-card">
+            <button value={card.type} onClick={this.playDevCard}> {card.type}</button>
+          </div>
+        )
+      }
+      else {
+        return (
+          <div className="dev-card">
+            <select onChange={this.onMonopolySelect}>
+              {monopolyDropDown}
+            </select>
+          </div>
+        )
+      }
+      
     })
 
     return (
@@ -163,6 +184,12 @@ class PlayerStatsComponent extends Component{
   playDevCard(event) {
     const type = event.target.value
     this.props.playDevCard(type)
+  }
+
+  ////////////////// TO PLAY MONOPOLY CARD /////////////////////////////
+  onMonopolySelect(event) {
+    const resource = event.target.value
+    this.props.playMonopoly(resource)
   }
 
 }

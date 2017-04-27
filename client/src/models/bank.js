@@ -33,10 +33,10 @@ class Bank {
       const newDevCard = new DevelopmentCard({type: "knight"})
       this.developmentCards.push(newDevCard)
     }
-    // for (let i = 0; i < 2; i++) {
-    //   const newDevCard = new DevelopmentCard({type: "monopoly"}) 
-    //   this.developmentCards.push(newDevCard)
-    // }
+    for (let i = 0; i < 2; i++) {
+      const newDevCard = new DevelopmentCard({type: "monopoly"}) 
+      this.developmentCards.push(newDevCard)
+    }
   }
 }
 

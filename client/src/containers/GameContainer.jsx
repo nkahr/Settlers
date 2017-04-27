@@ -49,6 +49,7 @@ class GameContainer extends Component {
     this.shuffle = this.shuffle.bind(this)
     this.getDevelopmentCard = this.getDevelopmentCard.bind(this)
     this.playDevCard = this.playDevCard.bind(this)
+    this.playMonopoly = this.playMonopoly.bind(this)
   }
 
   render() {
@@ -105,6 +106,7 @@ class GameContainer extends Component {
             tradeWithBank={this.tradeWithBank}
             getDevelopmentCard={this.getDevelopmentCard}
             playDevCard={this.playDevCard}
+            playMonopoly={this.playMonopoly}
           /> 
         </div>
     }
@@ -416,15 +418,29 @@ class GameContainer extends Component {
       this.setState({currentPlayer: playerToUpdate})
       this.checkForBiggestArmyWinner(this.state.currentPlayer)
     }
-    // if (type === "monopoly") {
-    //   let cardsToSteal = []
-    //   this.state.players.forEach((player) => {
-    //     player.resourceCards.forEach((card) => {
-    //       if card
-    //     })
-    //   })
+  }
 
-    // }
+  playMonopoly(resourceType) {
+    for (let i = 0; i < this.state.currentPlayer.developmentCards.length; i++){
+      if (this.state.currentPlayer.developmentCards[i].type === "monopoly") {
+        this.state.currentPlayer.developmentCards.splice(i, 1)
+        break
+      }
+    }
+    let playersToSteal = this.state.players
+    let playerToUpdate = this.state.currentPlayer
+    let totalCardsStolen = 0
+    playersToSteal.forEach((player) => {
+      if (player !== playerToUpdate && player.resourceCards.length > 0) {
+        for (let i = (player.resourceCards.length - 1); i >= 0; i--) {
+          if(player.resourceCards[i].type === resourceType) {
+            player.resourceCards.splice(i, 1)
+            this.state.game.giveResourceCardToPlayer(playerToUpdate, resourceType)
+          }
+        }
+      }
+    })
+    this.setState({currentPlayer: playerToUpdate, players: playersToSteal})
   }
 
 
