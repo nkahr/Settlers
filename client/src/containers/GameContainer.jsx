@@ -114,6 +114,18 @@ class GameContainer extends Component {
     )
   }
 
+  handleClick(event) {
+    console.log("x",event.clientX)
+    console.log("y",event.clientY)
+  }
+  
+  shuffle(array) {
+    for (let i = array.length; i; i--) {
+      let rand = Math.floor(Math.random() * i);
+      [array[i - 1], array[rand]] = [array[rand], array[i - 1]];
+    }
+  }
+
   moveRobber(newRobberIndex) {
     let players = this.state.players
     const current = this.state.robberIndex
@@ -143,13 +155,6 @@ class GameContainer extends Component {
     this.setState({previousRobberIndex: current, robberIndex: newRobberIndex, sevenRolled: false, players: players})
   }
 
-  shuffle(array) {
-    for (let i = array.length; i; i--) {
-      let rand = Math.floor(Math.random() * i);
-      [array[i - 1], array[rand]] = [array[rand], array[i - 1]];
-    }
-  }
-
   colourRoads(clickedRoadIndex) {
     const colour = this.state.currentPlayer.colour
     let updatedRoadsArray = this.state.roadsArray
@@ -161,6 +166,21 @@ class GameContainer extends Component {
     this.setState({roadsArray: updatedRoadsArray, currentPlayer: playerToUpdate})
   }
 
+  colourSettlements(clickedNodeIndex) {
+    const colour = this.state.currentPlayer.colour
+    let updatedNodesArray = this.state.nodesArray
+    updatedNodesArray[clickedNodeIndex].colour = colour
+    updatedNodesArray[clickedNodeIndex].hasSettlement = true
+    this.state.currentPlayer.settledNodes.push(updatedNodesArray[clickedNodeIndex])
+    if(updatedNodesArray[clickedNodeIndex].port !== false && 
+      !this.state.currentPlayer.portTypes.includes(updatedNodesArray[clickedNodeIndex].port)) {
+      this.state.currentPlayer.portTypes.push(updatedNodesArray[clickedNodeIndex].port)
+    }
+    let playerToUpdate = this.state.currentPlayer
+    this.setState({nodesArray: updatedNodesArray, currentPlayer: playerToUpdate})
+    console.log('clicked node', this.state.nodesArray[clickedNodeIndex])
+  }
+
   winChecker() {
     let winner = false
     this.state.players.forEach((player) => {
@@ -169,6 +189,30 @@ class GameContainer extends Component {
       }
     })
     return winner
+  }
+
+  rollDice() {
+    let sevenRolled = false
+    const numberRolled = dice.rollDice()
+    if (numberRolled === 7) {
+      sevenRolled = true
+      this.state.players.forEach((player) => {
+        if (player.resourceCards.length > 7) {
+          this.state.game.giveHalfCardsAway(player)
+        }
+      })
+    }
+    let playerToUpdate = this.state.currentPlayer
+    playerToUpdate.numberRolled = numberRolled
+    this.state.players.forEach((player) => {
+       player.conqueredTiles.forEach((tile) => {
+        if (tile.number === numberRolled && tile.hasRobber === false) {
+          const resource = tile.resource
+          this.state.game.giveResourceCardToPlayer(player, resource)
+        }
+      })
+    })
+    this.setState({currentPlayer: playerToUpdate, showTurnButton: true, showRollDiceButton: false, sevenRolled: sevenRolled, numberRolled: numberRolled})
   }
 
   nextTurn() {
@@ -218,26 +262,6 @@ class GameContainer extends Component {
     this.setState({currentPlayer: newCurrentPlayer, turn: turn, showTurnButton: false, showRollDiceButton: true})    
   }
 
-  handleClick(event) {
-    console.log("x",event.clientX)
-    console.log("y",event.clientY)
-  }
-
-  colourSettlements(clickedNodeIndex) {
-    const colour = this.state.currentPlayer.colour
-    let updatedNodesArray = this.state.nodesArray
-    updatedNodesArray[clickedNodeIndex].colour = colour
-    updatedNodesArray[clickedNodeIndex].hasSettlement = true
-    this.state.currentPlayer.settledNodes.push(updatedNodesArray[clickedNodeIndex])
-    if(updatedNodesArray[clickedNodeIndex].port !== false && 
-      !this.state.currentPlayer.portTypes.includes(updatedNodesArray[clickedNodeIndex].port)) {
-      this.state.currentPlayer.portTypes.push(updatedNodesArray[clickedNodeIndex].port)
-    }
-    let playerToUpdate = this.state.currentPlayer
-    this.setState({nodesArray: updatedNodesArray, currentPlayer: playerToUpdate})
-    console.log('clicked node', this.state.nodesArray[clickedNodeIndex])
-  }
-
   buildCity(clickedNodeIndex) {
     const colour = this.state.currentPlayer.colour
     let updatedNodesArray = this.state.nodesArray
@@ -275,30 +299,6 @@ class GameContainer extends Component {
       return returnStatement
     }
     return returnStatement
-  }
-
-  rollDice() {
-    let sevenRolled = false
-    const numberRolled = dice.rollDice()
-    if (numberRolled === 7) {
-      sevenRolled = true
-      this.state.players.forEach((player) => {
-        if (player.resourceCards.length > 7) {
-          this.state.game.giveHalfCardsAway(player)
-        }
-      })
-    }
-    let playerToUpdate = this.state.currentPlayer
-    playerToUpdate.numberRolled = numberRolled
-    this.state.players.forEach((player) => {
-       player.conqueredTiles.forEach((tile) => {
-        if (tile.number === numberRolled && tile.hasRobber === false) {
-          const resource = tile.resource
-          this.state.game.giveResourceCardToPlayer(player, resource)
-        }
-      })
-    })
-    this.setState({currentPlayer: playerToUpdate, showTurnButton: true, showRollDiceButton: false, sevenRolled: sevenRolled, numberRolled: numberRolled})
   }
 
   tradeWithBank(resourceToGive, resourceToReceive) {
