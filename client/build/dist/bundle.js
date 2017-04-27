@@ -11079,6 +11079,22 @@ var GameContainer = function (_Component) {
       );
     }
   }, {
+    key: 'handleClick',
+    value: function handleClick(event) {
+      console.log("x", event.clientX);
+      console.log("y", event.clientY);
+    }
+  }, {
+    key: 'shuffle',
+    value: function shuffle(array) {
+      for (var i = array.length; i; i--) {
+        var rand = Math.floor(Math.random() * i);
+        var _ref = [array[rand], array[i - 1]];
+        array[i - 1] = _ref[0];
+        array[rand] = _ref[1];
+      }
+    }
+  }, {
     key: 'moveRobber',
     value: function moveRobber(newRobberIndex) {
       var _this2 = this;
@@ -11111,16 +11127,6 @@ var GameContainer = function (_Component) {
       this.setState({ previousRobberIndex: current, robberIndex: newRobberIndex, sevenRolled: false, players: players });
     }
   }, {
-    key: 'shuffle',
-    value: function shuffle(array) {
-      for (var i = array.length; i; i--) {
-        var rand = Math.floor(Math.random() * i);
-        var _ref = [array[rand], array[i - 1]];
-        array[i - 1] = _ref[0];
-        array[rand] = _ref[1];
-      }
-    }
-  }, {
     key: 'colourRoads',
     value: function colourRoads(clickedRoadIndex) {
       var colour = this.state.currentPlayer.colour;
@@ -11133,6 +11139,21 @@ var GameContainer = function (_Component) {
       this.setState({ roadsArray: updatedRoadsArray, currentPlayer: playerToUpdate });
     }
   }, {
+    key: 'colourSettlements',
+    value: function colourSettlements(clickedNodeIndex) {
+      var colour = this.state.currentPlayer.colour;
+      var updatedNodesArray = this.state.nodesArray;
+      updatedNodesArray[clickedNodeIndex].colour = colour;
+      updatedNodesArray[clickedNodeIndex].hasSettlement = true;
+      this.state.currentPlayer.settledNodes.push(updatedNodesArray[clickedNodeIndex]);
+      if (updatedNodesArray[clickedNodeIndex].port !== false && !this.state.currentPlayer.portTypes.includes(updatedNodesArray[clickedNodeIndex].port)) {
+        this.state.currentPlayer.portTypes.push(updatedNodesArray[clickedNodeIndex].port);
+      }
+      var playerToUpdate = this.state.currentPlayer;
+      this.setState({ nodesArray: updatedNodesArray, currentPlayer: playerToUpdate });
+      console.log('clicked node', this.state.nodesArray[clickedNodeIndex]);
+    }
+  }, {
     key: 'winChecker',
     value: function winChecker() {
       var winner = false;
@@ -11142,6 +11163,33 @@ var GameContainer = function (_Component) {
         }
       });
       return winner;
+    }
+  }, {
+    key: 'rollDice',
+    value: function rollDice() {
+      var _this3 = this;
+
+      var sevenRolled = false;
+      var numberRolled = dice.rollDice();
+      if (numberRolled === 7) {
+        sevenRolled = true;
+        this.state.players.forEach(function (player) {
+          if (player.resourceCards.length > 7) {
+            _this3.state.game.giveHalfCardsAway(player);
+          }
+        });
+      }
+      var playerToUpdate = this.state.currentPlayer;
+      playerToUpdate.numberRolled = numberRolled;
+      this.state.players.forEach(function (player) {
+        player.conqueredTiles.forEach(function (tile) {
+          if (tile.number === numberRolled && tile.hasRobber === false) {
+            var resource = tile.resource;
+            _this3.state.game.giveResourceCardToPlayer(player, resource);
+          }
+        });
+      });
+      this.setState({ currentPlayer: playerToUpdate, showTurnButton: true, showRollDiceButton: false, sevenRolled: sevenRolled, numberRolled: numberRolled });
     }
   }, {
     key: 'nextTurn',
@@ -11192,27 +11240,6 @@ var GameContainer = function (_Component) {
       this.setState({ currentPlayer: newCurrentPlayer, turn: turn, showTurnButton: false, showRollDiceButton: true });
     }
   }, {
-    key: 'handleClick',
-    value: function handleClick(event) {
-      console.log("x", event.clientX);
-      console.log("y", event.clientY);
-    }
-  }, {
-    key: 'colourSettlements',
-    value: function colourSettlements(clickedNodeIndex) {
-      var colour = this.state.currentPlayer.colour;
-      var updatedNodesArray = this.state.nodesArray;
-      updatedNodesArray[clickedNodeIndex].colour = colour;
-      updatedNodesArray[clickedNodeIndex].hasSettlement = true;
-      this.state.currentPlayer.settledNodes.push(updatedNodesArray[clickedNodeIndex]);
-      if (updatedNodesArray[clickedNodeIndex].port !== false && !this.state.currentPlayer.portTypes.includes(updatedNodesArray[clickedNodeIndex].port)) {
-        this.state.currentPlayer.portTypes.push(updatedNodesArray[clickedNodeIndex].port);
-      }
-      var playerToUpdate = this.state.currentPlayer;
-      this.setState({ nodesArray: updatedNodesArray, currentPlayer: playerToUpdate });
-      console.log('clicked node', this.state.nodesArray[clickedNodeIndex]);
-    }
-  }, {
     key: 'buildCity',
     value: function buildCity(clickedNodeIndex) {
       var colour = this.state.currentPlayer.colour;
@@ -11237,12 +11264,12 @@ var GameContainer = function (_Component) {
   }, {
     key: 'checkForLongestRoadWinner',
     value: function checkForLongestRoadWinner(currentPlayer) {
-      var _this3 = this;
+      var _this4 = this;
 
       var returnStatement = true;
       if (!currentPlayer.hasLongestRoad) {
         this.state.players.forEach(function (player) {
-          if (currentPlayer !== player && _this3.getLongestRoadCount(currentPlayer) <= _this3.getLongestRoadCount(player) || _this3.getLongestRoadCount(currentPlayer) < 5) {
+          if (currentPlayer !== player && _this4.getLongestRoadCount(currentPlayer) <= _this4.getLongestRoadCount(player) || _this4.getLongestRoadCount(currentPlayer) < 5) {
             returnStatement = false;
           } else if (currentPlayer !== player && player.hasLongestRoad == true) {
             player.hasLongestRoad = false;
@@ -11255,33 +11282,6 @@ var GameContainer = function (_Component) {
         return returnStatement;
       }
       return returnStatement;
-    }
-  }, {
-    key: 'rollDice',
-    value: function rollDice() {
-      var _this4 = this;
-
-      var sevenRolled = false;
-      var numberRolled = dice.rollDice();
-      if (numberRolled === 7) {
-        sevenRolled = true;
-        this.state.players.forEach(function (player) {
-          if (player.resourceCards.length > 7) {
-            _this4.state.game.giveHalfCardsAway(player);
-          }
-        });
-      }
-      var playerToUpdate = this.state.currentPlayer;
-      playerToUpdate.numberRolled = numberRolled;
-      this.state.players.forEach(function (player) {
-        player.conqueredTiles.forEach(function (tile) {
-          if (tile.number === numberRolled && tile.hasRobber === false) {
-            var resource = tile.resource;
-            _this4.state.game.giveResourceCardToPlayer(player, resource);
-          }
-        });
-      });
-      this.setState({ currentPlayer: playerToUpdate, showTurnButton: true, showRollDiceButton: false, sevenRolled: sevenRolled, numberRolled: numberRolled });
     }
   }, {
     key: 'tradeWithBank',
