@@ -25,7 +25,7 @@ class Player {
     this.hasBiggestArmy = false
   }
 
-  addNextRoad(arrayOfRoads, lastNode, allRoads, allNodes) {
+  addNextRoad(arrayOfRoads, lastNode, allRoads, allNodes, arrayOfCheckedNodes) {
     const lastRoad = arrayOfRoads[arrayOfRoads.length - 1]
     arrayOfRoads = arrayOfRoads.slice()
       let surroundingRoadsOwned = []
@@ -49,8 +49,15 @@ class Player {
             nodesSurroundingNewRoad.push(allNodes[nodeIndex])
           })
           nodesSurroundingNewRoad.forEach((node) => {
+            let clonedArrayOfCheckedNodes = arrayOfCheckedNodes.slice()
             if (node !== lastNode) {
-              this.addNextRoad(clonedArrayOfRoads, node, allRoads, allNodes)
+              if (!clonedArrayOfCheckedNodes.includes(node)) {
+                clonedArrayOfCheckedNodes.push(node)
+                this.addNextRoad(clonedArrayOfRoads, node, allRoads, allNodes, clonedArrayOfCheckedNodes)
+              }
+              else {
+                this.longestRoads.push(clonedArrayOfRoads)
+              }
             }
           })
         }
@@ -80,7 +87,7 @@ class Player {
           })
           nodes.forEach((nodeInstance) => {
             if (nodeInstance !== node) {
-              this.addNextRoad(arrayOfRoads, nodeInstance, allRoads, allNodes)
+              this.addNextRoad(arrayOfRoads, nodeInstance, allRoads, allNodes, nodes)
             }
           })
         }
