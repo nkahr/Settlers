@@ -203,8 +203,10 @@ class GameContainer extends Component {
     updatedRoadsArray[clickedRoadIndex].colour = colour
     updatedRoadsArray[clickedRoadIndex].builtYet = true
     let playerToUpdate = this.state.currentPlayer
-    playerToUpdate.hasLongestRoad = this.checkForLongestRoadWinner(playerToUpdate)
-
+    // playerToUpdate.hasLongestRoad = this.checkForLongestRoadWinner(playerToUpdate)
+    playerToUpdate.findLongestRoads(this.state.roadsArray, this.state.nodesArray)
+    this.getLongestRoadCount(playerToUpdate)
+    this.checkForLongestRoadWinner(playerToUpdate)
     this.setStateAndBroadcast({roadsArray: updatedRoadsArray, currentPlayer: playerToUpdate})
   }
 
@@ -326,15 +328,17 @@ class GameContainer extends Component {
         longestRoad = road.length
       }
     })
-    return longestRoad
+    player.longestRoad = longestRoad
+    this.setState({currentPlayer: player})
   }
 
   checkForLongestRoadWinner(currentPlayer) {
     let returnStatement = true
+    let playersBeingChecked = this.state.players
     if (!currentPlayer.hasLongestRoad) {
-      this.state.players.forEach((player) => {
-        if (currentPlayer !== player && this.getLongestRoadCount(currentPlayer) <= this.getLongestRoadCount(player) 
-          || this.getLongestRoadCount(currentPlayer) < 5) {
+      playersBeingChecked.forEach((player) => {
+        if (currentPlayer !== player && currentPlayer.longestRoad <= player.longestRoad 
+          || currentPlayer.longestRoad < 5) {
           returnStatement = false
         } 
         else if (currentPlayer !== player 
@@ -345,10 +349,10 @@ class GameContainer extends Component {
       })
       if (returnStatement) {
         currentPlayer.score += 2
+        currentPlayer.hasLongestRoad = true
       }
-      return returnStatement
     }
-    return returnStatement
+    this.setState({players: playersBeingChecked})
   }
 
   checkForBiggestArmyWinner(currentPlayer) {

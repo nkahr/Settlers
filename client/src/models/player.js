@@ -23,6 +23,7 @@ class Player {
     this.knightPlayed = false
     this.armySize = 0
     this.hasBiggestArmy = false
+    this.longestRoad = 0
   }
 
   addNextRoad(arrayOfRoads, lastNode, allRoads, allNodes) {

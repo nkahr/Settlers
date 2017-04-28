@@ -28,13 +28,15 @@ class PlayerStatsComponent extends Component{
       resourceHash[resourceCard.type] += 1
     })
 
-    this.props.currentPlayer.findLongestRoads(this.props.roads, this.props.nodes)
+    // this.props.currentPlayer.findLongestRoads(this.props.roads, this.props.nodes)
 
-    let longestRoad = this.props.getLongestRoadCount(this.props.currentPlayer)
+    // let longestRoad = this.props.getLongestRoadCount(this.props.currentPlayer)
 
     let armySize = this.props.currentPlayer.armySize
 
-    this.props.currentPlayer.hasLongestRoad = this.props.checkForLongestRoadWinner(this.props.currentPlayer)
+    let longestRoad = this.props.currentPlayer.longestRoad
+
+    // this.props.currentPlayer.hasLongestRoad = this.props.checkForLongestRoadWinner(this.props.currentPlayer)
 
     let rollDiceButtonId = "roll-dice-button"
     let nextTurnButtonId = "next-turn-button"
