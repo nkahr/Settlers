@@ -53,4 +53,8 @@ describe("Player Tests", function(){
   it("should start with false value of biggest army", function(){
     assert.equal(false, player.hasBiggestArmy)
   })
+
+  it("should start with longest road 0", function(){
+    assert.equal(0, player.longestRoad)
+  })
 })

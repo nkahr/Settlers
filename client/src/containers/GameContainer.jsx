@@ -203,7 +203,6 @@ class GameContainer extends Component {
     updatedRoadsArray[clickedRoadIndex].colour = colour
     updatedRoadsArray[clickedRoadIndex].builtYet = true
     let playerToUpdate = this.state.currentPlayer
-    // playerToUpdate.hasLongestRoad = this.checkForLongestRoadWinner(playerToUpdate)
     playerToUpdate.findLongestRoads(this.state.roadsArray, this.state.nodesArray)
     this.getLongestRoadCount(playerToUpdate)
     this.checkForLongestRoadWinner(playerToUpdate)
