@@ -25,14 +25,16 @@ class OpponentStatsComponent extends Component {
 
     let backgroundStyle = {
       backgroundColor: backgroundColor,
-      padding: 10
+      padding: 10,
+      fontSize: 14
     }
 
     return (
       <div style={backgroundStyle}>
         <h3> {this.props.player.name} </h3>
         <p> Score: {this.props.player.score} </p>
-        <p> Resource Cards: {this.props.player.resourceCards.length} </p>
+        <p> Res Cards: {this.props.player.resourceCards.length} Dev Cards: {this.props.player.developmentCards.length} </p>
+        <p> Longest road: {this.props.player.longestRoad} Army size: {this.props.player.armySize}</p>
       </div>
     ) 
 
