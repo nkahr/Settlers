@@ -77,7 +77,7 @@ class Player {
           }
         })
         ///////////// CHECK FOR THE STARTING ROAD //////////////////
-        if (surroundingRoadsOwned.length === 1) {
+        if (surroundingRoadsOwned.length >= 1) {
           let arrayOfRoads = []
           arrayOfRoads.push(road)
           const nodeIndices = road.surroundingNodes
