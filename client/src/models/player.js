@@ -25,7 +25,7 @@ class Player {
     this.hasBiggestArmy = false
   }
 
-  addNextRoad(arrayOfRoads, lastNode, allRoads, allNodes, arrayOfCheckedNodes) {
+  addNextRoad(arrayOfRoads, lastNode, allRoads, allNodes) {
     const lastRoad = arrayOfRoads[arrayOfRoads.length - 1]
     arrayOfRoads = arrayOfRoads.slice()
       let surroundingRoadsOwned = []
@@ -40,26 +40,24 @@ class Player {
     } else {
       surroundingRoadsOwned.forEach((surrRoad) => {
         if (surrRoad !== lastRoad) {
-          ///////////// CLONE ARRAY FOR CASE OF ROAD SPLIT ////////////
-          let clonedArrayOfRoads = arrayOfRoads.slice()
-          clonedArrayOfRoads.push(surrRoad)
-          const nodeIndicesSurroundingNewRoad = surrRoad.surroundingNodes
-          let nodesSurroundingNewRoad = []
-          nodeIndicesSurroundingNewRoad.forEach((nodeIndex) => {
-            nodesSurroundingNewRoad.push(allNodes[nodeIndex])
-          })
-          nodesSurroundingNewRoad.forEach((node) => {
-            let clonedArrayOfCheckedNodes = arrayOfCheckedNodes.slice()
-            if (node !== lastNode) {
-              if (!clonedArrayOfCheckedNodes.includes(node)) {
-                clonedArrayOfCheckedNodes.push(node)
-                this.addNextRoad(clonedArrayOfRoads, node, allRoads, allNodes, clonedArrayOfCheckedNodes)
+          if (!arrayOfRoads.includes(surrRoad)) {
+            ///////////// CLONE ARRAY FOR CASE OF ROAD SPLIT ////////////
+            let clonedArrayOfRoads = arrayOfRoads.slice()
+            clonedArrayOfRoads.push(surrRoad)
+            const nodeIndicesSurroundingNewRoad = surrRoad.surroundingNodes
+            let nodesSurroundingNewRoad = []
+            nodeIndicesSurroundingNewRoad.forEach((nodeIndex) => {
+              nodesSurroundingNewRoad.push(allNodes[nodeIndex])
+            })
+            nodesSurroundingNewRoad.forEach((node) => {
+              if (node !== lastNode) {
+                this.addNextRoad(clonedArrayOfRoads, node, allRoads, allNodes)
               }
-              else {
-                this.longestRoads.push(clonedArrayOfRoads)
-              }
-            }
-          })
+            })
+          }
+          else {
+            this.longestRoads.push(arrayOfRoads)
+          }
         }
       })
     }
@@ -87,7 +85,7 @@ class Player {
           })
           nodes.forEach((nodeInstance) => {
             if (nodeInstance !== node) {
-              this.addNextRoad(arrayOfRoads, nodeInstance, allRoads, allNodes, nodes)
+              this.addNextRoad(arrayOfRoads, nodeInstance, allRoads, allNodes)
             }
           })
         }
