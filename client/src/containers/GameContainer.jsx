@@ -213,24 +213,12 @@ class GameContainer extends Component {
 
     if (!road.builtYet && this.state.game.letPlayerBuildRoad(this.state.currentPlayer)) {
       this.state.currentPlayer.roadsBuilt.push(road)
-      // this.colourRoads(road.index)
       this.state.currentPlayer.buildRoad(road.index, this.state.roadsArray, this.state.nodesArray)
       this.state.game.checkForLongestRoadWinner(this.state.currentPlayer)
       this.state.game.mapNextPossibleRoads(this.state.currentPlayer, road.index)
       this.setStateAndBroadcast({roadsArray: this.state.roadsArray, currentPlayer: this.state.currentPlayer, players: this.state.players})
     }
   }
-
-  // colourRoads(clickedRoadIndex) {
-  //   const colour = this.state.currentPlayer.colour
-  //   let updatedRoadsArray = this.state.roadsArray
-  //   updatedRoadsArray[clickedRoadIndex].colour = colour
-  //   updatedRoadsArray[clickedRoadIndex].builtYet = true
-  //   let playerToUpdate = this.state.currentPlayer
-  //   playerToUpdate.findLongestRoads(this.state.roadsArray, this.state.nodesArray)
-  //   this.getLongestRoadCount(playerToUpdate)
-  //   this.setStateAndBroadcast({roadsArray: updatedRoadsArray, currentPlayer: playerToUpdate})
-  // }
 
   colourSettlements(clickedNodeIndex) {
     const colour = this.state.currentPlayer.colour
@@ -354,29 +342,6 @@ class GameContainer extends Component {
     this.setStateAndBroadcast({currentPlayer: player})
   }
 
-  // checkForLongestRoadWinner(currentPlayer) {
-  //   let returnStatement = true
-  //   let playersBeingChecked = this.state.players
-  //   if (!currentPlayer.hasLongestRoad) {
-  //     playersBeingChecked.forEach((player) => {
-  //       if (currentPlayer !== player && currentPlayer.longestRoad <= player.longestRoad 
-  //         || currentPlayer.longestRoad < 5) {
-  //         returnStatement = false
-  //       } 
-  //       else if (currentPlayer !== player 
-  //         && player.hasLongestRoad === true) {
-  //         player.hasLongestRoad = false
-  //         player.score -= 2
-  //       }
-  //     })
-  //     if (returnStatement) {
-  //       currentPlayer.score += 2
-  //       currentPlayer.hasLongestRoad = true
-  //     }
-  //   }
-  //   this.setStateAndBroadcast({players: playersBeingChecked})
-  // }
-
   checkForBiggestArmyWinner(currentPlayer) {
     let returnStatement = true
     let playersBeingChecked = this.state.players
@@ -447,8 +412,6 @@ class GameContainer extends Component {
       }
       this.state.game.giveResourceCardToPlayer(this.state.currentPlayer, resourceToReceive)
     }
-    // this.setState({currentPlayer: this.state.currentPlayer})
-
     this.setStateAndBroadcast({currentPlayer: this.state.currentPlayer})
   }
 

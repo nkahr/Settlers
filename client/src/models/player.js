@@ -102,7 +102,6 @@ class Player {
       }
     })
     this.longestRoad = longestRoad
-    //this.setStateAndBroadcast({currentPlayer: player})
   }
 
   buildRoad(roadIndex, arrayOfRoads, arrayOfNodes) {
@@ -110,8 +109,6 @@ class Player {
     arrayOfRoads[roadIndex].builtYet = true
     this.findLongestRoads(arrayOfRoads, arrayOfNodes)
     this.getLongestRoadCount()
-    // this.checkForLongestRoadWinner(playerToUpdate)
-    //this.setStateAndBroadcast({roadsArray: updatedRoadsArray, currentPlayer: playerToUpdate})
   }
 
 }
