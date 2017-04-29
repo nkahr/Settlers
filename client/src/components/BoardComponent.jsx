@@ -38,7 +38,7 @@ class BoardComponent extends Component{
           builtYet={road.builtYet} 
           angle={road.angle} 
           turn={this.props.turn}
-          colourRoads={this.props.colourRoads} 
+          handleRoadClick = {this.props.handleRoadClick}
           letPlayerBuildRoad={this.props.letPlayerBuildRoad} 
           mapNextPossibleRoads={this.props.mapNextPossibleRoads}
           currentPlayer={this.props.currentPlayer}

@@ -23,23 +23,25 @@ class RoadComponent extends Component {
 
   handleRoadClick() {
 
-    if (this.props.turn < 4 && this.props.currentPlayer.roadsAvailable === 14) {
-      return
-    }
-    if (this.props.turn > 3 && this.props.turn < 8 && this.props.currentPlayer.roadsAvailable === 13) {
-      return
-    }
+    this.props.handleRoadClick(this.props.road);
 
-    const clickedRoadIndex = this.props.index 
+    // if (this.props.turn < 4 && this.props.currentPlayer.roadsAvailable === 14) {
+    //   return
+    // }
+    // if (this.props.turn > 3 && this.props.turn < 8 && this.props.currentPlayer.roadsAvailable === 13) {
+    //   return
+    // }
 
-    if (!this.props.currentPlayer.roadsAllowed.includes(clickedRoadIndex)) {
-      return
-    }
-    if (!this.props.builtYet && this.props.letPlayerBuildRoad(this.props.currentPlayer)) {
-      this.props.currentPlayer.roadsBuilt.push(this.props.road)
-      this.props.colourRoads(clickedRoadIndex)
-      this.props.mapNextPossibleRoads(this.props.currentPlayer, this.props.index)
-    }
+    // const clickedRoadIndex = this.props.index 
+
+    // if (!this.props.currentPlayer.roadsAllowed.includes(clickedRoadIndex)) {
+    //   return
+    // }
+    // if (!this.props.builtYet && this.props.letPlayerBuildRoad(this.props.currentPlayer)) {
+    //   this.props.currentPlayer.roadsBuilt.push(this.props.road)
+    //   this.props.colourRoads(clickedRoadIndex)
+    //   this.props.mapNextPossibleRoads(this.props.currentPlayer, this.props.index)
+    // }
   }
 
 }

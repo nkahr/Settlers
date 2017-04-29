@@ -94,6 +94,26 @@ class Player {
     })
   }
 
+  getLongestRoadCount() {
+    let longestRoad = 0
+    this.longestRoads.forEach((road) => {
+      if (road.length > longestRoad) {
+        longestRoad = road.length
+      }
+    })
+    this.longestRoad = longestRoad
+    //this.setStateAndBroadcast({currentPlayer: player})
+  }
+
+  buildRoad(roadIndex, arrayOfRoads, arrayOfNodes) {
+    arrayOfRoads[roadIndex].colour = this.colour
+    arrayOfRoads[roadIndex].builtYet = true
+    this.findLongestRoads(arrayOfRoads, arrayOfNodes)
+    this.getLongestRoadCount()
+    // this.checkForLongestRoadWinner(playerToUpdate)
+    //this.setStateAndBroadcast({roadsArray: updatedRoadsArray, currentPlayer: playerToUpdate})
+  }
+
 }
 
 export default Player

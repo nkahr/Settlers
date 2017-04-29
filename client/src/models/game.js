@@ -458,6 +458,27 @@ class Game {
     }
   }
 
+  checkForLongestRoadWinner(currentPlayer) {
+    let returnStatement = true
+    if (!currentPlayer.hasLongestRoad) {
+      this.players.forEach((player) => {
+        if (currentPlayer !== player && currentPlayer.longestRoad <= player.longestRoad 
+          || currentPlayer.longestRoad < 5) {
+          returnStatement = false
+        } 
+        else if (currentPlayer !== player 
+          && player.hasLongestRoad === true) {
+          player.hasLongestRoad = false
+          player.score -= 2
+        }
+      })
+      if (returnStatement) {
+        currentPlayer.score += 2
+        currentPlayer.hasLongestRoad = true
+      }
+    }
+  }
+
 }
 
 export default Game
