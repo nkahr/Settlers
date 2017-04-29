@@ -106,6 +106,7 @@ class GameContainer extends Component {
             currentPlayer={this.state.currentPlayer}
             numberRolled={this.state.numberRolled}
           /> 
+
           <BoardComponent    
             tiles={tiles} 
             roads={this.state.roadsArray} 
@@ -114,12 +115,9 @@ class GameContainer extends Component {
             moveRobber={this.moveRobber} 
             handleRoadClick = {this.handleRoadClick}
             handleNodeClick = {this.handleNodeClick}
-            letPlayerBuildSettlement={this.state.game.letPlayerBuildSettlement}
-            letPlayerBuildCity={this.state.game.letPlayerBuildCity}
-            radar={this.state.game.radar.bind(this.state.game)}
-            turn={this.state.turn}
             currentPlayer={this.state.currentPlayer}
           /> 
+          
           <PlayerStatsComponent 
             currentPlayer={this.state.currentPlayer} 
             turn={this.state.turn}

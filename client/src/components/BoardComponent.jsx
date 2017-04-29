@@ -43,20 +43,6 @@ class BoardComponent extends Component{
           key={index} 
           node={node}
           handleNodeClick = {this.props.handleNodeClick}
-          colour={node.colour} 
-          index={index} 
-          hasSettlement = {node.hasSettlement}
-          hasCity = {node.hasCity}
-          turn={this.props.turn}
-          coordinates={node.coordinates} 
-          allowConstruction={node.allowConstruction} 
-          letPlayerBuildSettlement = {this.props.letPlayerBuildSettlement}
-          letPlayerBuildCity = {this.props.letPlayerBuildCity}
-          radar={this.props.radar}
-          currentPlayer={this.props.currentPlayer}
-          classOfNode={node.classOfNode}
-          ports={this.props.ports}
-          roads={this.props.roads}
         />
       )
     })

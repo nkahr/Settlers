@@ -8,14 +8,14 @@ class NodeComponent extends Component {
 
   render() {
     let nodeStyle = {
-      left: this.props.coordinates[0],
-      top: this.props.coordinates[1], 
-      backgroundColor: this.props.colour
+      left: this.props.node.coordinates[0],
+      top: this.props.node.coordinates[1], 
+      backgroundColor: this.props.node.colour
     }
 
     return (
       <div onClick={this.handleNodeClick}>
-        <p style={nodeStyle} className={this.props.classOfNode}></p>
+        <p style={nodeStyle} className={this.props.node.classOfNode}></p>
       </div>
     )
   }
