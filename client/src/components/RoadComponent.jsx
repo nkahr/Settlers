@@ -8,10 +8,10 @@ class RoadComponent extends Component {
 
   render() {
     let roadStyle = {
-      left: this.props.coordinates[0],
-      top: this.props.coordinates[1], 
-      backgroundColor: this.props.colour,
-      transform: 'rotate('+this.props.angle+'deg)'
+      left: this.props.road.coordinates[0],
+      top: this.props.road.coordinates[1], 
+      backgroundColor: this.props.road.colour,
+      transform: 'rotate('+this.props.road.angle+'deg)'
     }
 
     return (

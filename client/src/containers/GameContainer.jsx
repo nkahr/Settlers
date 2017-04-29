@@ -42,13 +42,11 @@ class GameContainer extends Component {
     this.handleClick = this.handleClick.bind(this)
     this.moveRobber = this.moveRobber.bind(this)
     this.rollDice = this.rollDice.bind(this)
-    // this.colourRoads = this.colourRoads.bind(this)
     this.buildCity = this.buildCity.bind(this)
     this.colourSettlements = this.colourSettlements.bind(this)
     this.nextTurn = this.nextTurn.bind(this)
     this.winChecker = this.winChecker.bind(this)
     this.getLongestRoadCount = this.getLongestRoadCount.bind(this)
-    // this.checkForLongestRoadWinner = this.checkForLongestRoadWinner.bind(this)
     this.checkForBiggestArmyWinner = this.checkForBiggestArmyWinner.bind(this)
     this.tradeWithBank = this.tradeWithBank.bind(this)
     this.shuffle = this.shuffle.bind(this)
@@ -132,9 +130,6 @@ class GameContainer extends Component {
           <PlayerStatsComponent 
             currentPlayer={this.state.currentPlayer} 
             turn={this.state.turn}
-            roads={roads} 
-            nodes={nodes} 
-            getLongestRoadCount={this.getLongestRoadCount}
             nextTurn={this.nextTurn}
             showTurnButton={this.state.showTurnButton}
             showRollDiceButton={this.state.showRollDiceButton}

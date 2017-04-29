@@ -22,7 +22,6 @@ class BoardComponent extends Component{
           hasRobber={tile.hasRobber} 
           moveRobber={this.props.moveRobber} 
           currentPlayer={this.props.currentPlayer}
-          mapNodesAroundTile={this.props.mapNodesAroundTile}
         />
       )
     })
@@ -31,17 +30,8 @@ class BoardComponent extends Component{
       return (
         <RoadComponent 
           key={index} 
-          index={index} 
           road={road}
-          coordinates={road.coordinates} 
-          colour={road.colour}
-          builtYet={road.builtYet} 
-          angle={road.angle} 
-          turn={this.props.turn}
           handleRoadClick = {this.props.handleRoadClick}
-          letPlayerBuildRoad={this.props.letPlayerBuildRoad} 
-          mapNextPossibleRoads={this.props.mapNextPossibleRoads}
-          currentPlayer={this.props.currentPlayer}
         />
       )
     })
