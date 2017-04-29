@@ -42,8 +42,6 @@ class GameContainer extends Component {
     this.handleClick = this.handleClick.bind(this)
     this.moveRobber = this.moveRobber.bind(this)
     this.rollDice = this.rollDice.bind(this)
-    this.buildCity = this.buildCity.bind(this)
-    this.colourSettlements = this.colourSettlements.bind(this)
     this.nextTurn = this.nextTurn.bind(this)
     this.winChecker = this.winChecker.bind(this)
     this.getLongestRoadCount = this.getLongestRoadCount.bind(this)
@@ -56,6 +54,7 @@ class GameContainer extends Component {
     this.setStateAndBroadcast = this.setStateAndBroadcast.bind(this)
     this.playMonopoly = this.playMonopoly.bind(this)
     this.handleRoadClick = this.handleRoadClick.bind(this)
+    this.handleNodeClick = this.handleNodeClick.bind(this)
   }
 
   // componentDidMount() {
@@ -99,9 +98,7 @@ class GameContainer extends Component {
       }
       tiles[this.state.robberIndex].hasRobber = true
 
-      const roads = this.state.roadsArray
-      const nodes = this.state.nodesArray
-      const ports = this.state.portsArray
+
       screen = 
         <div>
           <OpponentsComponent 
@@ -111,19 +108,15 @@ class GameContainer extends Component {
           /> 
           <BoardComponent    
             tiles={tiles} 
-            roads={roads} 
-            nodes={nodes} 
-            ports={ports}
+            roads={this.state.roadsArray} 
+            nodes={this.state.nodesArray} 
+            ports={this.state.portsArray}
             moveRobber={this.moveRobber} 
             handleRoadClick = {this.handleRoadClick}
-            colourSettlements = {this.colourSettlements}
-            buildCity = {this.buildCity}
-            letPlayerBuildRoad={this.state.game.letPlayerBuildRoad} 
+            handleNodeClick = {this.handleNodeClick}
             letPlayerBuildSettlement={this.state.game.letPlayerBuildSettlement}
             letPlayerBuildCity={this.state.game.letPlayerBuildCity}
             radar={this.state.game.radar.bind(this.state.game)}
-            mapConstructionAround={this.state.game.mapConstructionAround.bind(this.state.game)}
-            mapNextPossibleRoads ={this.state.game.mapNextPossibleRoads.bind(this.state.game)}
             turn={this.state.turn}
             currentPlayer={this.state.currentPlayer}
           /> 
@@ -215,19 +208,49 @@ class GameContainer extends Component {
     }
   }
 
-  colourSettlements(clickedNodeIndex) {
-    const colour = this.state.currentPlayer.colour
-    let updatedNodesArray = this.state.nodesArray
-    updatedNodesArray[clickedNodeIndex].colour = colour
-    updatedNodesArray[clickedNodeIndex].hasSettlement = true
-    this.state.currentPlayer.settledNodes.push(updatedNodesArray[clickedNodeIndex])
-    if(updatedNodesArray[clickedNodeIndex].port !== false && 
-      !this.state.currentPlayer.portTypes.includes(updatedNodesArray[clickedNodeIndex].port)) {
-      this.state.currentPlayer.portTypes.push(updatedNodesArray[clickedNodeIndex].port)
+  handleNodeClick(node) {
+    if (this.state.turn < 4 && this.state.currentPlayer.settlementsAvailable === 4) {
+      return
     }
-    let playerToUpdate = this.state.currentPlayer
-    this.setStateAndBroadcast({nodesArray: updatedNodesArray, currentPlayer: playerToUpdate})
-    console.log('clicked node', this.state.nodesArray[clickedNodeIndex])
+    if (this.state.turn > 3 && this.state.turn < 8 && this.state.currentPlayer.settlementsAvailable === 3) {
+      return
+    }
+
+    ///////////// CHECKING FOR SURROUNDING ROADS OF CURRENT PLAYER ///////////////////////
+    if (this.state.turn >= 8) {
+      let matchingRoads = []
+      node.surroundingRoads.forEach((roadIndex) => {
+        const road = this.state.roadsArray[roadIndex]
+        if (road.colour === this.state.currentPlayer.colour) {
+          matchingRoads.push(road)
+        }
+      })
+      if (matchingRoads.length === 0) {
+        return
+      } 
+    }
+    
+    const clickedNodeIndex = node.index
+    if (!node.allowConstruction) {
+      console.log("doesnt allow construction")
+      return 
+    }
+
+    if (!node.hasSettlement && !node.hasCity) {
+      if (this.state.game.letPlayerBuildSettlement(this.state.currentPlayer)) {
+        this.state.currentPlayer.buildSettlement(node.index, this.state.nodesArray)
+        // this.colourSettlements(node.index)
+        this.state.game.radar(this.state.currentPlayer, node.index, this.state.turn)
+        this.state.game.mapConstructionAround(this.state.currentPlayer, node.index)
+      }
+    } else if (node.hasSettlement && !node.hasCity) {
+      if (this.state.game.letPlayerBuildCity(this.state.currentPlayer)) {
+        this.state.currentPlayer.buildCity(node.index, this.state.nodesArray)
+        this.state.game.radar(this.state.currentPlayer, node.index, this.state.turn)
+      }
+    } 
+
+    this.setStateAndBroadcast({currentPlayer: this.state.currentPlayer, nodesArray: this.state.nodesArray})
   }
 
   winChecker() {
@@ -314,16 +337,6 @@ class GameContainer extends Component {
     newCurrentPlayer.numberRolled = "none"
     
     this.setStateAndBroadcast({currentPlayer: newCurrentPlayer, turn: turn, showTurnButton: false, showRollDiceButton: true})    
-  }
-
-  buildCity(clickedNodeIndex) {
-    const colour = this.state.currentPlayer.colour
-    let updatedNodesArray = this.state.nodesArray
-    updatedNodesArray[clickedNodeIndex].colour = colour
-    updatedNodesArray[clickedNodeIndex].hasCity = true
-    updatedNodesArray[clickedNodeIndex].classOfNode = 'city'
-    let playerToUpdate = this.state.currentPlayer
-    this.setStateAndBroadcast({nodesArray: updatedNodesArray, currentPlayer: playerToUpdate, classOfNode: 'city'})
   }
 
   getLongestRoadCount(player) {

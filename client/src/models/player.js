@@ -111,6 +111,23 @@ class Player {
     this.getLongestRoadCount()
   }
 
+
+  buildSettlement(nodeIndex, nodesArray) {
+    nodesArray[nodeIndex].colour = this.colour
+    nodesArray[nodeIndex].hasSettlement = true
+    this.settledNodes.push(nodesArray[nodeIndex])
+    if(nodesArray[nodeIndex].port !== false && 
+      !this.portTypes.includes(nodesArray[nodeIndex].port)) {
+      this.portTypes.push(nodesArray[nodeIndex].port)
+    }
+  }
+
+  buildCity(nodeIndex, nodesArray) {
+    nodesArray[nodeIndex].colour = this.colour
+    nodesArray[nodeIndex].hasCity = true
+    nodesArray[nodeIndex].classOfNode = 'city'
+  }
+
 }
 
 export default Player
