@@ -21,6 +21,7 @@ class Player {
     this.settledNodes = []
     this.portTypes = []
     this.knightPlayed = false
+    this.yearOfPlentyPlayed = false
     this.armySize = 0
     this.hasBiggestArmy = false
     this.longestRoad = 0
@@ -110,7 +111,6 @@ class Player {
     this.findLongestRoads(arrayOfRoads, arrayOfNodes)
     this.getLongestRoadCount()
   }
-
 
   buildSettlement(nodeIndex, nodesArray) {
     nodesArray[nodeIndex].colour = this.colour

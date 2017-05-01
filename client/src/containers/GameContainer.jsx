@@ -53,6 +53,7 @@ class GameContainer extends Component {
     this.updateDataFromSockets = this.updateDataFromSockets.bind(this)
     this.setStateAndBroadcast = this.setStateAndBroadcast.bind(this)
     this.playMonopoly = this.playMonopoly.bind(this)
+    this.playYearOfPlenty = this.playYearOfPlenty.bind(this)
     this.handleRoadClick = this.handleRoadClick.bind(this)
     this.handleNodeClick = this.handleNodeClick.bind(this)
   }
@@ -129,8 +130,9 @@ class GameContainer extends Component {
             getDevelopmentCard={this.getDevelopmentCard}
             playDevCard={this.playDevCard}
             playMonopoly={this.playMonopoly}
+            playYearOfPlenty={this.playYearOfPlenty}
           /> 
-        </div>
+      </div>
     }
   
     return(
@@ -445,14 +447,17 @@ class GameContainer extends Component {
       playerToUpdate.freeRoadCount += 2
       this.setStateAndBroadcast({currentPlayer: playerToUpdate})
     }
-
-
     if (type === "knight") {
       let playerToUpdate = this.state.currentPlayer
       playerToUpdate.knightPlayed = true
       playerToUpdate.armySize += 1
       this.setStateAndBroadcast({currentPlayer: playerToUpdate})
       this.checkForBiggestArmyWinner(this.state.currentPlayer)
+    }
+    if (type === "yearOfPlenty") {
+      let playerToUpdate = this.state.currentPlayer
+      playerToUpdate.yearOfPlentyPlayed = true
+      this.setStateAndBroadcast({currentPlayer: playerToUpdate})
     }
   }
 
@@ -477,7 +482,14 @@ class GameContainer extends Component {
       }
     })
     this.setStateAndBroadcast({currentPlayer: playerToUpdate, players: playersToSteal})
+  }
 
+  playYearOfPlenty(firstResource, secondResource) {
+    let playerToUpdate = this.state.currentPlayer
+    this.state.game.giveResourceCardToPlayer(playerToUpdate, firstResource)
+    this.state.game.giveResourceCardToPlayer(playerToUpdate, secondResource)
+    playerToUpdate.yearOfPlentyPlayed = false
+    this.setStateAndBroadcast({currentPlayer: playerToUpdate})
   }
 
 }

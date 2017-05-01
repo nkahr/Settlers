@@ -5,13 +5,18 @@ class PlayerStatsComponent extends Component{
     super(props)
     this.state = {
       resourceToTrade: undefined,
-      resourceToReceive: undefined
+      resourceToReceive: undefined,
+      firstResourceYOP: undefined,
+      secondResourceYOP: undefined
     }
     this.onResourceToGiveSelect = this.onResourceToGiveSelect.bind(this)
     this.onResourceToReceiveSelect = this.onResourceToReceiveSelect.bind(this)
     this.makeTradeWithBank = this.makeTradeWithBank.bind(this)
     this.playDevCard = this.playDevCard.bind(this)
     this.onMonopolySelect = this.onMonopolySelect.bind(this)
+    this.onFirstResourceYOPSelect = this.onFirstResourceYOPSelect.bind(this)
+    this.onSecondResourceYOPSelect = this.onSecondResourceYOPSelect.bind(this)
+    this.onFinishYOPClick = this.onFinishYOPClick.bind(this)
   }
 
   render() {
@@ -122,9 +127,35 @@ class PlayerStatsComponent extends Component{
           </div>
         )
       }
-      
     })
 
+    /////////// YEAR OF PLENTY COMPONENT SETUP /////////////////////////////////
+    let yearOfPlentySelection = ""
+
+    if (this.props.currentPlayer.yearOfPlentyPlayed) {
+
+      let firstYOPResourceDropDown = [<option selected="true" disabled> First resource </option>]
+      keys.forEach((resource) => {
+        firstYOPResourceDropDown.push(<option value={resource}> {resource} </option>)
+      })
+
+      let secondYOPResourceDropDown = [<option selected="true" disabled> Second resource </option>]
+      keys.forEach((resource) => {
+        secondYOPResourceDropDown.push(<option value={resource}> {resource} </option>)
+      })
+
+      yearOfPlentySelection = 
+        <div>
+          <select onChange={this.onFirstResourceYOPSelect} id="first-YOP-resource"> 
+            {firstYOPResourceDropDown} 
+          </select>
+          <select onChange={this.onSecondResourceYOPSelect} id="second-YOP-resource"> 
+            {secondYOPResourceDropDown} 
+          </select> 
+          <button onClick={this.onFinishYOPClick}> Get YOP resources </button>
+        </div>
+    }
+      
     return (
       <div style={activePlayerStyle} id="player-stats-block"> 
         <button id={rollDiceButtonId} onClick={this.props.rollDice}> Roll Dice </button>
@@ -152,8 +183,10 @@ class PlayerStatsComponent extends Component{
         </select>
         <button onClick={this.makeTradeWithBank}> Trade </button>
         {devCards}
+        {yearOfPlentySelection}
       </div>
     )
+  
   }
 
   onResourceToGiveSelect(event) {
@@ -186,6 +219,26 @@ class PlayerStatsComponent extends Component{
   onMonopolySelect(event) {
     const resource = event.target.value
     this.props.playMonopoly(resource)
+  }
+
+  ////////////////// TO PLAY YearOfPlenty YOP //////////////////////////
+  onFirstResourceYOPSelect(event) {
+    const resource = event.target.value
+    if (resource) {
+      this.setState({firstResourceYOP: resource})
+    }
+  }
+
+  onSecondResourceYOPSelect(event) {
+    const resource = event.target.value
+    if (resource) {
+      this.setState({secondResourceYOP: resource})
+    }
+  }
+
+  onFinishYOPClick() {
+    this.props.playYearOfPlenty(this.state.firstResourceYOP, this.state.secondResourceYOP)
+    this.setState({firstResourceYOP: undefined, secondResourceYOP: undefined})
   }
 
 }
