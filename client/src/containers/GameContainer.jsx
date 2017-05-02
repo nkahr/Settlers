@@ -431,43 +431,47 @@ class GameContainer extends Component {
   }
 
   playDevCard(type) {
+    let playAllowed = false
     for (let i = 0; i < this.state.currentPlayer.developmentCards.length; i++){
-      if (this.state.currentPlayer.developmentCards[i].type === type) {
+      if (this.state.currentPlayer.developmentCards[i].type === type 
+        && this.state.currentPlayer.developmentCards[i].buyingTurn < this.state.turn) {
         this.state.currentPlayer.developmentCards.splice(i, 1)
+        playAllowed = true
         break
       }
     }
-    if (type === "pointsCard") {
-      let playerToUpdate = this.state.currentPlayer
-      playerToUpdate.score += 1
-      this.setStateAndBroadcast({currentPlayer: playerToUpdate})
-    }
-    if (type === "roadBuilding") {
-      let playerToUpdate = this.state.currentPlayer
-      playerToUpdate.freeRoadCount += 2
-      this.setStateAndBroadcast({currentPlayer: playerToUpdate})
-    }
-    if (type === "knight") {
-      let playerToUpdate = this.state.currentPlayer
-      playerToUpdate.knightPlayed = true
-      playerToUpdate.armySize += 1
-      this.setStateAndBroadcast({currentPlayer: playerToUpdate})
-      this.checkForBiggestArmyWinner(this.state.currentPlayer)
-    }
-    if (type === "yearOfPlenty") {
-      let playerToUpdate = this.state.currentPlayer
-      playerToUpdate.yearOfPlentyPlayed = true
-      this.setStateAndBroadcast({currentPlayer: playerToUpdate})
+    if (playAllowed) {
+      if (type === "pointsCard") {
+        let playerToUpdate = this.state.currentPlayer
+        playerToUpdate.score += 1
+        this.setStateAndBroadcast({currentPlayer: playerToUpdate})
+      }
+      if (type === "roadBuilding") {
+        let playerToUpdate = this.state.currentPlayer
+        playerToUpdate.freeRoadCount += 2
+        this.setStateAndBroadcast({currentPlayer: playerToUpdate})
+      }
+      if (type === "knight") {
+        let playerToUpdate = this.state.currentPlayer
+        playerToUpdate.knightPlayed = true
+        playerToUpdate.armySize += 1
+        this.setStateAndBroadcast({currentPlayer: playerToUpdate})
+        this.checkForBiggestArmyWinner(this.state.currentPlayer)
+      }
+      if (type === "yearOfPlenty") {
+        let playerToUpdate = this.state.currentPlayer
+        playerToUpdate.yearOfPlentyPlayed = true
+        this.setStateAndBroadcast({currentPlayer: playerToUpdate})
+      }
+      if (type === "monopoly") {
+        let playerToUpdate = this.state.currentPlayer
+        playerToUpdate.monopolyPlayed = true
+        this.setStateAndBroadcast({currentPlayer: playerToUpdate})
+      }
     }
   }
 
   playMonopoly(resourceType) {
-    for (let i = 0; i < this.state.currentPlayer.developmentCards.length; i++){
-      if (this.state.currentPlayer.developmentCards[i].type === "monopoly") {
-        this.state.currentPlayer.developmentCards.splice(i, 1)
-        break
-      }
-    }
     let playersToSteal = this.state.players
     let playerToUpdate = this.state.currentPlayer
     let totalCardsStolen = 0
@@ -481,6 +485,7 @@ class GameContainer extends Component {
         }
       }
     })
+    playerToUpdate.monopolyPlayed = false
     this.setStateAndBroadcast({currentPlayer: playerToUpdate, players: playersToSteal})
   }
 

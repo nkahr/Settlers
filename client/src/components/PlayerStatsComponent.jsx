@@ -7,7 +7,8 @@ class PlayerStatsComponent extends Component{
       resourceToTrade: undefined,
       resourceToReceive: undefined,
       firstResourceYOP: undefined,
-      secondResourceYOP: undefined
+      secondResourceYOP: undefined,
+      monopolyResource: undefined
     }
     this.onResourceToGiveSelect = this.onResourceToGiveSelect.bind(this)
     this.onResourceToReceiveSelect = this.onResourceToReceiveSelect.bind(this)
@@ -17,6 +18,7 @@ class PlayerStatsComponent extends Component{
     this.onFirstResourceYOPSelect = this.onFirstResourceYOPSelect.bind(this)
     this.onSecondResourceYOPSelect = this.onSecondResourceYOPSelect.bind(this)
     this.onFinishYOPClick = this.onFinishYOPClick.bind(this)
+    this.onFinishMonopolyClick = this.onFinishMonopolyClick.bind(this)
   }
 
   render() {
@@ -83,11 +85,6 @@ class PlayerStatsComponent extends Component{
       }
     })
 
-    ////////// RESOURCES TO MONOPOLY DROPDOWN /////////////////////
-    keys.forEach((resource) => {
-      monopolyDropDown.push(<option value={resource}> {resource} </option>)
-    })
-
     let backgroundColor = ""
 
     switch (this.props.currentPlayer.colour) {
@@ -111,23 +108,31 @@ class PlayerStatsComponent extends Component{
     }
 
     let devCards = this.props.currentPlayer.developmentCards.map((card) => {
-      if (card.type !== "monopoly") {
-        return (
-          <div className="dev-card">
-            <button value={card.type} onClick={this.playDevCard}> {card.type}</button>
-          </div>
-        )
-      }
-      else {
-        return (
-          <div className="dev-card">
-            <select onChange={this.onMonopolySelect}>
-              {monopolyDropDown}
-            </select>
-          </div>
-        )
-      }
+      return (
+        <div className="dev-card">
+          <button value={card.type} onClick={this.playDevCard}> {card.type}</button>
+        </div>
+      )
+      
     })
+
+    /////////// MONOPOLY COMPONENT SETUP ///////////////////////////////////////
+    let monopolySelection = ""
+
+    if (this.props.currentPlayer.monopolyPlayed) {
+
+      keys.forEach((resource) => {
+          monopolyDropDown.push(<option value={resource}> {resource} </option>)
+        })
+
+      monopolySelection =
+        <div className="dev-card">
+          <select onChange={this.onMonopolySelect}>
+            {monopolyDropDown}
+          </select>
+          <button onClick={this.onFinishMonopolyClick}> Play monopoly </button>
+        </div>
+    }
 
     /////////// YEAR OF PLENTY COMPONENT SETUP /////////////////////////////////
     let yearOfPlentySelection = ""
@@ -184,6 +189,7 @@ class PlayerStatsComponent extends Component{
         <button onClick={this.makeTradeWithBank}> Trade </button>
         {devCards}
         {yearOfPlentySelection}
+        {monopolySelection}
       </div>
     )
   
@@ -218,10 +224,17 @@ class PlayerStatsComponent extends Component{
   ////////////////// TO PLAY MONOPOLY CARD /////////////////////////////
   onMonopolySelect(event) {
     const resource = event.target.value
-    this.props.playMonopoly(resource)
+    if (resource) {
+      this.setState({monopolyResource: resource})
+    }
   }
 
-  ////////////////// TO PLAY YearOfPlenty YOP //////////////////////////
+  onFinishMonopolyClick() {
+    this.props.playMonopoly(this.state.monopolyResource)
+    this.setState({monopolyResource: undefined})
+  }
+
+  ////////////////// TO PLAY YearOfPlenty YOP CARD /////////////////////
   onFirstResourceYOPSelect(event) {
     const resource = event.target.value
     if (resource) {

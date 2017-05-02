@@ -22,6 +22,7 @@ class Player {
     this.portTypes = []
     this.knightPlayed = false
     this.yearOfPlentyPlayed = false
+    this.monopolyPlayed = false
     this.armySize = 0
     this.hasBiggestArmy = false
     this.longestRoad = 0
