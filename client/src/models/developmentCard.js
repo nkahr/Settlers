@@ -1,6 +1,7 @@
 class DevelopmentCard {
   constructor(options) {
     this.type = options["type"]
+    this.buyingTurn = 0
   }
 }
 

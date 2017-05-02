@@ -425,7 +425,7 @@ class GameContainer extends Component {
 
   getDevelopmentCard() {
     if (this.state.game.letPlayerBuyDevCard(this.state.currentPlayer)) {
-      this.state.game.giveDevelopmentCardToPlayer(this.state.currentPlayer)
+      this.state.game.giveDevelopmentCardToPlayer(this.state.currentPlayer, this.state.turn)
     }
     this.forceUpdate()
   }

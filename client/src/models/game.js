@@ -205,8 +205,9 @@ class Game {
     player.resourceCards.splice(0, halfCards)
   }
 
-  giveDevelopmentCardToPlayer(player) {
+  giveDevelopmentCardToPlayer(player, turn) {
     const newDevCard = this.bank.generateDevelopmentCard()
+    newDevCard.buyingTurn = turn
     player.developmentCards.push(newDevCard)
   }
 
