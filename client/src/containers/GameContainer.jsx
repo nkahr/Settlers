@@ -434,11 +434,14 @@ class GameContainer extends Component {
     let playAllowed = false
     for (let i = 0; i < this.state.currentPlayer.developmentCards.length; i++){
       if (this.state.currentPlayer.developmentCards[i].type === type 
-        && this.state.currentPlayer.developmentCards[i].buyingTurn < this.state.turn) {
+        && this.state.currentPlayer.developmentCards[i].buyingTurn < this.state.turn
+        || this.state.currentPlayer.developmentCards[i].type === type
+        && type === "pointsCard") {
         this.state.currentPlayer.developmentCards.splice(i, 1)
         playAllowed = true
         break
       }
+
     }
     if (playAllowed) {
       if (type === "pointsCard") {
