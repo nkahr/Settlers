@@ -338,8 +338,8 @@ class GameContainer extends Component {
     newCurrentPlayer.numberRolled = "none"
     
     let game = this.state.game
-
     game.rolled = false
+    game.developmentCardAllowed = true
 
     this.state.game.updateTurn(turn)
     
@@ -440,43 +440,49 @@ class GameContainer extends Component {
   playDevCard(type) {
     let playAllowed = false
     for (let i = 0; i < this.state.currentPlayer.developmentCards.length; i++){
+      ////////// CHECK WHETHER DEV CARD WAS BOUGHT IN PAST ROUND ////////////////////
       if (this.state.currentPlayer.developmentCards[i].type === type 
         && this.state.currentPlayer.developmentCards[i].buyingTurn < this.state.turn
         || this.state.currentPlayer.developmentCards[i].type === type
         && type === "pointsCard") {
-        this.state.currentPlayer.developmentCards.splice(i, 1)
-        playAllowed = true
-        break
+        ////////// CHECK WHETHER DICE WAS ROLLED OR CARD IS KNIGHT OR CARD IS POINTSCARD ////////////////////
+        if (type === "knight" &&  this.state.game.developmentCardAllowed 
+          || this.state.game.rolled === true &&  this.state.game.developmentCardAllowed
+          || type === "pointsCard") {
+          this.state.currentPlayer.developmentCards.splice(i, 1)
+          playAllowed = true
+          break
+        }
       }
-
     }
     if (playAllowed) {
+      let playerToUpdate = this.state.currentPlayer
+      let gameToUpdate = this.state.game
       if (type === "pointsCard") {
-        let playerToUpdate = this.state.currentPlayer
         playerToUpdate.score += 1
         this.setStateAndBroadcast({currentPlayer: playerToUpdate})
       }
       if (type === "roadBuilding") {
-        let playerToUpdate = this.state.currentPlayer
         playerToUpdate.freeRoadCount += 2
-        this.setStateAndBroadcast({currentPlayer: playerToUpdate})
+        gameToUpdate.developmentCardAllowed = false
+        this.setStateAndBroadcast({currentPlayer: playerToUpdate, game: gameToUpdate})
       }
       if (type === "knight") {
-        let playerToUpdate = this.state.currentPlayer
         playerToUpdate.knightPlayed = true
         playerToUpdate.armySize += 1
-        this.setStateAndBroadcast({currentPlayer: playerToUpdate})
+        gameToUpdate.developmentCardAllowed = false
+        this.setStateAndBroadcast({currentPlayer: playerToUpdate, game: gameToUpdate})
         this.checkForBiggestArmyWinner(this.state.currentPlayer)
       }
       if (type === "yearOfPlenty") {
-        let playerToUpdate = this.state.currentPlayer
         playerToUpdate.yearOfPlentyPlayed = true
-        this.setStateAndBroadcast({currentPlayer: playerToUpdate})
+        gameToUpdate.developmentCardAllowed = false
+        this.setStateAndBroadcast({currentPlayer: playerToUpdate, game: gameToUpdate})
       }
       if (type === "monopoly") {
-        let playerToUpdate = this.state.currentPlayer
         playerToUpdate.monopolyPlayed = true
-        this.setStateAndBroadcast({currentPlayer: playerToUpdate})
+        gameToUpdate.developmentCardAllowed = false
+        this.setStateAndBroadcast({currentPlayer: playerToUpdate, game: gameToUpdate})
       }
     }
   }

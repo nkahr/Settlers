@@ -22,6 +22,7 @@ class Game {
     this.nodesArray = []
     this.turn = 0
     this.rolled = false
+    this.developmentCardAllowed = true
     this.setup()
     this.mapNodesAroundTile()
     this.giveSurroundingRoadsToNodes()
