@@ -54,34 +54,34 @@ class PlayerStatsComponent extends Component{
       }
     }
 
-    let dropDown = [<option selected="true" disabled> Resource to trade </option>]
+    let dropDown = [<option selected="true" key={-1} disabled> Resource to trade </option>]
 
-    let allResourcesDropDown = [<option selected="true" disabled> Resource to receive </option>]
+    let allResourcesDropDown = [<option selected= "true" key={-1} disabled> Resource to receive </option>]
 
-    let monopolyDropDown = [<option selected="true" disabled> Monopoly </option>]
+    let monopolyDropDown = [<option selected="true" key={-1} disabled> Monopoly </option>]
 
     let keys = Object.keys(resourceHash)
 
     /////////// RESOURCE TO TRADE DROPDOWN ///////////////////
-    keys.forEach((resource) => {
+    keys.forEach((resource, index) => {
       if (this.props.currentPlayer.portTypes.includes(resource) && 
         resourceHash[resource] >= 2) {
-          dropDown.push(<option value={resource} > {resource} </option>)
+          dropDown.push(<option value={resource} key={index}> {resource} </option>)
       }
       else if (this.props.currentPlayer.portTypes.includes("three_to_one") && resourceHash[resource] >= 3) {
-        dropDown.push(<option value={resource} > {resource} </option>)
+        dropDown.push(<option value={resource} key={index}> {resource} </option>)
       }
       else {
         if (resourceHash[resource] >= 4) {
-          dropDown.push(<option value={resource} > {resource} </option>)
+          dropDown.push(<option value={resource} key={index}> {resource} </option>)
         }
       }
     })
     
     ////////// RESOURCE TO RECEIVE DROPDOWN ///////////////////////
-    keys.forEach((resource) => {
+    keys.forEach((resource, index) => {
       if (resource !== this.state.resourceToTrade) {
-        allResourcesDropDown.push(<option value={resource}> {resource} </option>)
+        allResourcesDropDown.push(<option value={resource} key={index}> {resource} </option>)
       }
     })
 
@@ -113,7 +113,6 @@ class PlayerStatsComponent extends Component{
           <button value={card.type} onClick={this.playDevCard}> {card.type}</button>
         </div>
       )
-      
     })
 
     /////////// MONOPOLY COMPONENT SETUP ///////////////////////////////////////
@@ -121,8 +120,8 @@ class PlayerStatsComponent extends Component{
 
     if (this.props.currentPlayer.monopolyPlayed) {
 
-      keys.forEach((resource) => {
-          monopolyDropDown.push(<option value={resource}> {resource} </option>)
+      keys.forEach((resource, index) => {
+          monopolyDropDown.push(<option value={resource} key={index}> {resource} </option>)
         })
 
       monopolySelection =
@@ -139,14 +138,14 @@ class PlayerStatsComponent extends Component{
 
     if (this.props.currentPlayer.yearOfPlentyPlayed) {
 
-      let firstYOPResourceDropDown = [<option selected="true" disabled> First resource </option>]
-      keys.forEach((resource) => {
-        firstYOPResourceDropDown.push(<option value={resource}> {resource} </option>)
+      let firstYOPResourceDropDown = [<option selected="true" key={-1} disabled> First resource </option>]
+      keys.forEach((resource, index) => {
+        firstYOPResourceDropDown.push(<option value={resource} key={index}> {resource} </option>)
       })
 
-      let secondYOPResourceDropDown = [<option selected="true" disabled> Second resource </option>]
-      keys.forEach((resource) => {
-        secondYOPResourceDropDown.push(<option value={resource}> {resource} </option>)
+      let secondYOPResourceDropDown = [<option selected="true" key={-1} disabled> Second resource </option>]
+      keys.forEach((resource, index) => {
+        secondYOPResourceDropDown.push(<option value={resource} key={index}> {resource} </option>)
       })
 
       yearOfPlentySelection = 
@@ -192,7 +191,6 @@ class PlayerStatsComponent extends Component{
         {monopolySelection}
       </div>
     )
-  
   }
 
   onResourceToGiveSelect(event) {

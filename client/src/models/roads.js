@@ -57,8 +57,6 @@ class Roads {
     this.yArray = this.yArray.map((item) => {
       return item + yInc
     })
-    // console.log(this.xArray)
-    // console.log(this.yArray)
     this.setup()
   }
 
