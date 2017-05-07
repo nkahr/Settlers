@@ -3,7 +3,6 @@ class Node {
     this.index = options["index"]
     this.coordinates = options["coordinates"]
     this.port = options["port"]
-    this.surroundingTiles = []
     this.colour = undefined
     this.classOfNode = 'node'
     this.hasSettlement = false
