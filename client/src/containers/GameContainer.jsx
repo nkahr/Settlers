@@ -236,7 +236,6 @@ class GameContainer extends Component {
     
     const clickedNodeIndex = node.index
     if (!node.allowConstruction) {
-      console.log("doesnt allow construction")
       return 
     }
 
@@ -397,7 +396,9 @@ class GameContainer extends Component {
   }
 
   tradeWithBank(resourceToGive, resourceToReceive) {
-    if (resourceToReceive === "Resource to receive") {
+    if (resourceToReceive === "Resource to receive"
+      || this.state.turn < 8
+      || !this.state.game.rolled) {
       return
     }
 
