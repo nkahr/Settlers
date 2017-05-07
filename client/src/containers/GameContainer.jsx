@@ -302,7 +302,9 @@ class GameContainer extends Component {
   }
 
   nextTurn() {
-    if (this.state.currentPlayer.knightPlayed) {
+    if (this.state.currentPlayer.knightPlayed
+      || this.state.currentPlayer.monopolyPlayed
+      || this.state.currentPlayer.yearOfPlentyPlayed) {
       return
     }
     if (this.state.sevenRolled) {
