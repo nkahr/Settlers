@@ -199,6 +199,9 @@ class GameContainer extends Component {
     if (!this.state.game.rolled && this.state.turn >= 8) {
       return
     }
+    if (this.state.sevenRolled) {
+      return
+    }
 
     if (!road.builtYet && this.state.game.letPlayerBuildRoad(this.state.currentPlayer)) {
       this.state.currentPlayer.roadsBuilt.push(road)
@@ -217,6 +220,9 @@ class GameContainer extends Component {
       return
     }
     if (!this.state.game.rolled && this.state.turn >= 8) {
+      return
+    }
+    if (this.state.sevenRolled) {
       return
     }
 
@@ -299,7 +305,7 @@ class GameContainer extends Component {
     if (this.state.currentPlayer.knightPlayed) {
       return
     }
-    if (this.state.sevenRolled === true) {
+    if (this.state.sevenRolled) {
       return
     }
     if (this.state.turn < 4 && (this.state.currentPlayer.settlementsAvailable === 5 || this.state.currentPlayer.roadsAvailable === 15)) {
@@ -398,7 +404,8 @@ class GameContainer extends Component {
   tradeWithBank(resourceToGive, resourceToReceive) {
     if (resourceToReceive === "Resource to receive"
       || this.state.turn < 8
-      || !this.state.game.rolled) {
+      || !this.state.game.rolled
+      || this.state.sevenRolled) {
       return
     }
 
@@ -448,6 +455,9 @@ class GameContainer extends Component {
   }
 
   getDevelopmentCard() {
+    if (this.state.sevenRolled) {
+      return
+    }
     if (this.state.game.letPlayerBuyDevCard(this.state.currentPlayer)) {
       this.state.game.giveDevelopmentCardToPlayer(this.state.currentPlayer, this.state.turn)
     }
@@ -455,6 +465,9 @@ class GameContainer extends Component {
   }
 
   playDevCard(type) {
+    if (this.state.sevenRolled) {
+      return
+    }
     let playAllowed = false
     for (let i = 0; i < this.state.currentPlayer.developmentCards.length; i++){
       ////////// CHECK WHETHER DEV CARD WAS BOUGHT IN PREVIOUS ROUNDS ////////////////////
