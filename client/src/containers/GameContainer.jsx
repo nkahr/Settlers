@@ -190,12 +190,13 @@ class GameContainer extends Component {
     if (turn < 4 && this.state.currentPlayer.roadsAvailable === 14) {
       return
     }
-
     if (turn > 3 && turn < 8 && this.state.currentPlayer.roadsAvailable === 13) {
       return
     }
-
     if (!this.state.currentPlayer.roadsAllowed.includes(road.index)) {
+      return
+    }
+    if (!this.state.game.rolled && this.state.turn >= 8) {
       return
     }
 
@@ -213,6 +214,9 @@ class GameContainer extends Component {
       return
     }
     if (this.state.turn > 3 && this.state.turn < 8 && this.state.currentPlayer.settlementsAvailable === 3) {
+      return
+    }
+    if (!this.state.game.rolled && this.state.turn >= 8) {
       return
     }
 
@@ -239,7 +243,6 @@ class GameContainer extends Component {
     if (!node.hasSettlement && !node.hasCity) {
       if (this.state.game.letPlayerBuildSettlement(this.state.currentPlayer)) {
         this.state.currentPlayer.buildSettlement(node.index, this.state.nodesArray)
-        // this.colourSettlements(node.index)
         this.state.game.radar(this.state.currentPlayer, node.index, this.state.turn)
         this.state.game.mapConstructionAround(this.state.currentPlayer, node.index)
       }
@@ -264,6 +267,10 @@ class GameContainer extends Component {
   }
 
   rollDice() {
+    if (this.state.currentPlayer.knightPlayed) {
+      return
+    }
+
     let game = this.state.game
     let sevenRolled = false
     const numberRolled = dice.rollDice()
@@ -290,14 +297,15 @@ class GameContainer extends Component {
   }
 
   nextTurn() {
+    if (this.state.currentPlayer.knightPlayed) {
+      return
+    }
     if (this.state.sevenRolled === true) {
       return
     }
-
     if (this.state.turn < 4 && (this.state.currentPlayer.settlementsAvailable === 5 || this.state.currentPlayer.roadsAvailable === 15)) {
       return 
     }
-
     if ((this.state.turn > 3 && this.state.turn < 8) && (this.state.currentPlayer.settlementsAvailable === 4 || this.state.currentPlayer.roadsAvailable === 14)) {
       return 
     }
