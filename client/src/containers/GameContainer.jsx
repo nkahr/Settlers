@@ -32,7 +32,7 @@ class GameContainer extends Component {
       previousRobberIndex: undefined, 
       currentPlayer: newGame.players[0],
       players: newGame.players, 
-      turn: 0, 
+      turn: newGame.turn, 
       showTurnButton: true, 
       showRollDiceButton: false,
       sevenRolled: false,
@@ -264,6 +264,7 @@ class GameContainer extends Component {
   }
 
   rollDice() {
+    let game = this.state.game
     let sevenRolled = false
     const numberRolled = dice.rollDice()
     if (numberRolled === 7) {
@@ -284,8 +285,8 @@ class GameContainer extends Component {
         }
       })
     })
-
-    this.setStateAndBroadcast({players: this.state.players, showTurnButton: true, showRollDiceButton: false, sevenRolled: sevenRolled, numberRolled: numberRolled})
+    game.rolled = true
+    this.setStateAndBroadcast({players: this.state.players, showTurnButton: true, showRollDiceButton: false, sevenRolled: sevenRolled, numberRolled: numberRolled, game: game})
   }
 
   nextTurn() {
@@ -336,7 +337,13 @@ class GameContainer extends Component {
 
     newCurrentPlayer.numberRolled = "none"
     
-    this.setStateAndBroadcast({currentPlayer: newCurrentPlayer, turn: turn, showTurnButton: false, showRollDiceButton: true})    
+    let game = this.state.game
+
+    game.rolled = false
+
+    this.state.game.updateTurn(turn)
+    
+    this.setStateAndBroadcast({currentPlayer: newCurrentPlayer, turn: turn, showTurnButton: false, showRollDiceButton: true, game: game})    
   }
 
   getLongestRoadCount(player) {

@@ -20,6 +20,8 @@ class Game {
     this.portTypesArray = ["sheep", "rock", "crop", "clay", "wood", "three_to_one", "three_to_one", "three_to_one", "three_to_one"]
     this.initialRobberIndex = undefined
     this.nodesArray = []
+    this.turn = 0
+    this.rolled = false
     this.setup()
     this.mapNodesAroundTile()
     this.giveSurroundingRoadsToNodes()
@@ -304,6 +306,11 @@ class Game {
     let cropIndex = undefined
     let sheepIndex = undefined
     let indices = []
+
+    if (this.turn < 8 || !this.rolled) {
+      return
+    }
+
     for (let i = 0; i < player.resourceCards.length; i++) {
       if (player.resourceCards[i].type === "rock") {
         rockIndex = i
@@ -478,6 +485,10 @@ class Game {
         currentPlayer.hasLongestRoad = true
       }
     }
+  }
+
+  updateTurn(turn) {
+    this.turn = turn
   }
 
 }
