@@ -336,6 +336,14 @@ class GameContainer extends Component {
     }
 
     newCurrentPlayer.numberRolled = "none"
+    newCurrentPlayer.monopolyPlayed = false
+    newCurrentPlayer.knightPlayed = false
+    newCurrentPlayer.yearOfPlentyPlayed = false
+    newCurrentPlayer.roadBuildingPlayed = false
+
+    if (turn >= 8) {
+      newCurrentPlayer.freeRoadCount = 0
+    }
     
     let game = this.state.game
     game.rolled = false
@@ -440,7 +448,7 @@ class GameContainer extends Component {
   playDevCard(type) {
     let playAllowed = false
     for (let i = 0; i < this.state.currentPlayer.developmentCards.length; i++){
-      ////////// CHECK WHETHER DEV CARD WAS BOUGHT IN PAST ROUND ////////////////////
+      ////////// CHECK WHETHER DEV CARD WAS BOUGHT IN PREVIOUS ROUNDS ////////////////////
       if (this.state.currentPlayer.developmentCards[i].type === type 
         && this.state.currentPlayer.developmentCards[i].buyingTurn < this.state.turn
         || this.state.currentPlayer.developmentCards[i].type === type
@@ -464,6 +472,7 @@ class GameContainer extends Component {
       }
       if (type === "roadBuilding") {
         playerToUpdate.freeRoadCount += 2
+        playerToUpdate.roadBuildingPlayed = true
         gameToUpdate.developmentCardAllowed = false
         this.setStateAndBroadcast({currentPlayer: playerToUpdate, game: gameToUpdate})
       }

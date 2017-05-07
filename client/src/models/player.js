@@ -21,6 +21,7 @@ class Player {
     this.knightPlayed = false
     this.yearOfPlentyPlayed = false
     this.monopolyPlayed = false
+    this.roadBuildingPlayed = false
     this.armySize = 0
     this.hasBiggestArmy = false
     this.longestRoad = 0
