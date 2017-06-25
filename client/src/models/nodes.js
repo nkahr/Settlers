@@ -10,7 +10,7 @@ class Nodes {
   }
 
   setup() {
-    const xInc = 50
+    const xInc = 70
     this.xArray = [
       397, 517, 637,
       338, 458, 578, 698,
@@ -29,7 +29,7 @@ class Nodes {
       return item + xInc
     })
 
-    const yInc = 20
+    const yInc = 0
     this.yArray = [
       575, 575, 575,
       542, 542, 542, 542,

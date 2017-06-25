@@ -4,7 +4,7 @@ class Roads {
   constructor() {
     this.roadsArray = []
 
-    const xInc = 50
+    const xInc = 70
     this.xArray = 
       [
       345, 465, 585, 705, 
@@ -31,7 +31,7 @@ class Roads {
       return item + xInc
     })
 
-    const yInc = 20
+    const yInc = 0
     this.yArray = 
       [
       500, 500, 500, 500, 
